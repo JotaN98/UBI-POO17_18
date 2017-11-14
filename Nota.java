@@ -5,15 +5,12 @@
  */
 package projeto;
 
-import java.text.DateFormat;
-
 /**
  *
  * @author BrunoTavares
  */
-public class Aluno extends Pessoa {
-    private int numero;
-    private int ano;
-    private Curso curso;
-    private Turma turma;
+public class Nota {
+    private Aluno aluno;
+    private Teste teste;
+    private double valor;
 }

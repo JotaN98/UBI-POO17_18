@@ -5,15 +5,17 @@
  */
 package projeto;
 
-import java.text.DateFormat;
-
 /**
  *
  * @author BrunoTavares
  */
-public class Aluno extends Pessoa {
-    private int numero;
-    private int ano;
-    private Curso curso;
-    private Turma turma;
+public class Projeto {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+    
 }
