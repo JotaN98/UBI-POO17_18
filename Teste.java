@@ -21,4 +21,9 @@ public class Teste {
     public DateFormat getData() {
         return data;
     }
+
+    public String toString() {
+        return "Teste{" + "disciplina=" + disciplina + ", data=" + data + '}';
+    }
+    
 }

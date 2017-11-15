@@ -40,4 +40,8 @@ public class Aluno extends Pessoa {
     public Turma getTurma() {
         return turma;
     }
+    public String toString() {
+        return "Aluno{" + "numero=" + numero + ", ano=" + ano + ", curso=" + curso + ", turma=" + turma + '}';
+    }
+    
 }

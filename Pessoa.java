@@ -1,4 +1,3 @@
-
 package projeto;
 
 import java.text.DateFormat;
@@ -22,4 +21,9 @@ public class Pessoa {
     public DateFormat getNascimento() {
         return nascimento;
     }
+    
+    public String toString() {
+        return "Pessoa{" + "nome=" + nome + ", nascimento=" + nascimento + '}';
+    }
+    
 }

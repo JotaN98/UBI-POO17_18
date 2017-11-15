@@ -5,6 +5,8 @@ package projeto;
 public class Nota {
     private Aluno aluno;
     private Teste teste;
+    private double valor;
+    
 
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
@@ -29,5 +31,9 @@ public class Nota {
     public double getValor() {
         return valor;
     }
-    private double valor;
+
+    public String toString() {
+        return "Nota{" + "aluno=" + aluno + ", teste=" + teste + ", valor=" + valor + '}';
+    }
+    
 }

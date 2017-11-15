@@ -48,6 +48,10 @@ public class Disciplina {
     public ArrayList<Professor> getLecionadores() {
         return lecionadores;
     }
+
+    public String toString() {
+        return "Disciplina{" + "nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", notas=" + notas + ", lecionadores=" + lecionadores + '}';
+    }
     
     
 }
