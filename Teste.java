@@ -1,5 +1,3 @@
-package projeto;
-
 import java.text.DateFormat;
 
 public class Teste {

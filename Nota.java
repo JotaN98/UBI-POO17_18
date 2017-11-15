@@ -1,7 +1,4 @@
 
-package projeto;
-
-
 public class Nota {
     private Aluno aluno;
     private Teste teste;

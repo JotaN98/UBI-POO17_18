@@ -1,7 +1,4 @@
-package projeto;
-
 import java.util.ArrayList;
-
 public class Curso {
     private ArrayList<Disciplina> disciplina;
     private ArrayList<Aluno> Alunos;
