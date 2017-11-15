@@ -1,16 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto;
 
-/**
- *
- * @author BrunoTavares
- */
+
 public class Nota {
     private Aluno aluno;
     private Teste teste;
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public void setTeste(Teste teste) {
+        this.teste = teste;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public Teste getTeste() {
+        return teste;
+    }
+
+    public double getValor() {
+        return valor;
+    }
     private double valor;
 }
