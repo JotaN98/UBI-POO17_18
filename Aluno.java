@@ -1,29 +1,78 @@
-import java.text.DateFormat;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Aluno extends Pessoa {
-    private int numero;
+    // -- beginning of non static fields
+    // -- vars
+    private static long IDCount = 0;
+    private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
+    public static Aluno getAlunoFromID(long ID){
+        return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
+    }
+
+    // -- beginning of static fields
+    // -- vars
     private int ano;
-    private Curso curso;
-    private Turma turma;
+    private long curso;
+    private long turma;
+    private boolean active;
+    private Map<Long/*Disciplinas*/,ZonedDateTime> disciplinasPorFazer;
+    private Map<Long/*Disciplinas*/,ZonedDateTime> disciplinasFeitas;
+    private Map<ZonedDateTime/*time stamp*/,String> activity;
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    // -- constructors
+    public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
+        super("Aluno", IDCount++, pNome, uNome, nascimento);
+        this.ano = 0;
+        this.curso = 0;
+        this.turma = 0;
+        this.active = false;
+        activity = new HashMap<ZonedDateTime,String>();
+        disciplinasPorFazer = new HashMap<Long,ZonedDateTime>();
+        disciplinasFeitas = new HashMap<Long,ZonedDateTime>();
+        activity.put(ZonedDateTime.now(), "Aluno "+toString() +", criado.");
+    }
+    public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+        super("Aluno", IDCount++, pNome, uNome, nascimento);
+        setAno(ano);
+        setCurso(curso);
+        setTurma(turma);
+        this.active = active;
+        activity = new HashMap<ZonedDateTime,String>();
+        disciplinasPorFazer = new HashMap<Long,ZonedDateTime>();
+        disciplinasFeitas = new HashMap<Long,ZonedDateTime>();
+        activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
+    // -- methods
+    public void setAno(int ano) throws IllegalArgumentException {
+		if (10 > ano || ano > 12) {
+			System.out.println("Ano não pode ser maior que 12 ou menor que 10");
+			throw new IllegalArgumentException();
+		}
+
+		activity.put(ZonedDateTime.now(), "Aluno mudou de " + this.ano + " para " + ano + " ano.");
+		this.ano = ano;
+	}
+
+    public void setCurso(Long curso) throws IllegalArgumentException{
+        if(Curso.getCursoFromID(curso)==null) {
+			System.out.println("Curso ID \"" + curso + "\" não foi encontrado.");
+			throw new IllegalArgumentException();
+		}
+
+		activity.put(ZonedDateTime.now(),"Aluno mudou de "+this.curso+" para "+curso+".");
+		this.curso = curso;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
-    public int getNumero() {
-        return numero;
+    public void setTurma(Long turma) throws IllegalArgumentException{
+        if(Turma.getTurmaFromID(turma)!=null)
+            this.turma = turma;
+        else {
+            System.out.println("Turma ID \"" + turma + "\" não foi encontrado.");
+            throw new IllegalArgumentException();
+        }
     }
 
     public int getAno() {
@@ -31,14 +80,42 @@ public class Aluno extends Pessoa {
     }
 
     public Curso getCurso() {
-        return curso;
+        return Curso.getCursoFromID(curso);
     }
 
     public Turma getTurma() {
-        return turma;
+        return Turma.getTurmaFromID(turma);
     }
-    public String toString() {
-        return "Aluno{" + "numero=" + numero + ", ano=" + ano + ", curso=" + curso + ", turma=" + turma + '}';
+
+	// -- method overrides
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj.getClass() == getClass()){
+			Aluno nobj = (Aluno) obj;
+
+			return 	super.equals(obj) &&
+					ano == nobj.ano &&
+					curso == nobj.curso &&
+					turma == nobj.turma &&
+					active == nobj.active &&
+					disciplinasFeitas.equals(nobj.disciplinasFeitas) &&
+					disciplinasPorFazer.equals(nobj.disciplinasPorFazer) &&
+					activity.equals(nobj.activity);
+
+		}
+		return false;
+	}
+
+	@Override
+	public Object clone() {
+    	if(ano == 0)
+    		return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento());
+		return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento(),ano, curso, turma, active);
+	}
+
+	@Override
+	public String toString() {
+        return getCodeID() +": " + getNome();
     }
     
 }

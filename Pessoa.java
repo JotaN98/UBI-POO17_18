@@ -1,27 +1,70 @@
 import java.text.DateFormat;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Pessoa {
-    private String nome;
-    private DateFormat nascimento;
+public class Pessoa extends Entity {
+    // -- beginning of static fields
+    // -- vars
+    private static Map<String, Pessoa> pessoas = new HashMap<String, Pessoa>();
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    // -- beginning of non static fields
+    private String pNome;
+    private String uNome;
+    private ZonedDateTime nascimento;
+    private String obs;
+
+    public Pessoa(Object subClass, long ID, String pNome,String uNome, ZonedDateTime nascimento) {
+        super(subClass, ID);
+        this.pNome = pNome;
+        this.uNome = uNome;
+        this.nascimento = nascimento;
+        pessoas.put(super.getCodeID(), this);
     }
 
-    public void setNascimento(DateFormat nascimento) {
+    public Pessoa(String subClass, long ID, String pNome,String uNome, ZonedDateTime nascimento) {
+        super(subClass, ID);
+        this.pNome = pNome;
+        this.uNome = uNome;
+        this.nascimento = nascimento;
+        pessoas.put(super.getCodeID(), this);
+    }
+
+    public void setPrimeiroNome(String nome) {
+        this.pNome = nome;
+    }
+    public void setUltimoNome(String nome) {
+        this.uNome = nome;
+    }
+
+    public void setNascimento(ZonedDateTime nascimento) {
         this.nascimento = nascimento;
     }
 
-    public String getNome() {
-        return nome;
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
-    public DateFormat getNascimento() {
+	public String getNome() {
+		return pNome + uNome;
+	}
+    public String getPrimeiroNome() {
+        return pNome;
+    }
+    public String getUltimoNome() {
+        return uNome;
+    }
+
+    public ZonedDateTime getNascimento() {
         return nascimento;
     }
-    
+
+    public String getObs() {
+        return obs;
+    }
+
     public String toString() {
-        return "Pessoa{" + "nome=" + nome + ", nascimento=" + nascimento + '}';
+        return pNome  +" "+uNome;
     }
     
 }
