@@ -10,6 +10,9 @@ public class Aluno extends Pessoa {
     public static Aluno getAlunoFromID(long ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
+    public static boolean addAluno(Aluno x){
+        alunos.put(x.getCodeID(), x);
+    }
 
     // -- beginning of static fields
     // -- vars
