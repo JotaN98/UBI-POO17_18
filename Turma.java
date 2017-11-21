@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Turma {
+public class Turma extends Entity{
     private Aluno alunos;
-    private ArrayList<Aula> aulas;
+    private ArrayList<String /*Aula*/> aulas;
     private Curso curso;
 
     public void setAlunos(Aluno alunos) {

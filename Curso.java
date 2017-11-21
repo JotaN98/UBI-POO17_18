@@ -1,18 +1,20 @@
 import java.util.ArrayList;
-public class Curso {
-    private ArrayList<Disciplina> disciplina;
+
+public class Curso extends Entity {
+	private String nome;
+    private ArrayList<Disciplina> disciplinas;
     private ArrayList<Aluno> Alunos;
     private ArrayList<Professor> professores;
     private ArrayList<Turma> turmas;
     private ArrayList<Nota> notass;
 
-    
-    public String toString() {
-        return "Curso{" + "disciplina=" + disciplina + ", Alunos=" + Alunos + ", professores=" + professores + ", turmas=" + turmas + ", notass=" + notass + '}';
-    }
 
-    public void setDisciplina(ArrayList<Disciplina> disciplina) {
-        this.disciplina = disciplina;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setDisciplina(ArrayList<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 
     public void setAlunos(ArrayList<Aluno> Alunos) {
@@ -31,8 +33,12 @@ public class Curso {
         this.notass = notass;
     }
 
-    public ArrayList<Disciplina> getDisciplina() {
-        return disciplina;
+	public String getNome() {
+		return nome;
+	}
+
+	public ArrayList<Disciplina> getDisciplina() {
+        return disciplinas;
     }
 
     public ArrayList<Aluno> getAlunos() {
@@ -50,5 +56,9 @@ public class Curso {
     public ArrayList<Nota> getNotass() {
         return notass;
     }
-   
+
+    @Override
+    public String toString() {
+        return "Curso{" + "disciplinas=" + disciplinas + ", Alunos=" + Alunos + ", professores=" + professores + ", turmas=" + turmas + ", notass=" + notass + '}';
+    }
 }

@@ -10,6 +10,15 @@ public class Aluno extends Pessoa {
     public static Aluno getAlunoFromID(long ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
+    public static Long Create(String pNome,String uNome, ZonedDateTime nascimento) {
+    	alunos.put(IDCount+1,new Aluno(pNome, uNome,  nascimento));
+    	return IDCount;
+	}
+	public static Long Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+    	alunos.put(IDCount+1, new Aluno(pNome, uNome, nascimento, ano, curso, turma, active));
+    	return IDCount;
+	}
+
 
     // -- beginning of static fields
     // -- vars
@@ -31,7 +40,7 @@ public class Aluno extends Pessoa {
         activity = new HashMap<ZonedDateTime,String>();
         disciplinasPorFazer = new HashMap<Long,ZonedDateTime>();
         disciplinasFeitas = new HashMap<Long,ZonedDateTime>();
-        activity.put(ZonedDateTime.now(), "Aluno "+toString() +", criado.");
+        activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
     public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
         super("Aluno", IDCount++, pNome, uNome, nascimento);
