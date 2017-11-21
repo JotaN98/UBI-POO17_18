@@ -10,6 +10,21 @@ public class Aluno extends Pessoa {
     public static Aluno getAlunoFromID(long ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
+    public boolean addAluno(Aluno x){
+        if(contains(x)){
+            System.out.println("Aluno já existente");
+            return false;
+        }
+        alunos.put(x.getCodeID(), x);
+        return true;
+    }
+     
+    public boolean contains(Aluno x){
+         for(int i=0;i<alunos.size();i++){
+             if(x.equals(alunos.get(i))) return true;
+         }
+         return false;
+     }
     public static Long Create(String pNome,String uNome, ZonedDateTime nascimento) {
     	alunos.put(IDCount+1,new Aluno(pNome, uNome,  nascimento));
     	return IDCount;
