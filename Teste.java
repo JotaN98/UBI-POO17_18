@@ -1,26 +1,36 @@
-import java.text.DateFormat;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Teste {
+public class Teste extends Entity{
+	private static Map<String, Teste> testes = new HashMap<String, Teste>();
+
     private Disciplina disciplina;
-    private DateFormat data;
+    private ZonedDateTime data;
+    private String anoLetivo;
+    private Map<String /*Aluno*/,String/*Nota*/> notas;
 
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
 
-    public void setData(DateFormat data) {
+    public void setData(ZonedDateTime data) {
         this.data = data;
     }
 
-    public Disciplina getDisciplina() {
+	public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public DateFormat getData() {
+    public ZonedDateTime getData() {
         return data;
     }
 
-    public String toString() {
+	public String getAnoLetivo() {
+		return anoLetivo;
+	}
+
+	public String toString() {
         return "Teste{" + "disciplina=" + disciplina + ", data=" + data + '}';
     }
     

@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Pessoa extends Entity {
-    // -- beginning of static fields
-    // -- vars
-    private static Map<String, Pessoa> pessoas = new HashMap<String, Pessoa>();
-
     // -- beginning of non static fields
     private String pNome;
     private String uNome;
@@ -19,7 +15,6 @@ public class Pessoa extends Entity {
         this.pNome = pNome;
         this.uNome = uNome;
         this.nascimento = nascimento;
-        pessoas.put(super.getCodeID(), this);
     }
 
     public Pessoa(String subClass, long ID, String pNome,String uNome, ZonedDateTime nascimento) {
@@ -27,7 +22,6 @@ public class Pessoa extends Entity {
         this.pNome = pNome;
         this.uNome = uNome;
         this.nascimento = nascimento;
-        pessoas.put(super.getCodeID(), this);
     }
 
     public void setPrimeiroNome(String nome) {
