@@ -1,7 +1,4 @@
-import java.text.DateFormat;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Pessoa extends Entity {
     // -- beginning of non static fields

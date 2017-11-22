@@ -25,13 +25,15 @@ public class Aluno extends Pessoa {
          }
          return false;
      }
-    public static Long Create(String pNome,String uNome, ZonedDateTime nascimento) {
-    	alunos.put(IDCount+1,new Aluno(pNome, uNome,  nascimento));
-    	return IDCount;
+    public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento) {
+    	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
+    	addAluno(nAluno);
+    	return nAluno;
 	}
-	public static Long Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
-    	alunos.put(IDCount+1, new Aluno(pNome, uNome, nascimento, ano, curso, turma, active));
-    	return IDCount;
+	public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+    	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, turma, active);
+    	addAluno(nAluno);
+    	return nAluno;
 	}
 
 
