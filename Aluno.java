@@ -10,7 +10,7 @@ public class Aluno extends Pessoa {
     public static Aluno getAlunoFromID(long ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
-    public boolean addAluno(Aluno x){
+    public static boolean addAluno(Aluno x){
         if(contains(x)){
             System.out.println("Aluno já existente");
             return false;
@@ -19,7 +19,7 @@ public class Aluno extends Pessoa {
         return true;
     }
      
-    public boolean contains(Aluno x){
+    public static boolean existeAluno(Aluno x){
          for(int i=0;i<alunos.size();i++){
              if(x.equals(alunos.get(i))) return true;
          }
