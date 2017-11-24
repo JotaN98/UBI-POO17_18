@@ -50,6 +50,4 @@ public class Disciplina {
     public String toString() {
         return "Disciplina{" + "nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", notas=" + notas + ", lecionadores=" + lecionadores + '}';
     }
-    
-    
 }

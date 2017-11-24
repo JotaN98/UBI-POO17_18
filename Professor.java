@@ -5,7 +5,7 @@ public class Professor extends Pessoa{
 
     private ArrayList<Disciplina> disciplinas ;
     private ArrayList<Professor> professores;
-
+    
     public ArrayList<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -24,8 +24,5 @@ public class Professor extends Pessoa{
 
     public String toString() {
         return "Professor{" + "disciplinas=" + disciplinas + ", professores=" + professores + '}';
-    }
-    
-    
-    
+    } 
 }

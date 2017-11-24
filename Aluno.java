@@ -6,10 +6,19 @@ public class Aluno extends Pessoa {
     // -- beginning of non static fields
     // -- vars
     private static long IDCount = 0;
+    
     private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
+    
     public static Aluno getAlunoFromID(long ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
+      public static boolean existeAluno(Aluno x){
+         for(int i=0;i<alunos.size();i++){
+             if(x.equals(alunos.get(i))) return true;
+         }
+         return false;
+     }
+      
     public static boolean addAluno(Aluno x){
         if(existeAluno(x)){
             System.out.println("Aluno já existente");
@@ -19,22 +28,17 @@ public class Aluno extends Pessoa {
         return true;
     }
      
-    public static boolean existeAluno(Aluno x){
-         for(int i=0;i<alunos.size();i++){
-             if(x.equals(alunos.get(i))) return true;
-         }
-         return false;
-     }
     public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento) {
     	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
     	addAluno(nAluno);
     	return nAluno;
-	}
-	public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+    }
+	
+    public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
     	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, turma, active);
     	addAluno(nAluno);
     	return nAluno;
-	}
+    }
 
 
     // -- beginning of static fields
