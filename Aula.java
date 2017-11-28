@@ -8,9 +8,28 @@ public class Aula {
     private Disciplina disciplina;
     private Date data;
     private ArrayList<Aluno> aluno;
-    private Date horario;
+    private Date CodeID;
     
-   
+    public static boolean addAula(Aula x,Date horarioNovo){
+        if(existeAula(x)){
+            if(x.getHorario().equals(horarioNovo)){
+                System.out.println("Essa aula já existe nesse horário");
+                return false;
+            }
+        }
+        Aulas.put(x.getCodeID(), x); 
+        System.out.println("Aula reposta");
+        return true;
+    }
+    
+    public static boolean existeAula(Aula x){
+        for(int i=0;i<Aulas.size();i++){
+            if(x.equals(Aulas.get(i)))
+                return true;
+        }
+        return false;
+    }
+    
     private static final Map<String, Aula> Aulas = new HashMap<String, Aula>();
 
     public Disciplina getDisciplina() {
@@ -41,37 +60,15 @@ public class Aula {
         return Aulas;
     }
 
-    public Date getHorario() {
-        return horario;
+    public Date getCodeID() {
+        return CodeID;
     }
 
-    public void setHorario(Date horario) {
-        this.horario = horario;
+    public void setCodeID(Date horario) {
+        this.CodeID = CodeID;
     }
-    
 
-    
     public String toString() {
         return "Aula{" + "disciplina=" + disciplina + ", data=" + data + ", aluno=" + aluno + '}';
-    }
-    
-    public static boolean existeAula(Aula x){
-        for(int i=0;i<Aulas.size();i++){
-            if(x.equals(Aulas.get(i)))
-                return true;
-        }
-        return false;
-    }
-    // NAO FIZ MAIS PORQUE NAO SEI COMO FAZER POR CAUSA DO HORARIO !
-    public static boolean addAula(Aula x,Date horarioNovo){
-        if(existeAula(x)){
-            if(x.getHorario().equals(horarioNovo)){
-                System.out.println("Essa aula já existe nesse horário");
-                return false;
-            }
-        }
-        Aulas.put(x.getHorario(), x); // ????
-        System.out.println("Aula reposta");
-        return true;
-    }
+    }    
 }
