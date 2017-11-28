@@ -14,7 +14,8 @@ public class Aluno extends Pessoa {
     }
       public static boolean existeAluno(Aluno x){
          for(int i=0;i<alunos.size();i++){
-             if(x.equals(alunos.get(i))) return true;
+             if(x.equals(alunos.get(i)))
+                 return true;
          }
          return false;
      }
