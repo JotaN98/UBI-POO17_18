@@ -11,20 +11,13 @@ public class Aluno extends Pessoa {
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
     public static boolean addAluno(Aluno x){
-        if(existeAluno(x)){
-            System.out.println("Aluno já existente");
-            return false;
-        }
+        if(getAlunoFromID(x.getID()) != null) {
+			System.out.println("Aluno já existente.");
+			return false;
+		}
         alunos.put(x.getCodeID(), x);
         return true;
     }
-     
-    public static boolean existeAluno(Aluno x){
-         for(int i=0;i<alunos.size();i++){
-             if(x.equals(alunos.get(i))) return true;
-         }
-         return false;
-     }
     public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento) {
     	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
     	addAluno(nAluno);
