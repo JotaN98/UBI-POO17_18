@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Entity {
     // -- beginning of static fields
@@ -28,12 +27,12 @@ public class Entity {
         return groups.get(group);
     }
     protected static String getGroupFromID(String groupID){
-        return groups.entrySet().stream()
-                .filter(
-                        kv -> kv.getValue().equals(groupID)
-                ).findFirst()
-                .map(Entry::getKey)
-                .orElse(null); //Tchi pah..
+        for(Map.Entry<String, String> entry : groups.entrySet()){
+        	if(groupID == entry.getValue()){
+        		return(entry.getKey());
+        	}
+        }
+        return(null);
     }
 
     // -- beginning of non static fields

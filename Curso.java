@@ -1,7 +1,39 @@
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Curso extends Entity {
-	private String nome;
+	// -- beginning of static fields
+    // -- vars
+	private static long IDCount = 0;
+	
+	private static Map<String, Curso> cursos = new HashMap<String, Curso>();
+	
+	public static Curso getCursosFromID(long ID){
+		return cursos.get(Entity.getGroupIDFromGroup("Curso") + ID);
+	}
+	
+	public static boolean addCurso(Curso x){
+        if(getCursosFromID(x.getID()) != null){
+            System.out.println("Curso existente");
+            return false;
+        }
+        cursos.put(x.getCodeID(), x);
+        return true;
+    }
+     
+    public static Curso Create(/*Tem de se meter o resto aqui*/) {
+    	Curso nCurso = new Curso(/*Tem de se meter o resto aqui*/);
+    	addCurso(nCurso);
+    	return nCurso;
+    }
+    
+    public 
+	
+	
+	
+    private String nome;
     private ArrayList<Disciplina> disciplinas;
     private ArrayList<Aluno> Alunos;
     private ArrayList<Professor> professores;
@@ -9,11 +41,11 @@ public class Curso extends Entity {
     private ArrayList<Nota> notass;
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+	this.nome = nome;
+    }
 
-	public void setDisciplina(ArrayList<Disciplina> disciplinas) {
+    public void setDisciplina(ArrayList<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
 
@@ -33,11 +65,11 @@ public class Curso extends Entity {
         this.notass = notass;
     }
 
-	public String getNome() {
-		return nome;
+    public String getNome() {
+	return nome;
 	}
 
-	public ArrayList<Disciplina> getDisciplina() {
+    public ArrayList<Disciplina> getDisciplina() {
         return disciplinas;
     }
 
@@ -56,8 +88,7 @@ public class Curso extends Entity {
     public ArrayList<Nota> getNotass() {
         return notass;
     }
-
-    @Override
+    
     public String toString() {
         return "Curso{" + "disciplinas=" + disciplinas + ", Alunos=" + Alunos + ", professores=" + professores + ", turmas=" + turmas + ", notass=" + notass + '}';
     }

@@ -50,8 +50,5 @@ public class Professor extends Pessoa{
 
     public String toString() {
         return "Professor{" + "disciplinas=" + disciplinas + ", professores=" + professores + '}';
-    }
-    
-    
-    
+    } 
 }
