@@ -1,6 +1,38 @@
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Curso extends Entity {
+	// -- beginning of static fields
+    // -- vars
+	private static long IDCount = 0;
+	
+	private static Map<String, Curso> cursos = new HashMap<String, Curso>();
+	
+	public static Curso getCursosFromID(long ID){
+		return cursos.get(Entity.getGroupIDFromGroup("Curso") + ID);
+	}
+	
+	public static boolean addCurso(Curso x){
+        if(getCursosFromID(x.getID()) != null){
+            System.out.println("Curso existente");
+            return false;
+        }
+        cursos.put(x.getCodeID(), x);
+        return true;
+    }
+     
+    public static Curso Create(/*Tem de se meter o resto aqui*/) {
+    	Curso nCurso = new Curso(/*Tem de se meter o resto aqui*/);
+    	addCurso(nCurso);
+    	return nCurso;
+    }
+    
+    public 
+	
+	
+	
     private String nome;
     private ArrayList<Disciplina> disciplinas;
     private ArrayList<Aluno> Alunos;
