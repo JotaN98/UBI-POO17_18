@@ -29,7 +29,7 @@ public class Curso extends Entity {
     	return nCurso;
     }
     
-    public 
+
 	
 	
 	
@@ -40,6 +40,16 @@ public class Curso extends Entity {
     private ArrayList<Turma> turmas;
     private ArrayList<Nota> notass;
 
+    //Contrutores
+    public Curso(String groupClass, long ID) throws IllegalArgumentException {
+    	super(groupClass, ID);
+    	IDCount++;
+	}
+    
+    public Curso(Object groupClass, long ID){
+    	super(groupClass, ID);
+    	IDCount++;
+    }
 
     public void setNome(String nome) {
 	this.nome = nome;
