@@ -1,11 +1,62 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Disciplina {
+public class Disciplina extends Entity{
+	
+	// -- beginning of static fields
+    // -- vars
+    private static long IDCount = 0;
+    
+    private static Map<String, Disciplina> disciplina = new HashMap<String, Disciplina>();
+    
+    public static Disciplina getDisciplinaFromID(long ID){
+        return disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + ID);
+    }
+     
+    
+    public static boolean addDisciplina(Disciplina x){
+        if(getDisciplinaFromID(x.getID()) != null){
+            System.out.println("Disciplina existente");
+            return false;
+        }
+        disciplina.put(x.getCodeID(), x);
+        return true;
+    }
+     
+    public static Disciplina Create(/*TEM DE SE METER*/) {
+    	Disciplina nDisciplina = new Disciplina(/*TEM DE SE METER*/);
+    	addDisciplina(nDisciplina);
+    	return nDisciplina;
+    }
+	
+    public static Disciplina Create(/*TEM DE SE METER*/) {
+    	Disciplina nDisciplina = new Disciplina(/*TEM DE SE METER*/);
+    	addDisciplina(nDisciplina);
+    	return nDisciplina;
+    }
+
+
+    
+    
+    // -- beginning of non static fields
+    // -- vars
     private String nome;
     private int codigo;
     private int ano;
     private ArrayList<Nota>notas;
     private ArrayList<Professor> lecionadores;
+    
+    
+    public Disciplina(String groupClass, long ID) throws IllegalArgumentException {
+		super(groupClass, ID);
+		IDCount++;
+	}
+    
+    public Disciplina(Object groupClass, long ID){
+    	super(groupClass, ID);
+    	IDCount++;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;
