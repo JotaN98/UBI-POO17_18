@@ -3,8 +3,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Teste extends Entity{
+	// -- beginning of static fields
+    // -- vars
+    private static long IDCount = 0;
+    
+    private static Map<String, Teste> teste = new HashMap<String, Teste>();
+    
+    public static Teste getTesteFromID(long ID){
+        return teste.get(Entity.getGroupIDFromGroup("Teste") + ID);
+    }
+     
+    
+    public static boolean addTeste(Teste x){
+        if(getTesteFromID(x.getID()) != null){
+            System.out.println("Teste existente");
+            return false;
+        }
+        teste.put(x.getCodeID(), x);
+        return true;
+    }
+     
+    public static Teste Create(/*TEM DE SE METER*/) {
+    	Teste nTeste = new Teste(/*TEM DE SE METER*/);
+    	addProfessor(nTeste);
+    	return nTeste;
+    }
 	
-    private static Map<String, Teste> testes = new HashMap<String, Teste>();
+    public static Teste Create(/*TEM DE SE METER*/) {
+    	Teste nTeste = new Teste(/*TEM DE SE METER*/);
+    	addProfessor(nTeste);
+    	return nTeste;
+    }
+
+    
+    
+    
+    // -- beginning of non static fields
+    // -- vars
+    
+    //contrutores
+	public Teste(String groupClass, long ID) throws IllegalArgumentException {
+		super(groupClass, ID);
+	}
+	
+	public Teste(Object groupClass, long ID){
+		super(groupClass, ID);
+	}
+	
+	
     private Disciplina disciplina;
     private ZonedDateTime data; 
     private String anoLetivo;

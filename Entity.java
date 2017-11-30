@@ -16,16 +16,17 @@ public class Entity {
         groups.put("Professor","PRF");
         groups.put("Teste","TST");
         groups.put("Turma","TRM");
-
         groups.put("Outro","???");
     }
     // -- methods
     protected static String getGroupIDFromGroup(Object groupClass){
         return groups.get(groupClass.getClass().getName());
     }
+    //Return key value
     protected static String getGroupIDFromGroup(String group){
         return groups.get(group);
     }
+    //returns the key of the value if exists
     protected static String getGroupFromID(String groupID){
         for(Map.Entry<String, String> entry : groups.entrySet()){
         	if(groupID == entry.getValue()){
