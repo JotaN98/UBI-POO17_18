@@ -61,11 +61,11 @@ public class Aula extends Entity {
         this.hora = hora;
     }
 
-    public long getProf() {
+    public long getProfessor() {
         return prof;
     }
 
-    public void setProf(long prof) throws IllegalArgumentException {
+    public void setProfessor(long prof) throws IllegalArgumentException {
         if(Professor.getProfessorFromID(prof)!=null){
             this.prof=prof;
         }
@@ -111,6 +111,26 @@ public class Aula extends Entity {
         this.sala = sala;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(obj != null && obj.getClass()==getClass()){
+            Aula nObj = (Aula) obj;
+            
+            return super.equals(obj) 
+                    && hora == nObj.hora
+                    && prof == nObj.prof
+                    && disciplina == nObj.disciplina
+                    && turma == nObj.turma
+                    && sala == nObj.sala; 
+            }
+            return false; 
+    }
+    
+    @Override 
+    public Object clone(){
+        return new Aula(getHora(), getProfessor(), getDisciplina(), getTurma(), getSala());
+    }
+    
     @Override
     public String toString() {
         return getCodeID() + " Hora [" + hora + "] " + " Professor: "+ prof + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
