@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Aula extends Entity {
-<<<<<<< Updated upstream
     // -- beginning of static fields
     // -- vars
     private static final Map<String, Aula> aulas = new HashMap<String, Aula>();
@@ -19,19 +18,6 @@ public class Aula extends Entity {
         if(getAulaFromID(x.getID())!=null){
             System.out.println("Aula existente");
             return false;
-=======
-    private Disciplina disciplina;
-    private Date data;
-    private ArrayList<Aluno> aluno;
-    private Date CodeID;
-        
-    public static boolean addAula(Aula x,Date horarioNovo){
-        if(existeAula(x)){
-            if(x.getHorario().equals(horarioNovo)){
-                System.out.println("Essa aula já existe nesse horário");
-                return false;
-            }
->>>>>>> Stashed changes
         }
         aulas.put(x.getCodeID(), x);
         return true;

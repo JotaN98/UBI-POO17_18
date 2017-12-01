@@ -1,4 +1,3 @@
-import projeto.Entity;
 import java.time.ZonedDateTime;
 
 public class Pessoa extends Entity {
