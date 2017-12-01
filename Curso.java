@@ -1,7 +1,7 @@
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Curso extends Entity {
 	// -- beginning of static fields
@@ -15,91 +15,82 @@ public class Curso extends Entity {
 	}
 	
 	public static boolean addCurso(Curso x){
-        if(getCursosFromID(x.getID()) != null){
-            System.out.println("Curso existente");
-            return false;
+            if(getCursosFromID(x.getID()) != null){
+                System.out.println("Curso existente");
+                return false;
+            }
+            cursos.put(x.getCodeID(), x);
+            return true;
         }
-        cursos.put(x.getCodeID(), x);
-        return true;
-    }
-     
+        
+        public static boolean RemoveCurso(Curso x){
+            if(getCursosFromID(x.getID()) != null){
+                System.out.println("Curso existente");
+                return false;
+            }
+            cursos.put(x.getCodeID(), null);
+            return true;
+        }
+        
     public static Curso Create(/*Tem de se meter o resto aqui*/) {
     	Curso nCurso = new Curso(/*Tem de se meter o resto aqui*/);
     	addCurso(nCurso);
     	return nCurso;
     }
-    
-
-	
-	
-	
-    private String nome;
-    private ArrayList<Disciplina> disciplinas;
-    private ArrayList<Aluno> Alunos;
-    private ArrayList<Professor> professores;
-    private ArrayList<Turma> turmas;
-    private ArrayList<Nota> notass;
+   private String nome;
+    private ArrayList<Long> disciplinas;
+    private long diretor;
 
     //Contrutores
-    public Curso(String groupClass, long ID) throws IllegalArgumentException {
-    	super(groupClass, ID);
-    	IDCount++;
-	}
+    public Curso(String nome,long diretor) throws IllegalArgumentException {
+    	super("Curso", IDCount++);
+    	this.nome=nome;
+        disciplinas=new ArrayList<Long>();
+        this.diretor=diretor;
+    }
     
-    public Curso(Object groupClass, long ID){
-    	super(groupClass, ID);
-    	IDCount++;
+    public Curso() throws IllegalArgumentException {
+    	super("Curso", IDCount++);
+    	this.nome="";
+        disciplinas=new ArrayList<Long>();
+        this.diretor=0;
     }
 
     public void setNome(String nome) {
 	this.nome = nome;
     }
-
-    public void setDisciplina(ArrayList<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
-
-    public void setAlunos(ArrayList<Aluno> Alunos) {
-        this.Alunos = Alunos;
-    }
-
-    public void setProfessores(ArrayList<Professor> professores) {
-        this.professores = professores;
-    }
-
-    public void setTurmas(ArrayList<Turma> turmas) {
-        this.turmas = turmas;
-    }
-
-    public void setNotass(ArrayList<Nota> notass) {
-        this.notass = notass;
-    }
-
     public String getNome() {
 	return nome;
-	}
-
-    public ArrayList<Disciplina> getDisciplina() {
+    }
+    public ArrayList<Long> getDisciplinas() {
         return disciplinas;
     }
-
-    public ArrayList<Aluno> getAlunos() {
-        return Alunos;
+    public long getDiretor(){
+        return diretor;
     }
-
-    public ArrayList<Professor> getProfessores() {
-        return professores;
+    public void setDiretor(Long diretor){
+        this.diretor=diretor;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if(obj!=null && obj.getClass()==this.getClass()){
+         Curso x = (Curso)obj;
+         
+         this.diretor=x.diretor;
+         boolean iguais= this.nome.equals(x.nome);
+         iguais=iguais && this.disciplinas.equals(x.disciplinas);
 
-    public ArrayList<Turma> getTurmas() {
-        return turmas;
+         return iguais;
+        }
+        return false;
     }
-
-    public ArrayList<Nota> getNotass() {
-        return notass;
-    }
-    
-    public String toString() {
-        return "Curso{" + "disciplinas=" + disciplinas + ", Alunos=" + Alunos + ", professores=" + professores + ", turmas=" + turmas + ", notass=" + notass + '}';
+    @Override
+    public Object clone(){
+        Curso cur=new Curso();
+        
+        cur.nome=this.nome;
+        cur.diretor=this.diretor;
+        cur.disciplinas=(ArrayList<Long>)this.disciplinas.clone();
+        return cur;
     }
 }
