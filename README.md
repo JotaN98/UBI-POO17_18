@@ -1,11 +1,21 @@
 # Classes
+### Por fazer:
+* #11 Disciplina
+* #10 Professor
+* #9 Nota
+* #8 Teste
+* #7 Aluno
+* #6 Turma
+* #5 Aula
+* #4 Curos
 
-* Curso
+### Conteudo das Classes:
+* Curso #4
     * Nome
     * Diretor
     * Disciplinas (array)
     * Turma
-* Turma
+* Turma #6
     * Ano
     * Nome
     * Alunos (array)
@@ -13,31 +23,31 @@
     * Diretor
     * Horario (2D array)
     * Aulas (array)
-* Aula
+* Aula #5
     * Hora
     * Professor
     * Disciplina
     * Turma
     * Sala
     * Testes (array)
-* Teste
+* Teste #8
     * Data
     * Notas (array)
-* Nota 
+* Nota #9
     * Valor
     * Aluno
-* Aluno
+* Aluno #7
     * pnome, unome...
     * Turma
     * Notas (array do tipo: notas[ID de desiplinas][testes])
     * Ano
-* Professor
+* Professor #10
     * pnome, unome...
     * Turmas (array)
     * Horario (2D array com ID das aulas)
     * Aulas (1D Array com as aulas, talvez não é preciso)
     * Testes (array)
-* Disciplinas
+* Disciplina #11
     * Nome
     * Professor
     * Aula
