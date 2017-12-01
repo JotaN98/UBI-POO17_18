@@ -1,3 +1,5 @@
+import projeto.Entity;
+import projeto.Nota;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

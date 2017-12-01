@@ -1,3 +1,5 @@
+import projeto.Aula;
+import projeto.Entity;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
