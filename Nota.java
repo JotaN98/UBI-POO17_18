@@ -39,49 +39,47 @@ public class Nota extends Entity{
     
     // -- beginning of non static fields
     // -- vars
-    
-    //construtores
-	public Nota(String groupClass, long ID) throws IllegalArgumentException {
-		super(groupClass, ID);
-	}
-	
-	public Nota(Object groupClass, long ID){
-		super(groupClass, ID);
-	}
-	
-	
     private Aluno aluno;
-    private Teste teste;
     private double valor;
-    
-    //ADICIONAR MAPA PARA NOTAS
-
+    //construtores
+    public Nota(Aluno aluno,double valor){
+    	super("Nota", IDCount++);
+    	this.aluno=aluno;
+        this.valor=valor;
+    }
+     public Nota(Aluno aluno){
+    	super("Nota", IDCount++);
+    	this.aluno=aluno;
+        this.valor=0;
+    }
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
-
-    public void setTeste(Teste teste) {
-        this.teste = teste;
-    }
-
     public void setValor(double valor) {
         this.valor = valor;
     }
-
     public Aluno getAluno() {
         return aluno;
     }
-
-    public Teste getTeste() {
-        return teste;
-    }
-
     public double getValor() {
         return valor;
     }
-
     public String toString() {
-        return "Nota{" + "aluno=" + aluno + ", teste=" + teste + ", valor=" + valor + '}';
+        return "Nota{" + "aluno=" + aluno + ", valor=" + valor + '}';
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(obj!=null && obj.getClass()==this.getClass()){
+            Nota x=(Nota) obj;
+            
+            return(this.valor == x.valor && this.aluno.equals(x.aluno));
+        }
+        return false;
     }
     
+    // falta acabar clone
+    public Object clone(){
+        Nota not=new Nota("",); 
+        
+        
 }

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Curso extends Entity {
 	// -- beginning of static fields
-    // -- vars
+        // -- vars
 	private static long IDCount = 0;
 	
 	private static Map<String, Curso> cursos = new HashMap<String, Curso>();
@@ -42,14 +42,14 @@ public class Curso extends Entity {
     private long diretor;
 
     //Contrutores
-    public Curso(String nome,long diretor) throws IllegalArgumentException {
+    public Curso(String nome,long diretor){
     	super("Curso", IDCount++);
     	this.nome=nome;
         disciplinas=new ArrayList<Long>();
         this.diretor=diretor;
     }
     
-    public Curso() throws IllegalArgumentException {
+    public Curso(){
     	super("Curso", IDCount++);
     	this.nome="";
         disciplinas=new ArrayList<Long>();
@@ -76,8 +76,8 @@ public class Curso extends Entity {
         if(obj!=null && obj.getClass()==this.getClass()){
          Curso x = (Curso)obj;
          
-         this.diretor=x.diretor;
-         boolean iguais= this.nome.equals(x.nome);
+         
+         boolean iguais= this.diretor == x.diretor && this.nome.equals(x.nome);
          iguais=iguais && this.disciplinas.equals(x.disciplinas);
 
          return iguais;
