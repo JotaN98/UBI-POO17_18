@@ -1,4 +1,5 @@
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,56 +24,64 @@ public class Aluno extends Pessoa {
         return true;
     }
      
-    public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento) {
+    public static long Create(String pNome,String uNome, ZonedDateTime nascimento) {
     	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
     	addAluno(nAluno);
-    	return nAluno;
+    	return nAluno.getID();
     }
 	
-    public static Aluno Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+    public static long Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
     	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, turma, active);
     	addAluno(nAluno);
-    	return nAluno;
+    	return nAluno.getID();
     }
 
 
     // -- beginning of non static fields
     // -- vars
     private int ano;
-    private long curso;
     private long turma;
     private boolean active;
-    private Map<Long/*Disciplinas*/,ZonedDateTime> disciplinasPorFazer;
-    private Map<Long/*Disciplinas*/,ZonedDateTime> disciplinasFeitas;
+    private ArrayList<Long/*Disciplinas*/> notas;
     private Map<ZonedDateTime/*time stamp*/,String> activity;
 
     // -- constructors
     public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
         super("Aluno", IDCount++, pNome, uNome, nascimento);
-        this.ano = 0;
-        this.curso = 0;
-        this.turma = 0;
-        this.active = false;
+        ano = 0;
+		turma = 0;
+		active = false;
+		notas = new ArrayList<Long>();
         activity = new HashMap<ZonedDateTime,String>();
-        disciplinasPorFazer = new HashMap<Long,ZonedDateTime>();
-        disciplinasFeitas = new HashMap<Long,ZonedDateTime>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
-    public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
-        super("Aluno", IDCount++, pNome, uNome, nascimento);
-        setAno(ano);
-        setCurso(curso);
-        setTurma(turma);
-        this.active = active;
-        activity = new HashMap<ZonedDateTime,String>();
-        disciplinasPorFazer = new HashMap<Long,ZonedDateTime>();
-        disciplinasFeitas = new HashMap<Long,ZonedDateTime>();
-        activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
-    }
+	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+		super("Aluno", IDCount++, pNome, uNome, nascimento);
+		setAno(ano);
+		setCurso(curso);
+		setTurma(turma);
+		this.active = active;
+		notas = new ArrayList<Long>();
+		activity = new HashMap<ZonedDateTime,String>();
+		activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
+	}
+	// Clone constructor
+	public Aluno(Aluno aluno) {
+		super("Aluno", aluno.getID(), aluno.getPrimeiroNome(), aluno.getUltimoNome(), aluno.getNascimento());
+		setAno(aluno.getAno());
+		setCurso(aluno.getCurso().getID());
+		setTurma(aluno.getTurma().getID());
+		active = aluno.active;
+		notas = (ArrayList<Long>)aluno.notas.clone();
+		activity = new HashMap<ZonedDateTime,String>();
+		for (Map.Entry<ZonedDateTime,String> entry : aluno.activity.entrySet()) {
+			activity.put(entry.getKey(),entry.getValue());
+		}
+	}
 
     // -- methods
     public void setAno(int ano) throws IllegalArgumentException {
-		if (10 > ano || ano > 12) {
+		if (ano < 10 || ano > 12) {
 			System.out.println("Ano não pode ser maior que 12 ou menor que 10");
 			throw new IllegalArgumentException();
 		}
@@ -100,7 +109,11 @@ public class Aluno extends Pessoa {
         }
     }
 
-    public int getAno() {
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getAno() {
         return ano;
     }
 
@@ -112,6 +125,10 @@ public class Aluno extends Pessoa {
         return Turma.getTurmaFromID(turma);
     }
 
+    public boolean getActive(){
+    	return active;
+	}
+
 	// -- method overrides
 	@Override
 	public boolean equals(Object obj) {
@@ -120,11 +137,9 @@ public class Aluno extends Pessoa {
 
 			return 	super.equals(obj) &&
 					ano == nobj.ano &&
-					curso == nobj.curso &&
 					turma == nobj.turma &&
 					active == nobj.active &&
-					disciplinasFeitas.equals(nobj.disciplinasFeitas) &&
-					disciplinasPorFazer.equals(nobj.disciplinasPorFazer) &&
+					notas.equals(nobj.notas) &&
 					activity.equals(nobj.activity);
 
 		}

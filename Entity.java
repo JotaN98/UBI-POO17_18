@@ -50,7 +50,7 @@ public class Entity {
         if(!groups.containsValue(groupClass))
             throw new IllegalArgumentException();
 
-        groupID = groupClass.getClass().getName();
+        groupID = getGroupIDFromGroup(groupClass);
         this.ID = ID;
     }
 
