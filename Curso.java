@@ -50,7 +50,7 @@ public class Curso extends Entity {
     	super("Curso", curso.getID());
     	this.nome=curso.getNome();
         disciplinas=(ArrayList<Long>)curso.disciplinas.clone();
-        this.diretor=diretor;
+        this.diretor=curso.getDiretor();
     }
     public void setAtivo(boolean ativo){
         this.ativo=ativo;

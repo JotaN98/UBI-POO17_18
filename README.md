@@ -1,3 +1,9 @@
+# Regras de utilização
+1. Nunca chamarás o construtor das classes, chamarás o Create().
+3. Não criarás aulas a não ser que sejas pelas turmas.
+3. Não defenirás a turma de um aluno, defenirás vários alunos a cada turma.
+
+
 # Classes
 ### Por fazer:
 * #11 Disciplina
@@ -53,6 +59,7 @@
     * Aula
     * Ano
     * Sala onde pode ser dada
+
 ---
 ![Classes](https://gitlab.com/EI-UBI/POO/Projeto/raw/master/Guidelines/Classes.JPG "Classes")
 # Overview
