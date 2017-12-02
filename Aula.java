@@ -12,6 +12,7 @@ public class Aula extends Entity {
     private static ArrayList<String> ConversorHoras;
     private static ArrayList<String> ConversorDiaDaSemana;
     
+    //Initialize Hours and Days of the week converters
     static{
         ConversorHoras = new ArrayList<String>();
         ConversorHoras.add("8:20h - 9:50h");
@@ -35,7 +36,7 @@ public class Aula extends Entity {
     
     public static boolean addAula(Aula x){
         if(getAulaFromID(x.getID())!=null){
-            System.out.println("Aula existente");
+            System.out.println("Aula já em vigor");
             return false;
         }
         aulas.put(x.getCodeID(), x);
@@ -48,6 +49,11 @@ public class Aula extends Entity {
         return nAula.getID();
     }
     
+    public static long Create(){
+        Aula nAula = new Aula();
+        addAula(nAula);
+        return nAula.getID();
+    }
     // -- beginning of non static fields
     // -- vars
     private int hora;
@@ -66,7 +72,16 @@ public class Aula extends Entity {
         this.turma=turma;
         this.sala=sala;
     }
-    // -- constructor for clone
+    
+    public Aula(){
+        super("Aula", IDCount++);
+        this.hora=0;
+        this.prof=0;
+        this.disciplina=0;
+        this.turma=0;
+        this.sala="";
+    }
+    //Clone constructor
     public Aula(Aula aula){
         super("Aula", aula.getID());
         this.hora=aula.getHora();

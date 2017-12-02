@@ -7,13 +7,6 @@ public class Pessoa extends Entity {
     private ZonedDateTime nascimento;
     private String obs;
 
-    public Pessoa(Object subClass, long ID, String pNome,String uNome, ZonedDateTime nascimento) {
-        super(subClass, ID);
-        this.pNome = pNome;
-        this.uNome = uNome;
-        this.nascimento = nascimento;
-    }
-
     public Pessoa(String subClass, long ID, String pNome,String uNome, ZonedDateTime nascimento) {
         super(subClass, ID);
         this.pNome = pNome;

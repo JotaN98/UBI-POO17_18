@@ -14,7 +14,6 @@ public class Aluno extends Pessoa {
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
      
-    
     public static boolean addAluno(Aluno x){
         if(getAlunoFromID(x.getID()) != null){
             System.out.println("Aluno existente");

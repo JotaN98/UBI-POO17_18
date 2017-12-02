@@ -42,10 +42,6 @@ public class Entity {
     private long ID;
 
     // -- constructors
-    public Entity(Object groupClass, long ID){
-        groupID = getGroupIDFromGroup(groupClass.getClass().getName());
-        this.ID = ID;
-    }
     public Entity(String groupClass, long ID) throws IllegalArgumentException {
         if(!groups.containsValue(groupClass))
             throw new IllegalArgumentException();
