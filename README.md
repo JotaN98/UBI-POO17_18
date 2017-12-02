@@ -1,6 +1,6 @@
 # Regras de utilização
 1. Nunca chamarás o construtor das classes, chamarás o Create().
-2. As aulas só podem ser criadas nas turmas.
+2. As aulas só podem ser criadas atravez das turmas.
 
 
 # Classes
