@@ -9,7 +9,26 @@ public class Aula extends Entity {
     // -- vars
     private static final Map<String, Aula> aulas = new HashMap<String, Aula>();
     private static long IDCount = 0;
+    private static ArrayList<String> ConversorHoras;
+    private static ArrayList<String> ConversorDiaDaSemana;
     
+    static{
+        ConversorHoras = new ArrayList<String>();
+        ConversorHoras.add("8:20h - 9:50h");
+        ConversorHoras.add("10:10h - 11:40h");
+        ConversorHoras.add("11:50h - 13:20h");
+        ConversorHoras.add("15:00h - 16:30h");
+        ConversorHoras.add("16:45h - 18:15h");
+        
+        ConversorDiaDaSemana= new ArrayList<String>();
+        ConversorDiaDaSemana.add("Segunda-feira");
+        ConversorDiaDaSemana.add("Terça-feira");
+        ConversorDiaDaSemana.add("Quarta-feira");
+        ConversorDiaDaSemana.add("Quinta-feira");
+        ConversorDiaDaSemana.add("Sexta-feira");
+    }
+    
+            
     public static Aula getAulaFromID(long ID){
         return aulas.get(Entity.getGroupIDFromGroup("Aula") + ID );
     }
@@ -23,22 +42,23 @@ public class Aula extends Entity {
         return true;
     }
    
-    public static long Create(int hora[], long prof, long disciplina, long turma, String sala){
-        Aula nAula = new Aula(hora[], prof, disciplina, turma, sala);
+    public static long Create(int hora, long prof, long disciplina, long turma, String sala){
+        Aula nAula = new Aula(hora, prof, disciplina, turma, sala);
         addAula(nAula);
         return nAula.getID();
     }
     
     // -- beginning of non static fields
     // -- vars
-    private int hora[];
+    private int hora;
+    private int DiaDaSemana;
     private long prof;
     private long disciplina;
     private long turma;
     private String sala;
     
      // -- constructors
-    public Aula(int hora[], long prof, long disciplina, long turma, String sala){
+    public Aula(int hora, long prof, long disciplina, long turma, String sala){
         super("Aula", IDCount++);
         this.hora=hora;
         this.prof=prof;
@@ -46,19 +66,37 @@ public class Aula extends Entity {
         this.turma=turma;
         this.sala=sala;
     }
+    // -- constructor for clone
+    public Aula(Aula aula){
+        super("Aula", aula.getID());
+        this.hora=aula.getHora();
+        this.prof=aula.getProfessor();
+        this.disciplina=aula.getDisciplina();
+        this.turma=aula.getTurma();
+        this.sala=aula.getSala();
+    }
     
     // -- methods
-    public int[] getHora() {
+    public int getHora() {
         return hora;
     }
 
-    public void setHora(int[] hora) throws IllegalArgumentException {
-        for(int i=0; i<=hora.length; i++){
-            if(hora[i]<8 || hora[i]>18){
-                System.out.println("As aulas têm de estar compreendidas entre as 8 e as 18 horas");
+    public void setHora(int hora) throws IllegalArgumentException {
+            if( hora<0 || hora>5){
+                System.out.println("O horário de funcionamento é entre as 8 e as 18 horas");
                 throw new IllegalArgumentException();}
-        }
         this.hora = hora;
+    }
+    
+    public int getDiaDaSemana(){
+        return DiaDaSemana;
+    }
+    
+    public void setDiaDaSemana(int DiaDaSemana){
+        if( DiaDaSemana<0 || DiaDaSemana>5){
+            System.out.println("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
+            throw new IllegalArgumentException();}
+        this.DiaDaSemana = DiaDaSemana;
     }
 
     public long getProfessor() {
@@ -128,7 +166,7 @@ public class Aula extends Entity {
     
     @Override 
     public Object clone(){
-        return new Aula(getHora(), getProfessor(), getDisciplina(), getTurma(), getSala());
+        return new Aula(this);
     }
     
     @Override
