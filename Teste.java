@@ -1,4 +1,5 @@
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,10 +8,10 @@ public class Teste extends Entity{
     // -- vars
     private static long IDCount = 0;
     
-    private static Map<String, Teste> teste = new HashMap<String, Teste>();
+    private static Map<String, Teste> testes = new HashMap<String, Teste>();
     
     public static Teste getTesteFromID(long ID){
-        return teste.get(Entity.getGroupIDFromGroup("Teste") + ID);
+        return testes.get(Entity.getGroupIDFromGroup("Teste") + ID);
     }
        
     public static boolean addTeste(Teste x){
@@ -18,7 +19,7 @@ public class Teste extends Entity{
             System.out.println("Teste existente");
             return false;
         }
-        teste.put(x.getCodeID(), x);
+        testes.put(x.getCodeID(), x);
         return true;
     }
      
@@ -33,41 +34,43 @@ public class Teste extends Entity{
     	addProfessor(nTeste);
     	return nTeste;
     }
-    private Nota nota;
+    private Map<Long/*ID*/,Long/*Valor da nota*/> notas;
     private ZonedDateTime data;
+    private long aula;
     
     //contrutores
-    public Teste(String groupClass, long ID){
-        super(groupClass, ID);
-    }
-	
-    public Teste(Object groupClass, long ID){
-	super(groupClass, ID);
-    }
-	
+    public Teste(){
+        super("Teste",IDCount++);
+        aula=0;
+        data=ZonedDateTime.now();
+        notas=new HashMap<Long,Long>();
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
     }
-
+    public Teste(Long aula,ZonedDateTime data){
+        super("Teste",IDCount++);
+        this.aula=aula;
+        this.data=data;
+        notas=new HashMap<Long,Long>();
+    }
+    public Teste(Teste teste){
+        super("Teste",teste.getID());
+        this.aula=teste.getAula();
+        this.data=teste.getData();
+        notas = new HashMap<Long,Long>();
+		for (Map.Entry<Long,Long> entry : teste.notas.entrySet()) {
+			notas.put(entry.getKey(),entry.getValue());
+        }
+    }
     public void setData(ZonedDateTime data) {
         this.data = data;
     }
-
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
     public ZonedDateTime getData() {
         return data;
     }
-
-    public String getAnoLetivo() {
-    	return anoLetivo;
-	}
-
-    public String toString() {
-        return "Teste{" + "disciplina=" + disciplina + ", data=" + data + '}';
+    public void setAula(long aula){
+        this.aula=aula;
     }
-    
+    public long getAula(){
+        return aula;
+    }
 }
