@@ -66,7 +66,7 @@ public class Aula extends Entity {
         this.turma=turma;
         this.sala=sala;
     }
-    
+    // -- constructor for clone
     public Aula(Aula aula){
         super("Aula", aula.getID());
         this.hora=aula.getHora();
