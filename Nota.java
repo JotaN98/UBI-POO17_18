@@ -52,6 +52,11 @@ public class Nota extends Entity{
     	this.aluno=aluno;
         this.valor=0;
     }
+    public Nota(Nota nota){
+    	super("Nota",nota.getID());
+    	this.aluno=nota.getAluno();
+        this.valor=nota.getValor();
+    }
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
@@ -76,10 +81,8 @@ public class Nota extends Entity{
         }
         return false;
     }
-    
-    // falta acabar clone
+        
     public Object clone(){
-        Nota not=new Nota("",); 
-        
-        
+        return new Nota(this);
+   }     
 }

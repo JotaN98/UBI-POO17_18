@@ -12,8 +12,7 @@ public class Teste extends Entity{
     public static Teste getTesteFromID(long ID){
         return teste.get(Entity.getGroupIDFromGroup("Teste") + ID);
     }
-     
-    
+       
     public static boolean addTeste(Teste x){
         if(getTesteFromID(x.getID()) != null){
             System.out.println("Teste existente");
@@ -34,27 +33,18 @@ public class Teste extends Entity{
     	addProfessor(nTeste);
     	return nTeste;
     }
-
-    
-    
-    
-    // -- beginning of non static fields
-    // -- vars
+    private Nota nota;
+    private ZonedDateTime data;
     
     //contrutores
-	public Teste(String groupClass, long ID) throws IllegalArgumentException {
-		super(groupClass, ID);
-	}
+    public Teste(String groupClass, long ID){
+        super(groupClass, ID);
+    }
 	
-	public Teste(Object groupClass, long ID){
-		super(groupClass, ID);
-	}
+    public Teste(Object groupClass, long ID){
+	super(groupClass, ID);
+    }
 	
-	
-    private Disciplina disciplina;
-    private ZonedDateTime data; 
-    private String anoLetivo;
-    private Map<String /*Aluno*/,String/*Nota*/> notas;
 
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
