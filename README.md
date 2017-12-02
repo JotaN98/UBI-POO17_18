@@ -57,6 +57,7 @@
     * Aula
     * Ano
     * Sala onde pode ser dada
+
 ---
 ![Classes](https://gitlab.com/EI-UBI/POO/Projeto/raw/master/Guidelines/Classes.JPG "Classes")
 # Overview
