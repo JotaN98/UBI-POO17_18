@@ -1,3 +1,7 @@
+# Regras de utilização
+1. As aulas só podem ser criadas nas turmas.
+
+
 # Classes
 ### Por fazer:
 * #11 Disciplina
