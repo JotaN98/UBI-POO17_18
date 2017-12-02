@@ -5,19 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Professor extends Pessoa{
-    // -- beginning of non static fields
-    // -- vars
-    private static long IDCount = 0;
-    private static Map<String, Professor> professores = new HashMap<String, Professor>();
-    public static Professor getProfFromID(long ID){
-    	return professores.get(Professor.getGroupIDFromGroup("Professor") + ID);
-	}
-	public static boolean addProfessor(Professor prof){
-    	if(getProfFromID(prof.getID()) != null){
-			System.out.println("Professor já existente.");
-			return false;
-		}
-
 	// -- beginning of static fields
     // -- vars
     private static long IDCount = 0;
