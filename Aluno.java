@@ -132,10 +132,10 @@ public class Aluno extends Pessoa {
 	}
 
 	@Override
-	public Object clone() {   // ?????????????????????????? (JotaN)
-    	if(ano == 0)
-    		return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento());
-		return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento(),ano, curso, turma, active);
+	public Object clone() { 
+    	if(ano == 0)   
+            return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento());
+	return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento(),ano, curso, turma, active);
 	}
 
 	@Override
