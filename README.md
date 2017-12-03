@@ -47,6 +47,7 @@
     * Turma
     * Notas (array do tipo: notas[ID de desiplinas][testes])
     * Ano
+    * Curso
 * Professor #10
     * pnome, unome...
     * Turmas (array)
