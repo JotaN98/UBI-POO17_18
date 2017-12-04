@@ -6,17 +6,17 @@ public class Disciplina extends Entity{
 	
 	// -- beginning of static fields
     // -- vars
-    private static long IDCount = 0;
+    private static long IDCount;
     
     private static Map<String, Disciplina> disciplina = new HashMap<String, Disciplina>();
     
-    public static Disciplina getDisciplinaFromID(long ID){
-        return disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + ID);
+    public static Disciplina getDisciplinaFromID(Entity ID){
+        return disciplina.get(ID.getCodeID());
     }
      
     
     public static boolean addDisciplina(Disciplina x){
-        if(getDisciplinaFromID(x.getID()) != null){
+        if(getDisciplinaFromID(x) != null){
             System.out.println("Disciplina existente");
             return false;
         }
@@ -48,15 +48,12 @@ public class Disciplina extends Entity{
     private ArrayList<Professor> lecionadores;
     
     
+    //Construtor
     public Disciplina(String groupClass, long ID) throws IllegalArgumentException {
 		super(groupClass, ID);
 		IDCount++;
 	}
-    
-    public Disciplina(Object groupClass, long ID){
-    	super(groupClass, ID);
-    	IDCount++;
-    }
+
 
     public void setNome(String nome) {
         this.nome = nome;
