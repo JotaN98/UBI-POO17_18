@@ -11,13 +11,13 @@ public class Professor extends Pessoa{
     
     private static Map<String, Professor> professor = new HashMap<String, Professor>();
     
-    public static Professor getProfessorFromID(long ID){
-        return professor.get(Entity.getGroupIDFromGroup("Professor") + ID);
+    public static Professor getProfessorFromID(Entity ID){
+        return professor.get(ID.getCodeID());
     }
      
     
     public static boolean addProfessor(Professor x){
-        if(getProfessorFromID(x.getID()) != null){
+        if(getProfessorFromID(x) != null){
             System.out.println("Professor existente");
             return false;
         }
