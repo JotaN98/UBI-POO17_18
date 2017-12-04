@@ -23,8 +23,8 @@ public class Curso extends Entity {
         cursos.put(x.getCodeID(), x);
         return true;
     }
-    public static Curso Create(/*Tem de se meter o resto aqui*/) {
-    	Curso nCurso = new Curso(/*Tem de se meter o resto aqui*/);
+    public static Curso Create(String nome,Entity diretor) {
+    	Curso nCurso = new Curso(nome,diretor);
     	addCurso(nCurso);
     	return nCurso;
     }
@@ -44,7 +44,7 @@ public class Curso extends Entity {
     	super("Curso", IDCount++);
     	this.nome="";
         disciplinas=new ArrayList<Entity>();
-        this.diretor=0;
+        this.diretor=Entity.Zero;
     }
     public Curso(Curso curso){
     	super("Curso", curso.getID());
