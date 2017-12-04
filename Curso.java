@@ -11,17 +11,16 @@ public class Curso extends Entity {
 
     private static Map<String, Curso> cursos = new HashMap<String, Curso>();
             
-    public static Curso getCursosFromID(Entity ID){
-        return cursos.get(Entity.getGroupIDFromGroup("Curso") + ID);
+    public static Curso getCursoFromID(Entity ID){
+        return cursos.get(ID.getCodeID());
     }
             
-    public static boolean addCurso(Curso x){
-        if(getCursosFromID((Entity)x) != null){
+    public static void addCurso(Curso x) throws IllegalArgumentException{
+        if(getCursoFromID(x) != null){
             System.out.println("Curso existente");
-            return false;
+            throw new IllegalArgumentException();
         }
         cursos.put(x.getCodeID(), x);
-        return true;
     }
     public static Curso Create(String nome,Entity diretor) {
     	Curso nCurso = new Curso(nome,diretor);
@@ -78,7 +77,7 @@ public class Curso extends Entity {
         if(obj!=null && obj.getClass()==this.getClass()){
          Curso x = (Curso)obj;
         
-         boolean iguais= this.diretor == x.diretor && this.nome.equals(x.nome);
+         boolean iguais= x.diretor.equals(this.diretor) && this.nome.equals(x.nome);
          iguais=iguais && this.disciplinas.equals(x.disciplinas);
          return iguais;
         }
