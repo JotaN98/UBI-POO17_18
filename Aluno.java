@@ -10,12 +10,12 @@ public class Aluno extends Pessoa {
     
     private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
     
-    public static Aluno getAlunoFromID(long ID){
+    public static Aluno getAlunoFromID(Entity ID){
         return alunos.get(Entity.getGroupIDFromGroup("Aluno") + ID);
     }
      
     public static boolean addAluno(Aluno x){
-        if(getAlunoFromID(x.getID()) != null){
+        if(getAlunoFromID((Entity)x) != null){
             System.out.println("Aluno existente");
             return false;
         }
@@ -23,44 +23,44 @@ public class Aluno extends Pessoa {
         return true;
     }
      
-    public static long Create(String pNome,String uNome, ZonedDateTime nascimento) {
+    public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento) {
     	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
     	addAluno(nAluno);
-    	return nAluno.getID();
+    	return nAluno;
     }
 	
-    public static long Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+    public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, Entity turma, boolean active) {
     	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, turma, active);
     	addAluno(nAluno);
-    	return nAluno.getID();
+    	return nAluno;
     }
 
 
     // -- beginning of non static fields
     // -- vars
     private int ano;
-    private long turma;
+    private Entity turma;
     private boolean active;
-    private ArrayList<Long/*Disciplinas*/> notas;
+    private ArrayList<Entity/*Disciplinas*/> notas;
     private Map<ZonedDateTime/*time stamp*/,String> activity;
 
     // -- constructors
     public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
         super("Aluno", IDCount++, pNome, uNome, nascimento);
         ano = 0;
-		turma = 0;
-		active = false;
-		notas = new ArrayList<Long>();
+	turma =0;
+	active = false;
+	notas = new ArrayList<Entity>();
         activity = new HashMap<ZonedDateTime,String>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
-	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, long curso, long turma, boolean active) {
+	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, Entity turma, boolean active) {
 		super("Aluno", IDCount++, pNome, uNome, nascimento);
 		setAno(ano);
 		setCurso(curso);
 		setTurma(turma);
 		this.active = active;
-		notas = new ArrayList<Long>();
+		notas = new ArrayList<Entity>();
 		activity = new HashMap<ZonedDateTime,String>();
 		activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
 	}
@@ -71,7 +71,7 @@ public class Aluno extends Pessoa {
 		setCurso(aluno.getCurso().getID());
 		setTurma(aluno.getTurma().getID());
 		active = aluno.active;
-		notas = (ArrayList<Long>)aluno.notas.clone();
+		notas = (ArrayList<Entity>)aluno.notas.clone();
 		activity = new HashMap<ZonedDateTime,String>();
 		for (Map.Entry<ZonedDateTime,String> entry : aluno.activity.entrySet()) {
 			activity.put(entry.getKey(),entry.getValue());
@@ -89,7 +89,7 @@ public class Aluno extends Pessoa {
 		this.ano = ano;
 	}
 
-    public void setCurso(Long curso) throws IllegalArgumentException{
+    public void setCurso(Entity curso) throws IllegalArgumentException{
         if(Curso.getCursoFromID(curso)==null) {
 			System.out.println("Curso ID \"" + curso + "\" não foi encontrado.");
 			throw new IllegalArgumentException();
@@ -99,7 +99,7 @@ public class Aluno extends Pessoa {
 		this.curso = curso;
     }
 
-    public void setTurma(Long turma) throws IllegalArgumentException{
+    public void setTurma(Entity turma) throws IllegalArgumentException{
         if(Turma.getTurmaFromID(turma)!=null)
             this.turma = turma;
         else {
