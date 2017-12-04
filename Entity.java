@@ -4,6 +4,7 @@ import java.util.Map;
 public class Entity {
     // -- beginning of static fields
     // -- vars
+    private static Entity Zero;
     private static Map<String, String> groups; // group, groupID
     static {
         groups = new HashMap<String,String>();
@@ -17,6 +18,8 @@ public class Entity {
         groups.put("Teste","TST");
         groups.put("Turma","TRM");
         groups.put("Outro","???");
+
+        Zero = new Entity("???", 0);
     }
     // -- methods
     protected static String getGroupIDFromGroup(Object groupClass){
