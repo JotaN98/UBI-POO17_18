@@ -78,9 +78,9 @@ public class Aula extends Entity {
     public Aula(){
         super("Aula", IDCount++);
         this.hora=0;
-        this.prof=0;
-        this.disciplina=0;
-        this.turma=0;
+        this.prof=Entity.Zero;
+        this.disciplina=Entity.Zero;
+        this.turma=Entity.Zero;
         this.sala="";
     }
     //Clone constructor
