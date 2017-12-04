@@ -6,7 +6,7 @@ import java.util.Map;
 public class Turma extends Entity{
     // -- beginning of static fields
     // -- vars
-    private static long IDCount = 0;
+    private static long IDCount = 1;
     
     private static Map<String, Turma> turma = new HashMap<String, Turma>();
     

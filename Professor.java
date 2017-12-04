@@ -52,10 +52,12 @@ public class Professor extends Pessoa{
     // -- methods
     //Only called by Turma
     public void addAula(Entity aula) throws IllegalArgumentException{
-        if(Aula.getAulaFromID(aula)==null){ System.out.println("Aula ID" + aula +" não existe");
-            throw new IllegalArgumentException();}
+        if(Aula.getAulaFromID(aula)==null){ 
+        	System.out.println("Aula ID" + aula +" N�o existe");
+            throw new IllegalArgumentException();
+        }
         if(aulas.contains(aula)){
-            System.out.println("Já foi atribuida a aula ao professor " + getID());
+            System.out.println("J� foi atribuida a aula ao professor " + getID());
             throw new IllegalArgumentException();
         }
         aulas.add(aula);

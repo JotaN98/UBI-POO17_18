@@ -8,7 +8,8 @@ public class Aula extends Entity {
     // -- beginning of static fields
     // -- vars
     private static final Map<String, Aula> aulas = new HashMap<String, Aula>();
-    private static long IDCount = 0;
+    
+    private static long IDCount = 1;
     private static ArrayList<String> ConversorHoras;
     private static ArrayList<String> ConversorDiaDaSemana;
     
@@ -23,7 +24,7 @@ public class Aula extends Entity {
         
         ConversorDiaDaSemana= new ArrayList<String>();
         ConversorDiaDaSemana.add("Segunda-feira");
-        ConversorDiaDaSemana.add("Terça-feira");
+        ConversorDiaDaSemana.add("Ter�a-feira");
         ConversorDiaDaSemana.add("Quarta-feira");
         ConversorDiaDaSemana.add("Quinta-feira");
         ConversorDiaDaSemana.add("Sexta-feira");
