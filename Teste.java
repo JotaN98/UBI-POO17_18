@@ -10,12 +10,12 @@ public class Teste extends Entity{
     
     private static Map<String, Teste> testes = new HashMap<String, Teste>();
     
-    public static Teste getTesteFromID(long ID){
+    public static Teste getTesteFromID(Entity ID){
         return testes.get(Entity.getGroupIDFromGroup("Teste") + ID);
     }
        
     public static boolean addTeste(Teste x){
-        if(getTesteFromID(x.getID()) != null){
+        if(getTesteFromID((Entity)x) != null){
             System.out.println("Teste existente");
             return false;
         }
@@ -23,41 +23,36 @@ public class Teste extends Entity{
         return true;
     }
      
-    public static Teste Create(/*TEM DE SE METER*/) {
-    	Teste nTeste = new Teste(/*TEM DE SE METER*/);
-    	addProfessor(nTeste);
+    public static Teste Create(Entity aula,ZonedDateTime data) {
+    	Teste nTeste = new Teste(aula,data);
+    	addTeste(nTeste);
     	return nTeste;
     }
-	
-    public static Teste Create(/*TEM DE SE METER*/) {
-    	Teste nTeste = new Teste(/*TEM DE SE METER*/);
-    	addProfessor(nTeste);
-    	return nTeste;
-    }
-    private Map<Long/*ID*/,Long/*Valor da nota*/> notas;
+
+    private Map<Entity/*ID*/,Entity/*Valor da nota*/> notas;
     private ZonedDateTime data;
-    private long aula;
+    private Entity aula;
     
     //contrutores
     public Teste(){
         super("Teste",IDCount++);
-        aula=0;
+        aula=Entity.Zero;
         data=ZonedDateTime.now();
-        notas=new HashMap<Long,Long>();
+        notas=new HashMap<Entity,Entity>();
 
     }
-    public Teste(Long aula,ZonedDateTime data){
+    public Teste(Entity aula,ZonedDateTime data){
         super("Teste",IDCount++);
         this.aula=aula;
         this.data=data;
-        notas=new HashMap<Long,Long>();
+        notas=new HashMap<Entity,Entity>();
     }
     public Teste(Teste teste){
         super("Teste",teste.getID());
         this.aula=teste.getAula();
         this.data=teste.getData();
-        notas = new HashMap<Long,Long>();
-		for (Map.Entry<Long,Long> entry : teste.notas.entrySet()) {
+        notas = new HashMap<Entity,Entity>();
+		for (Map.Entry<Entity,Entity> entry : teste.notas.entrySet()) {
 			notas.put(entry.getKey(),entry.getValue());
         }
     }
@@ -67,10 +62,10 @@ public class Teste extends Entity{
     public ZonedDateTime getData() {
         return data;
     }
-    public void setAula(long aula){
+    public void setAula(Entity aula){
         this.aula=aula;
     }
-    public long getAula(){
+    public Entity getAula(){
         return aula;
     }
 }
