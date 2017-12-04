@@ -2,6 +2,7 @@
 1. Nunca chamarás o construtor das classes, chamarás o Create().
 3. Não criarás aulas a não ser que sejas pelas turmas.
 3. Não defenirás a turma de um aluno, defenirás vários alunos a cada turma.
+4. Nunca usem usem a função clone de nenhuma classe.
 
 
 # Classes
