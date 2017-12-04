@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Curso extends Entity {
 	// -- beginning of static fields
         // -- vars
-    private static long IDCount = 0;
+    private static long IDCount = 1;
     
 
     private static Map<String, Curso> cursos = new HashMap<String, Curso>();

@@ -6,7 +6,7 @@ import java.util.Map;
 public class Aluno extends Pessoa {
     // -- beginning of static fields
     // -- vars
-    private static long IDCount = 0;
+    private static long IDCount = 1;
     
     private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
     

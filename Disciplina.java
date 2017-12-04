@@ -6,7 +6,7 @@ public class Disciplina extends Entity{
 	
 	// -- beginning of static fields
     // -- vars
-    private static long IDCount;
+    private static long IDCount = 1;
     
     private static Map<String, Disciplina> disciplina = new HashMap<String, Disciplina>();
     
