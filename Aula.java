@@ -30,12 +30,12 @@ public class Aula extends Entity {
     }
     
             
-    public static Aula getAulaFromID(long ID){
+    public static Aula getAulaFromID(Entity ID){
         return aulas.get(Entity.getGroupIDFromGroup("Aula") + ID );
     }
     
     public static boolean addAula(Aula x){
-        if(getAulaFromID(x.getID())!=null){
+        if(getAulaFromID((Entity)x)!=null){
             System.out.println("Aula já em vigor");
             return false;
         }
@@ -43,30 +43,31 @@ public class Aula extends Entity {
         return true;
     }
    
-    public static long Create(int hora, long prof, long disciplina, long turma, String sala){
-        Aula nAula = new Aula(hora, prof, disciplina, turma, sala);
+    public static Entity Create(int hora, int DiaDaSemana, Entity prof, Entity disciplina, Entity turma, String sala){
+        Aula nAula = new Aula(hora, DiaDaSemana, prof, disciplina, turma, sala);
         addAula(nAula);
-        return nAula.getID();
+        return nAula;
     }
     
-    public static long Create(){
+    public static Entity Create(){
         Aula nAula = new Aula();
         addAula(nAula);
-        return nAula.getID();
+        return nAula;
     }
     // -- beginning of non static fields
     // -- vars
     private int hora;
     private int DiaDaSemana;
-    private long prof;
-    private long disciplina;
-    private long turma;
+    private Entity prof;
+    private Entity disciplina;
+    private Entity turma;
     private String sala;
     
      // -- constructors
-    public Aula(int hora, long prof, long disciplina, long turma, String sala){
+    public Aula(int hora, int DiaDaSemana, Entity prof, Entity disciplina, Entity turma, String sala){
         super("Aula", IDCount++);
         this.hora=hora;
+        this.DiaDaSemana=DiaDaSemana;
         this.prof=prof;
         this.disciplina=disciplina;
         this.turma=turma;
@@ -90,7 +91,7 @@ public class Aula extends Entity {
         this.turma=aula.getTurma();
         this.sala=aula.getSala();
     }
-    
+   
     // -- methods
     public int getHora() {
         return hora;
@@ -114,11 +115,11 @@ public class Aula extends Entity {
         this.DiaDaSemana = DiaDaSemana;
     }
 
-    public long getProfessor() {
+    public Entity getProfessor() {
         return prof;
     }
 
-    public void setProfessor(long prof) throws IllegalArgumentException {
+    public void setProfessor(Entity prof) throws IllegalArgumentException {
         if(Professor.getProfessorFromID(prof)!=null){
             this.prof=prof;
         }
@@ -128,11 +129,11 @@ public class Aula extends Entity {
         }
     }
 
-    public long getDisciplina() {
+    public Entity getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(long disciplina) throws IllegalArgumentException {
+    public void setDisciplina(Entity disciplina) throws IllegalArgumentException {
         if(Disciplina.getDisciplinaFromID(disciplina)!=null){
         this.disciplina = disciplina;
         }
@@ -142,11 +143,11 @@ public class Aula extends Entity {
         }
     }
 
-    public long getTurma() {
+    public Entity getTurma() {
         return turma;
     }
 
-    public void setTurma(long turma)throws IllegalArgumentException {
+    public void setTurma(Entity turma)throws IllegalArgumentException {
         if(Turma.getTurmaFromID(turma)!=null){
         this.turma = turma;
         }
@@ -186,7 +187,7 @@ public class Aula extends Entity {
     
     @Override
     public String toString() {
-        return getCodeID() + " Hora [" + hora + "] " + " Professor: "+ prof + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
+        return getCodeID() + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ prof + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
     }
     
 }
