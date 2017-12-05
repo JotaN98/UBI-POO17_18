@@ -66,6 +66,8 @@
 
 # Aspetos a melhorar
 * Sempre que alguém remove um objeto, ele na realidade continua na base de dados mas a apontar para o objeto 0 dessa class, no entanto fica a ocupar memória desnecessariamente. Uma maneira de corrigir isto era passar por todas os objetos que não foram removidos e limpar as referencias ao objeto removido, no fim, tirava-se o objeto removido da base de dados.
+
+
 ---
 ![Classes](https://gitlab.com/EI-UBI/POO/Projeto/raw/master/Guidelines/Classes.JPG "Classes")
 # Overview
