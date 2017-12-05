@@ -6,10 +6,14 @@ import java.util.Map;
 public class Aluno extends Pessoa {
     // -- beginning of static fields
     // -- vars
-    private static long IDCount = 1;
+    private static long IDCount = 0;
     
     private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
-    
+
+    static {
+    	Create("","",null);
+	}
+
     public static Aluno getAlunoFromID(Entity ID){
         return alunos.get(ID.getCodeID());
     }
@@ -34,6 +38,15 @@ public class Aluno extends Pessoa {
     	addAluno(nAluno);
     	return nAluno;
     }
+
+    public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
+		if(ID.getID() == 0) throw new NullPointerException("Objeto já foi removido");
+
+    	if(!alunos.containsKey(ID.getCodeID()))
+			throw new IllegalArgumentException("Aluno -" + ID.getCodeID() + "- não existe.");
+
+    	getAlunoFromID(ID).setID(0);
+	}
 
 
     // -- beginning of non static fields
@@ -81,7 +94,9 @@ public class Aluno extends Pessoa {
 	}
 
     // -- methods
-    public void setAno(int ano) throws IllegalArgumentException {
+    public void setAno(int ano) throws IllegalArgumentException, NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		if (ano < 10 || ano > 12) {
 			System.out.println("Ano não pode ser maior que 12 ou menor que 10");
 			throw new IllegalArgumentException();
@@ -91,7 +106,9 @@ public class Aluno extends Pessoa {
 		this.ano = ano;
 	}
 
-    public void setCurso(Entity curso) throws IllegalArgumentException{
+    public void setCurso(Entity curso) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
         if(Curso.getCursoFromID(curso)==null) {
 			System.out.println("Curso ID \"" + curso + "\" não foi encontrado.");
 			throw new IllegalArgumentException();
@@ -101,7 +118,9 @@ public class Aluno extends Pessoa {
 		this.curso = curso;
 	}
 
-    public void setTurma(Entity turma) throws IllegalArgumentException{
+    public void setTurma(Entity turma) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		if(Turma.getTurmaFromID(turma)!=null) {
 			activity.put(ZonedDateTime.now(),"Aluno mudou de "+this.turma+" para "+turma+".");
 			this.turma = turma;
@@ -112,7 +131,8 @@ public class Aluno extends Pessoa {
         }
     }
 
-	public void setActive(boolean active) {
+	public void setActive(boolean active) throws NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 		this.active = active;
 	}
 

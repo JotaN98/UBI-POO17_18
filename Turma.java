@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,19 +7,18 @@ public class Turma extends Entity{
     // -- vars
     private static long IDCount = 1;
     
-    private static Map<String, Turma> turma = new HashMap<String, Turma>();
+    private static Map<String, Turma> turmas = new HashMap<String, Turma>();
     
     public static Turma getTurmaFromID(Entity ID){
-        return turma.get(ID.getCodeID());
+        return turmas.get(ID.getCodeID());
     }
      
     
     public static void addTurma(Turma x) throws IllegalArgumentException{
         if(getTurmaFromID(x) != null){
-            System.out.println("Turma existente");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Turma existente");
         }
-        turma.put(x.getCodeID(), x);
+        turmas.put(x.getCodeID(), x);
     }
      
     public static Long Create() {
@@ -30,7 +27,7 @@ public class Turma extends Entity{
     	return nTurma.getID();
     }
 	
-    public static Long Create(String anoLetivo, String nome, int ano, long curso, long diretor) {
+    public static Long Create(String anoLetivo, String nome, int ano, Entity curso, Entity diretor) {
     	Turma nTurma = new Turma(anoLetivo,nome,ano,curso,diretor);
     	addTurma(nTurma);
     	return nTurma.getID();
@@ -59,14 +56,14 @@ public class Turma extends Entity{
 		nome = "";
 		ano = 0;
 		alunos = new ArrayList<Entity>();
-		curso = 0;
-		diretor = 0;
-		aulas = new ArrayList<Long>();
-		horario = new ArrayList<ArrayList<Long>>();
+		curso = Entity.Zero;
+		diretor = Entity.Zero;
+		aulas = new ArrayList<Entity>();
+		horario = new ArrayList<ArrayList<Entity>>();
 		for (int dds = 0; dds < 5; dds++){
-			horario.add(new ArrayList<Long>());
+			horario.add(new ArrayList<Entity>());
 			for (int hora = 0; hora < 10; hora++){
-				horario.get(dds).add(0l);
+				horario.get(dds).add(Entity.Zero);
 			}
 		}
 	}
@@ -103,13 +100,11 @@ public class Turma extends Entity{
 	public void addAluno(Entity aluno) throws IllegalArgumentException{
     	// check if aluno exists
     	if(Aluno.getAlunoFromID(aluno) == null) {
-			System.out.println("Aluno \""+ aluno +"\" não existe.");
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Aluno \""+ aluno +"\" não existe.");
 		}
-		//
+		// check if turma already has aluno
 		if(alunos.contains(aluno)){
-			System.out.println("Aluno \""+ aluno +"\" já faz parte da turma.");
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Aluno \""+ aluno +"\" já faz parte da turma.");
 		}
 		// check if aluno is already part of another class in current year
 		Entity turmaID = Aluno.getAlunoFromID(aluno).getTurma();
@@ -122,53 +117,50 @@ public class Turma extends Entity{
     public void removeAluno(Entity aluno) throws IllegalArgumentException{
     	// check of aluno is part of this class
 		if(!alunos.contains(aluno)){
-			System.out.println("Aluno \""+ aluno +"\" não faz parte da turma.");
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Aluno \""+ aluno +"\" não faz parte da turma.");
 		}
 
 		Aluno.getAlunoFromID(aluno).setTurma(Entity.Zero);
 		alunos.remove(aluno);
 	}
 
-	public void addAula(int diaDaSemana, int hora, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException {
-		if(diaDaSemana < 0 || diaDaSemana > 4) {
-			System.out.println("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
-			throw new IllegalArgumentException();
+	public void addAula(int hora, int diaDaSemana, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException {
+		// check if dia da semana e hora estão dentro
+    	if(diaDaSemana < 0 || diaDaSemana > 4) {
+			throw new IllegalArgumentException("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
 		}
-		if(hora<0 || hora>5) {
-			System.out.println("O horário de funcionamento é entre as 8 e as 18 horas");
-			throw new IllegalArgumentException();
+		if(hora<0 || hora>9) {
+			throw new IllegalArgumentException("O horário de funcionamento é entre as 8 e as 18 horas");
 		}
+
 		// check if prof exists
 		if(Professor.getProfessorFromID(prof) == null){
-			System.out.println("Professor \""+ prof +"\" não existe.");
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Professor \""+ prof +"\" não existe.");
 		}
+
 		// check if disciplina exists
 		if(Disciplina.getDisciplinaFromID(disciplina) == null){
-			System.out.println("Disciplina \""+ prof +"\" não existe.");
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Disciplina \""+ prof +"\" não existe.");
 		}
+
 		// check if sala is within possible salas
 		if(	Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas.get(0) != "todas" &&
 			!Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas.contains(sala)){
-				System.out.println("Sala \""+sala+"\" não pode ser atribuida à disciplina \""+disciplina"\".");
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("Sala \""+sala+"\" não pode ser atribuida à disciplina \""+disciplina+"\".");
 		}
 
-		Entity nAulaID;
-		try {
-			nAulaID = Aula.Create();
-		} catch (IllegalArgumentException e){/*erro está dentro da função*/}
+		// check if aula is already in horario
+		if(horario.get(diaDaSemana).get(hora).getID() != 0){
+			throw new IllegalArgumentException("Aula \""+ horario.get(diaDaSemana).get(hora) + "\" já existe.");
+		}
 
+		Entity nAulaID = Aula.Create(hora, diaDaSemana, prof, disciplina, this, sala);
 		try {
-			Professor.getProfessorFromID(prof).addAula(nAula);
+			Professor.getProfessorFromID(prof).addAula(nAulaID);
 		} catch (IllegalArgumentException e){
-			IDCount--;
-			DELETEAULA(nAulaID);
-		} // criar aula, ver se cabe no prof, se n#ao couber o que fazemos com a aula craiada ?
-		// Se criarmos uma aula e depois de alguma criarmos outra e queremos apagar a primeira ?
-
+			Aula.Remove(nAulaID);
+			throw e;
+		}
 	}
 
 	public String getAnoLetivo() {
@@ -185,7 +177,10 @@ public class Turma extends Entity{
 		this.nome = nome;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(int ano) throws IllegalArgumentException {
+    	if(ano < 10 || ano > 12)
+    		throw new IllegalArgumentException("Ano tem que ser entre 10 e 12.");
+
 		this.ano = ano;
 	}
 	public int getAno() {
@@ -207,9 +202,8 @@ public class Turma extends Entity{
 		return curso;
 	}
 	public void setCurso(Entity curso) throws IllegalArgumentException {
-    	if(Curso.getCursoFromID(curso)==null){
-    		System.out.println("Curso \""+ curso +"\" não existe.");
-    		throw new IllegalArgumentException();
+    	if(Curso.getCursoFromID(curso).getID() == 0){
+    		throw new IllegalArgumentException("Curso \""+ curso +"\" não existe.");
 		}
 
 		this.curso = curso;
@@ -219,10 +213,9 @@ public class Turma extends Entity{
 		return diretor;
 	}
 	public void setDiretor(Entity diretor) {
-		if(Professor.getProfessorFromID(diretor)==null){
-			System.out.println("Professor \""+ curso +"\" não existe.");
-			throw new IllegalArgumentException();
-		}
+		if(Professor.getProfessorFromID(diretor).getID() == 0)
+			throw new IllegalArgumentException("Professor -\""+ diretor.getCodeID() +"-\" não existe.");
+
 		this.diretor = diretor;
 	}
 
