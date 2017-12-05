@@ -4,7 +4,7 @@ import java.util.Map;
 public class Nota extends Entity{
 	// -- beginning of static fields
     // -- vars
-    private static long IDCount = 0;
+    private static long IDCount = 1;
     
     private static Map<String, Nota> nota = new HashMap<String, Nota>();
     
@@ -22,21 +22,17 @@ public class Nota extends Entity{
         return true;
     }
      
-    public static Nota Create(/*TEM DE SE METER*/) {
-    	Nota nNota = new Nota(/*TEM DE SE METER*/);
+    public static Nota Create(Aluno aluno) {
+    	Nota nNota = new Nota(aluno);
     	addNota(nNota);
     	return nNota;
     }
 	
-    public static Nota Create(/*TEM DE SE METER*/) {
-    	Nota nNota = new Nota(/*TEM DE SE METER*/);
+    public static Nota Create(Aluno aluno,double valor) {
+    	Nota nNota = new Nota(aluno,valor);
     	addNota(nNota);
     	return nNota;
     }
-
-    
-    
-    
     // -- beginning of non static fields
     // -- vars
     private Aluno aluno;

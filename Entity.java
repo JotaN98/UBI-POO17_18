@@ -4,7 +4,7 @@ import java.util.Map;
 public class Entity {
     // -- beginning of static fields
     // -- vars
-    private static Entity Zero;
+    public static Entity Zero;
     private static Map<String, String> groups; // group, groupID
     static {
         groups = new HashMap<String,String>();
