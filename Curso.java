@@ -16,9 +16,8 @@ public class Curso extends Entity {
     }
             
     public static void addCurso(Curso x) throws IllegalArgumentException{
-        if(getCursoFromID(x) != null){
-            System.out.println("Curso existente");
-            throw new IllegalArgumentException();
+        if(getCursoFromID(x).getID() != 0){
+            throw new IllegalArgumentException("Curso existente");
         }
         cursos.put(x.getCodeID(), x);
     }
@@ -51,13 +50,40 @@ public class Curso extends Entity {
         disciplinas=(ArrayList<Entity>)curso.disciplinas.clone();
         this.diretor=curso.getDiretor();
     }
-    public void setAtivo(boolean ativo){
+    public void addDisciplina(Entity disciplina) throws IllegalArgumentException, NullPointerException{
+	
+        if(this.getID()==0){
+            throw new NullPointerException("Foi apagado");
+        }
+        if(Disciplina.getDisciplinaFromID(disciplina).getID()==0){
+            throw new NullPointerException("Nao existe");
+        }
+        if(disciplinas.contains(disciplina)){
+            throw new IllegalArgumentException("Disciplina ja adicionada");
+        }
+        disciplinas.add(disciplina);
+    }
+    public void removeDisciplina(Entity disciplina)throws IllegalArgumentException, NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
+        if(disciplina.getID()==0)
+            throw new NullPointerException("Objeto nao encontrado ou apagado");
+        if(!disciplinas.contains(disciplina))
+            throw new NullPointerException("Disciplina "+disciplina+" nao faz parte");
+        Disciplina.getDisciplinaFromID(disciplina)
+        
+    }
+    public void setAtivo(boolean ativo)throws NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
         this.ativo=ativo;
     }
     public boolean getAtivo(){
         return ativo;
     }
-    public void setNome(String nome) {
+    public void setNome(String nome)throws NullPointerException {
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
 	this.nome = nome;
     }
     public String getNome() {
@@ -69,7 +95,9 @@ public class Curso extends Entity {
     public Entity getDiretor(){
         return diretor;
     }
-    public void setDiretor(Entity diretor){
+    public void setDiretor(Entity diretor)throws NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
         this.diretor=diretor;
     }
     @Override
@@ -87,4 +115,10 @@ public class Curso extends Entity {
     public Object clone(){
         return new Curso(this);
     }
+
+    @Override
+    public String toString() {
+        return  "nome=" + nome + "ID"+ getCodeID();
+    }
+    
 }
