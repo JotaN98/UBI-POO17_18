@@ -5,32 +5,40 @@ import java.util.Map;
 public class Turma extends Entity{
     // -- beginning of static fields
     // -- vars
-    private static long IDCount = 1;
+    private static long IDCount = 0;
     
     private static Map<String, Turma> turmas = new HashMap<String, Turma>();
-    
+
+    static {
+    	// Turma null
+    	Create();
+	}
+
     public static Turma getTurmaFromID(Entity ID){
-        return turmas.get(ID.getCodeID());
+        return turmas.getOrDefault(
+        		ID.getCodeID(),
+				turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
+		);
     }
      
     
-    public static void addTurma(Turma x) throws IllegalArgumentException{
-        if(getTurmaFromID(x) != null){
-            throw new IllegalArgumentException("Turma existente");
+    public static void addTurma(Turma x) throws NullPointerException{
+        if(getTurmaFromID(x).getID() == 0){
+            throw new NullPointerException("Turma nãoexistente");
         }
         turmas.put(x.getCodeID(), x);
     }
      
-    public static Long Create() {
+    public static Entity Create() {
     	Turma nTurma = new Turma();
     	addTurma(nTurma);
-    	return nTurma.getID();
+    	return nTurma;
     }
 	
-    public static Long Create(String anoLetivo, String nome, int ano, Entity curso, Entity diretor) {
+    public static Entity Create(String anoLetivo, String nome, int ano, Entity curso, Entity diretor) {
     	Turma nTurma = new Turma(anoLetivo,nome,ano,curso,diretor);
     	addTurma(nTurma);
-    	return nTurma.getID();
+    	return nTurma;
     }
 
 
@@ -84,8 +92,8 @@ public class Turma extends Entity{
 			}
 		}
 	}
-	public Turma(Turma turma) throws IllegalArgumentException{
-		super("Turma", turma.getID());
+	public Turma(Turma turma){
+		super("Turma", IDCount++);
 		this.anoLetivo = turma.anoLetivo;
 		this.nome = turma.nome;
 		this.ano = turma.ano;
@@ -97,10 +105,12 @@ public class Turma extends Entity{
 	}
 
 	// -- methods
-	public void addAluno(Entity aluno) throws IllegalArgumentException{
-    	// check if aluno exists
-    	if(Aluno.getAlunoFromID(aluno) == null) {
-			throw new IllegalArgumentException("Aluno \""+ aluno +"\" não existe.");
+	public void addAluno(Entity aluno) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		// check if aluno exists
+    	if(Aluno.getAlunoFromID(aluno).getID() == 0) {
+			throw new NullPointerException("Aluno \""+ aluno +"\" não existe.");
 		}
 		// check if turma already has aluno
 		if(alunos.contains(aluno)){
@@ -114,7 +124,12 @@ public class Turma extends Entity{
 		Aluno.getAlunoFromID(aluno).setTurma(this);
 		alunos.add(aluno);
     }
-    public void removeAluno(Entity aluno) throws IllegalArgumentException{
+    public void removeAluno(Entity aluno) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		// check if aluno exists
+		if(aluno.getID() == 0)
+			throw new NullPointerException("Objeto não encontrado ou apagado.");
     	// check of aluno is part of this class
 		if(!alunos.contains(aluno)){
 			throw new IllegalArgumentException("Aluno \""+ aluno +"\" não faz parte da turma.");
@@ -124,7 +139,9 @@ public class Turma extends Entity{
 		alunos.remove(aluno);
 	}
 
-	public void addAula(int hora, int diaDaSemana, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException {
+	public void addAula(int hora, int diaDaSemana, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException, NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		// check if dia da semana e hora estão dentro
     	if(diaDaSemana < 0 || diaDaSemana > 4) {
 			throw new IllegalArgumentException("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
@@ -166,18 +183,24 @@ public class Turma extends Entity{
 	public String getAnoLetivo() {
 		return anoLetivo;
 	}
-	public void setAnoLetivo(String anoLetivo) {
+	public void setAnoLetivo(String anoLetivo) throws  NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		this.anoLetivo = anoLetivo;
 	}
 
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
+	public void setNome(String nome) throws NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		this.nome = nome;
 	}
 
-	public void setAno(int ano) throws IllegalArgumentException {
+	public void setAno(int ano) throws IllegalArgumentException, NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
     	if(ano < 10 || ano > 12)
     		throw new IllegalArgumentException("Ano tem que ser entre 10 e 12.");
 
@@ -190,20 +213,26 @@ public class Turma extends Entity{
 	public ArrayList<Entity> getAlunos() {
 		return (ArrayList<Entity>)alunos.clone();
 	}
-	public void setAlunos(ArrayList<Entity> alunos) {
+	public void setAlunos(ArrayList<Entity> alunos) throws  NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		for (Entity aluno : alunos){
 			try {
 				addAluno(aluno);
-			} catch (IllegalArgumentException e){/*O erro é mostrado dentro da função addAluno*/}
+			} catch (IllegalArgumentException e){
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
 	public Entity getCurso() {
 		return curso;
 	}
-	public void setCurso(Entity curso) throws IllegalArgumentException {
+	public void setCurso(Entity curso) throws NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
     	if(Curso.getCursoFromID(curso).getID() == 0){
-    		throw new IllegalArgumentException("Curso \""+ curso +"\" não existe.");
+    		throw new NullPointerException("Curso não existe ou foi apagado.");
 		}
 
 		this.curso = curso;
@@ -212,12 +241,41 @@ public class Turma extends Entity{
 	public Entity getDiretor() {
 		return diretor;
 	}
-	public void setDiretor(Entity diretor) {
+	public void setDiretor(Entity diretor) throws NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		if(Professor.getProfessorFromID(diretor).getID() == 0)
-			throw new IllegalArgumentException("Professor -\""+ diretor.getCodeID() +"-\" não existe.");
+			throw new IllegalArgumentException("Professor não existe ou foi apagado.");
 
 		this.diretor = diretor;
 	}
 
 
+	// -- method overrides
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj.getClass() == getClass()) {
+			Turma nObj = (Turma)obj;
+
+			return 	super.equals(obj) &&
+					anoLetivo == nObj.anoLetivo &&
+					nome == nObj.nome &&
+					nObj.alunos.equals(alunos) &&
+					nObj.curso.equals(curso) &&
+					nObj.diretor.equals(diretor) &&
+					nObj.aulas.equals(aulas) &&
+					nObj.horario.equals(horario);
+		}
+		return false;
+	}
+
+	@Override
+	protected Object clone() {
+		return new Turma(this);
+	}
+
+	@Override
+	public String toString() {
+		return getCodeID() +": " + getNome();
+	}
 }
