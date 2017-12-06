@@ -23,8 +23,8 @@ public class Turma extends Entity{
      
     
     public static void addTurma(Turma x) throws NullPointerException{
-        if(getTurmaFromID(x).getID() == 0){
-            throw new NullPointerException("Turma nãoexistente");
+        if(getTurmaFromID(x).getID() != 0){
+            throw new NullPointerException("Turma já foi adicionada.");
         }
         turmas.put(x.getCodeID(), x);
     }
@@ -68,9 +68,9 @@ public class Turma extends Entity{
 		diretor = Entity.Zero;
 		aulas = new ArrayList<Entity>();
 		horario = new ArrayList<ArrayList<Entity>>();
-		for (int dds = 0; dds < 5; dds++){
+		for (int dds = 0; dds < Aula.ConversorDiaDaSemana.size(); dds++){
 			horario.add(new ArrayList<Entity>());
-			for (int hora = 0; hora < 10; hora++){
+			for (int hora = 0; hora < Aula.ConversorHoras.size(); hora++){
 				horario.get(dds).add(Entity.Zero);
 			}
 		}
@@ -85,9 +85,9 @@ public class Turma extends Entity{
 		alunos = new ArrayList<Entity>();
 		aulas = new ArrayList<Entity>();
 		horario = new ArrayList<ArrayList<Entity>>();
-		for (int dds = 0; dds < 5; dds++){
+		for (int dds = 0; dds < Aula.ConversorDiaDaSemana.size(); dds++){
 			horario.add(new ArrayList<Entity>());
-			for (int hora = 0; hora < 10; hora++){
+			for (int hora = 0; hora < Aula.ConversorHoras.size(); hora++){
 				horario.get(dds).add(Entity.Zero);
 			}
 		}
@@ -143,10 +143,10 @@ public class Turma extends Entity{
 		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
 		// check if dia da semana e hora estão dentro
-    	if(diaDaSemana < 0 || diaDaSemana > 4) {
+    	if(diaDaSemana < 0 || diaDaSemana >= Aula.ConversorDiaDaSemana.size()) {
 			throw new IllegalArgumentException("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
 		}
-		if(hora<0 || hora>9) {
+		if(hora<0 || hora >= Aula.ConversorHoras.size()) {
 			throw new IllegalArgumentException("O horário de funcionamento é entre as 8 e as 18 horas");
 		}
 
@@ -178,6 +178,9 @@ public class Turma extends Entity{
 			Aula.Remove(nAulaID);
 			throw e;
 		}
+
+		// update horario
+		horario.get(diaDaSemana).set(hora,nAulaID);
 	}
 
 	public String getAnoLetivo() {
