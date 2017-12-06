@@ -103,7 +103,7 @@ public class Professor extends Pessoa{
         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
         //check if Professor can teach Disciplina
-        if(!Disciplina.getProfessores().contains(this)){
+        if(!Disciplina.getDisciplinaFromID(nAula.getDisciplina()).getProfessores().contains(this)){
             throw new IllegalArgumentException("O professor ID -"+getCodeID()+"- não pode dar esta Disciplina.");
         }
         

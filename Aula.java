@@ -14,6 +14,7 @@ public class Aula extends Entity {
     protected static ArrayList<String> ConversorDiaDaSemana;
     
     static{
+    	// aula null
         Create();
     }
     
@@ -67,8 +68,15 @@ public class Aula extends Entity {
         if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
         if(!aulas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Aula -"+ID.getCodeID()+"- não existe.");  
-            
-        getAulaFromID(ID).setID(0);
+
+        try {
+        	Disciplina.getDisciplinaFromID(ID).removeAula(ID);
+		} catch(IllegalArgumentException | NullPointerException e){
+        	System.out.println(e.getMessage());
+		}
+
+
+		getAulaFromID(ID).setID(0);
     }
     
     // -- beginning of non static fields
@@ -199,7 +207,7 @@ public class Aula extends Entity {
         if(obj != null && obj.getClass()==getClass()){
             Aula nObj = (Aula) obj;
             
-            return super.equals(obj) 
+            return super.equals(nObj)
                     && hora == nObj.hora
                     && prof == nObj.prof
                     && disciplina == nObj.disciplina

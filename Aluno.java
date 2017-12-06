@@ -96,7 +96,32 @@ public class Aluno extends Pessoa {
 	}
 
     // -- methods
-    public void setAno(int ano) throws IllegalArgumentException, NullPointerException {
+	public void addNota(Entity nota) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		Nota rNota = Nota.getNotaFromID(nota);
+		if(rNota.getID() == 0)
+			throw new IllegalArgumentException("Nota não existe ou foi apagada.");
+
+		// check if nota belongs to student
+		if(!Aula.getAulaFromID(Teste.getTesteFromID(rNota.getTeste()).getAula()).getTurma().equals(turma))
+			throw new IllegalArgumentException("Aluno não tem o teste -" + rNota.getTeste() +"-.");
+
+		notas.add(nota);
+	}
+	public void removeNota(Entity nota) throws NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		if(Nota.getNotaFromID(nota).getID() == 0)
+			throw new IllegalArgumentException("Nota não existe ou foi apagada.");
+
+		if(notas.contains(nota))
+			throw new IllegalArgumentException("O Aluno não tem a nota -"+nota+"-.");
+
+		notas.remove(nota);
+	}
+
+	public void setAno(int ano) throws IllegalArgumentException, NullPointerException {
 		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
 		if (ano < 10 || ano > 12) {
@@ -111,7 +136,7 @@ public class Aluno extends Pessoa {
     public void setCurso(Entity curso) throws IllegalArgumentException, NullPointerException{
 		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
-        if(Curso.getCursoFromID(curso)==null) {
+        if(Curso.getCursoFromID(curso).getID() == 0) {
 			System.out.println("Curso ID \"" + curso + "\" não foi encontrado.");
 			throw new IllegalArgumentException();
 		}
@@ -123,7 +148,7 @@ public class Aluno extends Pessoa {
     public void setTurma(Entity turma) throws IllegalArgumentException, NullPointerException{
 		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
-		if(Turma.getTurmaFromID(turma)!=null) {
+		if(Turma.getTurmaFromID(turma).getID() != 0) {
 			activity.put(ZonedDateTime.now(),"Aluno mudou de "+this.turma+" para "+turma+".");
 			this.turma = turma;
 		}

@@ -41,7 +41,22 @@ public class Turma extends Entity{
     	return nTurma;
     }
 
+	public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
 
+		if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+
+		if(!turmas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Aula -"+ID.getCodeID()+"- não existe.");
+
+		for(Entity aula : getTurmaFromID(ID).aulas){
+			try {
+				Aula.Remove(aula);
+			} catch (IllegalArgumentException | NullPointerException e){
+				System.out.println(e.getMessage());
+			}
+		}
+
+		getTurmaFromID(ID).setID(0);
+	}
     
     
     
@@ -151,18 +166,18 @@ public class Turma extends Entity{
 		}
 
 		// check if prof exists
-		if(Professor.getProfessorFromID(prof) == null){
+		if(Professor.getProfessorFromID(prof).getID() == 0){
 			throw new IllegalArgumentException("Professor \""+ prof +"\" não existe.");
 		}
 
 		// check if disciplina exists
-		if(Disciplina.getDisciplinaFromID(disciplina) == null){
+		if(Disciplina.getDisciplinaFromID(disciplina).getID() == 0){
 			throw new IllegalArgumentException("Disciplina \""+ prof +"\" não existe.");
 		}
 
 		// check if sala is within possible salas
-		if(	Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas.get(0) != "todas" &&
-			!Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas.contains(sala)){
+		if(Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas().get(0) != "todas" &&
+			!Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas().contains(sala)){
 				throw new IllegalArgumentException("Sala \""+sala+"\" não pode ser atribuida à disciplina \""+disciplina+"\".");
 		}
 
@@ -179,8 +194,27 @@ public class Turma extends Entity{
 			throw e;
 		}
 
+		// add aula to disciplina
+		Disciplina.getDisciplinaFromID(disciplina).addAula(nAulaID);
+		try {
+			Disciplina.getDisciplinaFromID(disciplina).addProfessor(prof);
+		} catch (IllegalArgumentException e){
+			// quando é adicionado uma aula onde o professor já faz parte dessa disciplina
+		}
+
 		// update horario
 		horario.get(diaDaSemana).set(hora,nAulaID);
+	}
+	public void removeAula(Entity ID) throws IllegalArgumentException, NullPointerException{
+		if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+
+		if(!aulas.contains(ID)){
+			throw new IllegalArgumentException("Aula -"+ID+"- não existe.");
+		}
+
+		aulas.remove(ID);
+
+		Aula.Remove(ID);
 	}
 
 	public String getAnoLetivo() {
