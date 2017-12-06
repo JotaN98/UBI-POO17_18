@@ -20,7 +20,7 @@ public class Professor extends Pessoa{
         return professor.getOrDefault(
                 ID.getCodeID(),
                 professor.get(Entity.getGroupFromID("Professor") + "0")
-              );
+        );
     }
      
     public static void addProfessor (Professor x) throws IllegalArgumentException{
@@ -156,7 +156,7 @@ public class Professor extends Pessoa{
         }
         
         //check if teste exists
-        if(Teste.getTesteFromID(teste)==null){
+        if(Teste.getTesteFromID(teste).getID()==0){
             throw new IllegalArgumentException("Teste -"+teste+"- não pode ser criado pelo professor-"+getCodeID()+"- porque não existe.");
         }
         

@@ -36,11 +36,13 @@ public class Aula extends Entity {
     
             
     public static Aula getAulaFromID(Entity ID){
-        return aulas.get(Entity.getGroupIDFromGroup("Aula") + ID );
+        return aulas.getOrDefault(
+                ID.getCodeID(),
+                aulas.get(Entity.getGroupIDFromGroup("Aula") + ID)
+        );
     }
     
     public static void addAula(Aula x)throws IllegalArgumentException{
-                
         if(getAulaFromID(x).getID()!= 0){
             throw new IllegalArgumentException("Objeto já existe.");
         }
@@ -92,11 +94,13 @@ public class Aula extends Entity {
     public Aula(){
         super("Aula", IDCount++);
         this.hora=0;
+        this.DiaDaSemana=0;
         this.prof=Entity.Zero;
         this.disciplina=Entity.Zero;
         this.turma=Entity.Zero;
         this.sala="";
     }
+    
     //Clone constructor
     public Aula(Aula aula){
         super("Aula", aula.getID());
@@ -114,7 +118,7 @@ public class Aula extends Entity {
 
     public void setHora(int hora) throws IllegalArgumentException, NullPointerException {
         
-        if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
         if( hora<0 || hora>5){
                 throw new IllegalArgumentException("O horário de funcionamento é entre as 8 e as 18 horas");}
@@ -127,7 +131,7 @@ public class Aula extends Entity {
     
     public void setDiaDaSemana(int DiaDaSemana) throws IllegalArgumentException, NullPointerException{
         
-         if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
+         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
          
         if( DiaDaSemana<0 || DiaDaSemana>5){
             throw new IllegalArgumentException("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");}
@@ -140,9 +144,9 @@ public class Aula extends Entity {
 
     public void setProfessor(Entity prof) throws IllegalArgumentException, NullPointerException{
         
-         if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
-        if(Professor.getProfessorFromID(prof)!=null){
+        if(Professor.getProfessorFromID(prof).getID()!=0){
             this.prof=prof;
         }
         else{
@@ -158,7 +162,7 @@ public class Aula extends Entity {
         
          if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
         
-        if(Disciplina.getDisciplinaFromID(disciplina)!=null){
+        if(Disciplina.getDisciplinaFromID(disciplina).getID()!=0){
         this.disciplina = disciplina;
         }
         else{
@@ -172,9 +176,9 @@ public class Aula extends Entity {
 
     public void setTurma(Entity turma)throws IllegalArgumentException, NullPointerException{
         
-         if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
+         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
-        if(Turma.getTurmaFromID(turma)!=null){
+        if(Turma.getTurmaFromID(turma).getID()!=0){
         this.turma = turma;
         }
         else{
@@ -186,10 +190,7 @@ public class Aula extends Entity {
         return sala;
     }
 
-    public void setSala(String sala) throws NullPointerException{
-        
-        if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
-        
+    public void setSala(String sala){      
         this.sala = sala;
     }
 
@@ -215,7 +216,7 @@ public class Aula extends Entity {
     
     @Override
     public String toString() {
-        return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ prof + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
+        return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ Professor.getProfessorFromID(prof) + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
     }
     
 }

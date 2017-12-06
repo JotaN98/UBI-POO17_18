@@ -2,83 +2,115 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Nota extends Entity{
-	// -- beginning of static fields
+    // -- beginning of static fields
     // -- vars
-    private static long IDCount = 1;
+    private static long IDCount = 0;
     
     private static Map<String, Nota> nota = new HashMap<String, Nota>();
     
-    public static Nota getNotaFromID(long ID){
-        return nota.get(Entity.getGroupIDFromGroup("Nota") + ID);
+    static{
+        Create();
     }
-     
     
-    public static boolean addNota(Nota x){
-        if(getNotaFromID(x.getID()) != null){
-            System.out.println("Nota existente");
-            return false;
+    public static Nota getNotaFromID(Entity ID){
+        return nota.getOrDefault(
+                ID.getCodeID(),
+                nota.get(Entity.getGroupIDFromGroup("Nota") + ID)
+        );
+    }
+      
+    public static void addNota(Nota x) throws IllegalArgumentException{
+        if(getNotaFromID(x).getID() != 0){
+            throw new IllegalArgumentException("Objeto já existe.");
         }
         nota.put(x.getCodeID(), x);
-        return true;
-    }
-     
-    public static Nota Create(Aluno aluno) {
-    	Nota nNota = new Nota(aluno);
-    	addNota(nNota);
-    	return nNota;
     }
 	
-    public static Nota Create(Aluno aluno,double valor) {
+    public static Entity Create(Entity aluno, double valor) {
     	Nota nNota = new Nota(aluno,valor);
     	addNota(nNota);
     	return nNota;
     }
+    
+    public static Entity Create(){
+        Nota nNota = new Nota();
+        addNota(nNota);
+        return nNota;
+    }
+    
+    public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
+        
+        if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if(!nota.containsKey(ID.getCodeID())) throw new IllegalArgumentException("Nota -"+ID.getCodeID()+"- não existe.");
+    
+        getNotaFromID(ID).setID(0);
+    }
+    
     // -- beginning of non static fields
     // -- vars
-    private Aluno aluno;
+    private Entity aluno;
     private double valor;
-    //construtores
-    public Nota(Aluno aluno,double valor){
+    
+    // -- constructors
+    public Nota(Entity aluno, double valor){
     	super("Nota", IDCount++);
     	this.aluno=aluno;
         this.valor=valor;
     }
-     public Nota(Aluno aluno){
+     public Nota(){
     	super("Nota", IDCount++);
-    	this.aluno=aluno;
+    	this.aluno=Entity.Zero;
         this.valor=0;
     }
+     
+    //Clone constructor
     public Nota(Nota nota){
     	super("Nota",nota.getID());
     	this.aluno=nota.getAluno();
         this.valor=nota.getValor();
     }
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-    public Aluno getAluno() {
+    
+    // -- methods
+    public Entity getAluno() {
         return aluno;
     }
+    
+    public void setAluno(Entity aluno) throws IllegalArgumentException, NullPointerException{
+        
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if(Aluno.getAlunoFromID(aluno).getID()!=0)  this.aluno = aluno;
+        
+        else throw new IllegalArgumentException("Aluno ID -"+aluno+"- não foi encontrado.");
+    }
+    
+        
     public double getValor() {
         return valor;
     }
-    public String toString() {
-        return "Nota{" + "aluno=" + aluno + ", valor=" + valor + '}';
+    
+    public void setValor(double valor){
+        this.valor = valor;
     }
+
     @Override
     public boolean equals(Object obj){
-        if(obj!=null && obj.getClass()==this.getClass()){
-            Nota x=(Nota) obj;
+        if(obj!=null && obj.getClass()==getClass()){
+            Nota nObj=(Nota) obj;
             
-            return(this.valor == x.valor && this.aluno.equals(x.aluno));
+           return super.equals(obj)
+                   && aluno == nObj.aluno
+                   && valor == nObj.valor;
         }
         return false;
     }
-        
+      
     public Object clone(){
         return new Nota(this);
-   }     
+   }  
+    
+    public String toString() {
+        return " -"+getCodeID()+"- "+" Aluno: " + Aluno.getAlunoFromID(aluno) + " Valor: " + valor;
+    }   
 }
