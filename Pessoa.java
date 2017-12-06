@@ -30,7 +30,7 @@ public class Pessoa extends Entity {
     }
 
 	public String getNome() {
-		return pNome + uNome;
+		return pNome + " " +  uNome;
 	}
     public String getPrimeiroNome() {
         return pNome;
