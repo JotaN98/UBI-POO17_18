@@ -91,7 +91,7 @@ public class Curso extends Entity {
     public ArrayList<Entity> getDisciplinas() {
         return disciplinas;
     }
-    public void setDisciplinas(ArrayList<Entity> disciplinas) throws IllegalArgumentException,NullPointerException{
+    public void addDisciplinas(ArrayList<Entity> disciplinas) throws IllegalArgumentException,NullPointerException{
         if(this.getID()==0)
             throw new NullPointerException("Objeto já foi removido");
 	for(Entity disciplina : disciplinas){
