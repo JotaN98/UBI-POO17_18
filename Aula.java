@@ -9,9 +9,13 @@ public class Aula extends Entity {
     // -- vars
     private static final Map<String, Aula> aulas = new HashMap<String, Aula>();
     
-    private static long IDCount = 1;
-    private static ArrayList<String> ConversorHoras;
-    private static ArrayList<String> ConversorDiaDaSemana;
+    private static long IDCount = 0;
+    protected static ArrayList<String> ConversorHoras;
+    protected static ArrayList<String> ConversorDiaDaSemana;
+    
+    static{
+        Create();
+    }
     
     //Initialize Hours and Days of the week converters
     static{
@@ -32,16 +36,17 @@ public class Aula extends Entity {
     
             
     public static Aula getAulaFromID(Entity ID){
-        return aulas.get(Entity.getGroupIDFromGroup("Aula") + ID );
+        return aulas.getOrDefault(
+                ID.getCodeID(),
+                aulas.get(Entity.getGroupIDFromGroup("Aula") + ID)
+        );
     }
     
-    public static boolean addAula(Aula x){
-        if(getAulaFromID((Entity)x)!=null){
-            System.out.println("Aula já em vigor");
-            return false;
+    public static void addAula(Aula x)throws IllegalArgumentException{
+        if(getAulaFromID(x).getID()!= 0){
+            throw new IllegalArgumentException("Objeto já existe.");
         }
         aulas.put(x.getCodeID(), x);
-        return true;
     }
    
     public static Entity Create(int hora, int DiaDaSemana, Entity prof, Entity disciplina, Entity turma, String sala){
@@ -55,6 +60,17 @@ public class Aula extends Entity {
         addAula(nAula);
         return nAula;
     }
+    
+     
+    public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
+        
+        if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if(!aulas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Aula -"+ID.getCodeID()+"- não existe.");  
+            
+        getAulaFromID(ID).setID(0);
+    }
+    
     // -- beginning of non static fields
     // -- vars
     private int hora;
@@ -78,11 +94,13 @@ public class Aula extends Entity {
     public Aula(){
         super("Aula", IDCount++);
         this.hora=0;
+        this.DiaDaSemana=0;
         this.prof=Entity.Zero;
         this.disciplina=Entity.Zero;
         this.turma=Entity.Zero;
         this.sala="";
     }
+    
     //Clone constructor
     public Aula(Aula aula){
         super("Aula", aula.getID());
@@ -98,10 +116,12 @@ public class Aula extends Entity {
         return hora;
     }
 
-    public void setHora(int hora) throws IllegalArgumentException {
-            if( hora<0 || hora>5){
-                System.out.println("O horário de funcionamento é entre as 8 e as 18 horas");
-                throw new IllegalArgumentException();}
+    public void setHora(int hora) throws IllegalArgumentException, NullPointerException {
+        
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if( hora<0 || hora>5){
+                throw new IllegalArgumentException("O horário de funcionamento é entre as 8 e as 18 horas");}
         this.hora = hora;
     }
     
@@ -109,10 +129,12 @@ public class Aula extends Entity {
         return DiaDaSemana;
     }
     
-    public void setDiaDaSemana(int DiaDaSemana){
+    public void setDiaDaSemana(int DiaDaSemana) throws IllegalArgumentException, NullPointerException{
+        
+         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+         
         if( DiaDaSemana<0 || DiaDaSemana>5){
-            System.out.println("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");
-            throw new IllegalArgumentException();}
+            throw new IllegalArgumentException("O período de aulas está compreendido entre Segunda-feira e Sexta-feira");}
         this.DiaDaSemana = DiaDaSemana;
     }
 
@@ -120,13 +142,15 @@ public class Aula extends Entity {
         return prof;
     }
 
-    public void setProfessor(Entity prof) throws IllegalArgumentException {
-        if(Professor.getProfessorFromID(prof)!=null){
+    public void setProfessor(Entity prof) throws IllegalArgumentException, NullPointerException{
+        
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if(Professor.getProfessorFromID(prof).getID()!=0){
             this.prof=prof;
         }
         else{
-            System.out.println("Professor ID \"" + prof + "\"não foi encontrado.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Professor ID -" + prof + "- não foi encontrado.");
         }
     }
 
@@ -134,13 +158,15 @@ public class Aula extends Entity {
         return disciplina;
     }
 
-    public void setDisciplina(Entity disciplina) throws IllegalArgumentException {
-        if(Disciplina.getDisciplinaFromID(disciplina)!=null){
+    public void setDisciplina(Entity disciplina) throws IllegalArgumentException, NullPointerException {
+        
+         if(this.getID()==0) throw new NullPointerException("Objeto já foi removida.");
+        
+        if(Disciplina.getDisciplinaFromID(disciplina).getID()!=0){
         this.disciplina = disciplina;
         }
         else{
-            System.out.println("Disciplina ID \"" + disciplina + "\" não foi encontrado.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Disciplina ID -" + disciplina + "- não foi encontrado.");
         }
     }
 
@@ -148,13 +174,15 @@ public class Aula extends Entity {
         return turma;
     }
 
-    public void setTurma(Entity turma)throws IllegalArgumentException {
-        if(Turma.getTurmaFromID(turma)!=null){
+    public void setTurma(Entity turma)throws IllegalArgumentException, NullPointerException{
+        
+         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+        
+        if(Turma.getTurmaFromID(turma).getID()!=0){
         this.turma = turma;
         }
         else{
-            System.out.println("Turma ID \"" + turma + "\" não foi encontrado.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Turma ID -" + turma + "- não foi encontrado.");
         }
     }
 
@@ -162,7 +190,7 @@ public class Aula extends Entity {
         return sala;
     }
 
-    public void setSala(String sala){
+    public void setSala(String sala){      
         this.sala = sala;
     }
 
@@ -188,7 +216,7 @@ public class Aula extends Entity {
     
     @Override
     public String toString() {
-        return getCodeID() + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ prof + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
+        return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ Professor.getProfessorFromID(prof) + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
     }
     
 }

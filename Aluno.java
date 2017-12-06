@@ -23,8 +23,8 @@ public class Aluno extends Pessoa {
     }
      
     public static void addAluno(Aluno x) throws NullPointerException{
-        if(getAlunoFromID(x).getID() == 0){
-            throw new NullPointerException("Aluno não existe ou foi removido.");
+        if(getAlunoFromID(x).getID() != 0){
+            throw new NullPointerException("Aluno já foi adicionada.");
         }
 		alunos.put(x.getCodeID(), x);
 	}
