@@ -6,34 +6,49 @@ import java.util.Map;
 public class Aluno extends Pessoa {
     // -- beginning of static fields
     // -- vars
-    private static long IDCount = 1;
+    private static long IDCount = 0;
     
     private static Map<String, Aluno> alunos = new HashMap<String, Aluno>();
-    
+
+    static {
+    	// Aluno null
+    	Create();
+	}
+
     public static Aluno getAlunoFromID(Entity ID){
-        return alunos.get(ID.getCodeID());
+        return alunos.getOrDefault(
+        		ID.getCodeID(),
+				alunos.get(Entity.getGroupIDFromGroup("Aluno") + "0")
+		);
     }
      
-    public static boolean addAluno(Aluno x){
-        if(getAlunoFromID(x) != null){
-            System.out.println("Aluno existente");
-            return false;
+    public static void addAluno(Aluno x) throws NullPointerException{
+        if(getAlunoFromID(x).getID() == 0){
+            throw new NullPointerException("Aluno não existe ou foi removido.");
         }
 		alunos.put(x.getCodeID(), x);
-		return true;
 	}
      
-    public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento) {
-    	Aluno nAluno = new Aluno(pNome, uNome,  nascimento);
+    public static Entity Create() {
+    	Aluno nAluno = new Aluno();
     	addAluno(nAluno);
     	return nAluno;
     }
 	
-    public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, Entity turma, boolean active) {
-    	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, turma, active);
+    public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, boolean active) {
+    	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, active);
     	addAluno(nAluno);
     	return nAluno;
     }
+
+    public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
+		if(ID.getID() == 0) throw new NullPointerException("Aluno não existe ou já foi removido.");
+
+    	if(!alunos.containsKey(ID.getCodeID()))
+			throw new IllegalArgumentException("Aluno -" + ID.getCodeID() + "- não existe.");
+
+    	getAlunoFromID(ID).setID(0);
+	}
 
 
     // -- beginning of non static fields
@@ -46,8 +61,8 @@ public class Aluno extends Pessoa {
     private Map<ZonedDateTime/*time stamp*/,String> activity;
 
     // -- constructors
-    public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
-        super("Aluno", IDCount++, pNome, uNome, nascimento);
+    public Aluno() {
+        super("Aluno", IDCount++, "", "", null);
         ano = 0;
 		turma = Entity.Zero;
 		curso = Entity.Zero;
@@ -56,11 +71,11 @@ public class Aluno extends Pessoa {
         activity = new HashMap<ZonedDateTime,String>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
-	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, Entity turma, boolean active) {
+	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, boolean active) {
 		super("Aluno", IDCount++, pNome, uNome, nascimento);
 		setAno(ano);
 		setCurso(curso);
-		setTurma(turma);
+		turma = Entity.Zero;
 		this.active = active;
 		notas = new ArrayList<Entity>();
 		activity = new HashMap<ZonedDateTime,String>();
@@ -68,7 +83,7 @@ public class Aluno extends Pessoa {
 	}
 	// Clone constructor
 	public Aluno(Aluno aluno) {
-		super("Aluno", aluno.getID(), aluno.getPrimeiroNome(), aluno.getUltimoNome(), aluno.getNascimento());
+		super("Aluno", IDCount++, aluno.getPrimeiroNome(), aluno.getUltimoNome(), aluno.getNascimento());
 		setAno(aluno.getAno());
 		setCurso(aluno.getCurso());
 		setTurma(aluno.getTurma());
@@ -81,7 +96,9 @@ public class Aluno extends Pessoa {
 	}
 
     // -- methods
-    public void setAno(int ano) throws IllegalArgumentException {
+    public void setAno(int ano) throws IllegalArgumentException, NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		if (ano < 10 || ano > 12) {
 			System.out.println("Ano não pode ser maior que 12 ou menor que 10");
 			throw new IllegalArgumentException();
@@ -91,7 +108,9 @@ public class Aluno extends Pessoa {
 		this.ano = ano;
 	}
 
-    public void setCurso(Entity curso) throws IllegalArgumentException{
+    public void setCurso(Entity curso) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
         if(Curso.getCursoFromID(curso)==null) {
 			System.out.println("Curso ID \"" + curso + "\" não foi encontrado.");
 			throw new IllegalArgumentException();
@@ -101,7 +120,9 @@ public class Aluno extends Pessoa {
 		this.curso = curso;
 	}
 
-    public void setTurma(Entity turma) throws IllegalArgumentException{
+    public void setTurma(Entity turma) throws IllegalArgumentException, NullPointerException{
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
 		if(Turma.getTurmaFromID(turma)!=null) {
 			activity.put(ZonedDateTime.now(),"Aluno mudou de "+this.turma+" para "+turma+".");
 			this.turma = turma;
@@ -112,7 +133,8 @@ public class Aluno extends Pessoa {
         }
     }
 
-	public void setActive(boolean active) {
+	public void setActive(boolean active) throws NullPointerException {
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 		this.active = active;
 	}
 
@@ -151,10 +173,8 @@ public class Aluno extends Pessoa {
 	}
 
 	@Override
-	public Object clone() { 
-    	if(ano == 0)   
-            return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento());
-	return new Aluno(getPrimeiroNome(),getUltimoNome(),getNascimento(),ano, curso, turma, active);
+	public Object clone() {
+		return new Aluno(this);
 	}
 
 	@Override
