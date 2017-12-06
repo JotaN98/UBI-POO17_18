@@ -37,6 +37,8 @@ public class Professor extends Pessoa{
     }
     
     public static Entity Create(){
+        Professor nProfessor = new Professor();
+        addProfessor(nProfessor);
         return new Professor();
     }
     
@@ -186,7 +188,7 @@ public class Professor extends Pessoa{
         for(int i=0; i<testes.size();i++){
             try{
                 this.addTeste(testes.get(i));}
-            catch(IllegalArgumentException Error){
+            catch(IllegalArgumentException | NullPointerException Error){
                 System.out.println(Error);
             }
         }
