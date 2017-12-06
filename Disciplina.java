@@ -1,3 +1,4 @@
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,58 +43,68 @@ public class Disciplina extends Entity{
     // -- beginning of non static fields
     // -- vars
     private String nome;
-    private int codigo;
     private int ano;
-    private ArrayList<Nota>notas;
-    private ArrayList<Professor> lecionadores;
+    private ArrayList<Entity/*Disciplinas*/> aulas;
+    private ArrayList<Entity/*Professores*/> professores;
+    private ArrayList<String> salas;
     
     
-    //Construtor
-    public Disciplina(String groupClass, long ID) throws IllegalArgumentException {
-		super(groupClass, ID);
-		IDCount++;
+ // -- constructors
+    public Disciplina(String pNome) {
+        super("Disciplina", IDCount++);
+        this.nome = pNome;
+        this.ano = 0;
+		aulas = new ArrayList<Entity>();
+		professores = new ArrayList<Entity>();
+    }
+	public Disciplina(String pNome, int ano) {
+		super("Disciplina", IDCount++);
+		this.nome = pNome;
+		this.ano = ano;	
 	}
-
-
+	// Clone constructor
+	public Disciplina(Disciplina disciplina) {
+		super("Disciplina", disciplina.getID());
+		setNome(disciplina.getNome());
+		setAno(disciplina.getAno());
+		setAulas(disciplina.getAulas());
+		setProfessores(disciplina.getProfessores());
+		setSalas(disciplina.getSalas());
+	}
+	
+	
+	
+	//Getters Setters
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public void setNotas(ArrayList<Nota> notas) {
-        this.notas = notas;
-    }
-
-    public void setLecionadores(ArrayList<Professor> lecionadores) {
-        this.lecionadores = lecionadores;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public void setCodigo(int ano) {
+        this.ano = ano;
     }
 
     public int getAno() {
         return ano;
     }
 
-    public ArrayList<Nota> getNotas() {
-        return notas;
+    public void setAulas(ArrayList<Entity> aulas){
+    	for(int i =0; i<aulas.size(); i++){
+    		this.aulas.add(aulas.get(i));
+    	}
+    }
+    
+    public Entity getAulas(Entity ID){
+    	return aulas.get(ID);
+    }
+    
+    public void addAula(Entity aulas) {
+        this.aulas.add(aulas);
     }
 
-    public ArrayList<Professor> getLecionadores() {
-        return lecionadores;
-    }
 
     public String toString() {
         return "Disciplina{" + "nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", notas=" + notas + ", lecionadores=" + lecionadores + '}';
