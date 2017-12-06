@@ -70,8 +70,7 @@ public class Curso extends Entity {
             throw new NullPointerException("Objeto nao encontrado ou apagado");
         if(!disciplinas.contains(disciplina))
             throw new NullPointerException("Disciplina "+disciplina+" nao faz parte");
-        Disciplina.getDisciplinaFromID(disciplina)
-        
+        disciplinas.remove(disciplina);
     }
     public void setAtivo(boolean ativo)throws NullPointerException{
         if(this.getID()==0)
@@ -91,6 +90,17 @@ public class Curso extends Entity {
     }
     public ArrayList<Entity> getDisciplinas() {
         return disciplinas;
+    }
+    public void setDisciplinas(ArrayList<Entity> disciplinas) throws IllegalArgumentException,NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
+	for(Entity disciplina : disciplinas){
+            try{
+                addDisciplina(disciplina);
+            }catch(NullPointerException | IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
     public Entity getDiretor(){
         return diretor;
