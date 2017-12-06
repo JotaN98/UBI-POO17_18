@@ -31,6 +31,11 @@ public class Nota extends Entity{
     	addNota(nNota);
     	return nNota;
     }
+    public static Entity Create(Entity aluno,double valor,Entity teste){
+        Nota nNota = new Nota(aluno,valor,teste);
+    	addNota(nNota);
+    	return nNota;
+    }
     
     public static Entity Create(){
         Nota nNota = new Nota();
@@ -51,12 +56,19 @@ public class Nota extends Entity{
     // -- vars
     private Entity aluno;
     private double valor;
+    private Entity teste;
     
     // -- constructors
     public Nota(Entity aluno, double valor){
     	super("Nota", IDCount++);
     	this.aluno=aluno;
         this.valor=valor;
+    }
+    public Nota(Entity aluno, double valor,Entity teste){
+    	super("Nota", IDCount++);
+    	this.aluno=aluno;
+        this.valor=valor;
+        this.teste=teste;
     }
      public Nota(){
     	super("Nota", IDCount++);
@@ -93,6 +105,19 @@ public class Nota extends Entity{
     public void setValor(double valor){
         this.valor = valor;
     }
+    public Entity getTeste(){
+        return teste;
+    }
+    public void setTeste(Entity teste)throws IllegalArgumentException, NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido.");
+        if(Teste.getTesteFromID(teste).getID()!=0){
+            this.teste=teste;
+        }
+        else
+            throw new IllegalArgumentException("Teste -"+teste+"- não foi encontrado.");    
+    }
+    
 
     @Override
     public boolean equals(Object obj){

@@ -104,6 +104,35 @@ public class Teste extends Entity{
     public Entity getAula(){
         return aula;
     }
-    
-    //Set e get para Notas
+    public void addNota(double valor,Entity aluno){
+        if(this.getID()==0)
+            throw new NullPointerException("Objecto ja foi removido");
+        if(valor<0 && valor>20)
+            throw new IllegalArgumentException("As notas estão compreendidas entre 0 e 20");
+        if(notas.containsKey(aluno))
+            throw new IllegalArgumentException("O aluno ja tem uma nota");
+        Entity notaNova = Nota.Create(aluno,valor);
+        try{
+            Aluno.getAlunoFromID(aluno).addNota(notaNova);
+        }catch(NullPointerException | IllegalArgumentException e){
+         notas.put(aluno, notaNova);
+        }
+    }
+    public void removeNota(double valor,Entity aluno,Entity teste) throws IllegalArgumentException, NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objecto ja foi removido");
+        if(aluno.getID()==0)
+            throw new NullPointerException("Objeto nao encontrado ou apagado");
+        if(teste.getID()==0)
+            throw new NullPointerException("Objeto nao encontrado ou apagado");
+        if(valor<0 && valor>20)
+            throw new IllegalArgumentException("As notas têm compreendidas entre 0 e 20");
+        if(notas.containsValue(valor))
+            throw new IllegalArgumentException("Essa nota não existe");
+        try{
+            notas.remove(aluno);
+        }catch(NullPointerException | IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
