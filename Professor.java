@@ -142,8 +142,8 @@ public class Professor extends Pessoa{
         for(int i=0; i<aulas.size();i++){
             try{
                 this.addAula(aulas.get(i));}
-            catch(IllegalArgumentException Error){
-                System.out.print(Error);
+            catch(NullPointerException | IllegalArgumentException Error){
+                System.out.println(Error.getMessage());
             }
         }
     }
