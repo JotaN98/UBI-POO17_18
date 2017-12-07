@@ -1,6 +1,7 @@
 # Regras de utilização
 1. Nunca chamarás o construtor das classes, chamarás o Create().
 3. Não criarás aulas a não ser que sejas pelas turmas.
+4. Não criarás turmas a não ser que seja pelos Cursos.
 3. Não defenirás a turma de um aluno, defenirás vários alunos a cada turma.
 4. Nunca usem a função clone de nenhuma classe.
 5. Primeiro criarás as disciplinas e só depois é que criarás os professores.
