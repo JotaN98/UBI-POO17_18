@@ -78,7 +78,7 @@ public class Nota extends Entity{
      
     //Clone constructor
     public Nota(Nota nota){
-    	super("Nota",nota.getID());
+    	super("Nota",IDCount++);
     	this.aluno=nota.getAluno();
         this.valor=nota.getValor();
     }

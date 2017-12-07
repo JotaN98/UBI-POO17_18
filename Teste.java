@@ -84,7 +84,7 @@ public class Teste extends Entity{
     
     //Clone constructor
     public Teste(Teste teste){
-        super("Teste",teste.getID());
+        super("Teste",IDCount++);
         this.aula=teste.getAula();
         this.data=teste.getData();
         notas = new HashMap<Entity,Entity>();

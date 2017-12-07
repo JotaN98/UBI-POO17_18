@@ -109,7 +109,7 @@ public class Aula extends Entity {
     
     //Clone constructor
     public Aula(Aula aula){
-        super("Aula", aula.getID());
+        super("Aula", IDCount++);
         this.hora=aula.getHora();
         this.prof=aula.getProfessor();
         this.disciplina=aula.getDisciplina();

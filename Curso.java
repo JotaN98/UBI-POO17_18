@@ -73,7 +73,7 @@ public class Curso extends Entity {
         this.diretor=Entity.Zero;
     }
     public Curso(Curso curso){
-    	super("Curso", curso.getID());
+    	super("Curso", IDCount++);
     	this.nome=curso.getNome();
         disciplinas=(ArrayList<Entity>)curso.disciplinas.clone();
         turmas=(ArrayList<Entity>)curso.turmas.clone();
