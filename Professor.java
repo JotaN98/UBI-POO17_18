@@ -14,7 +14,18 @@ public class Professor extends Pessoa{
     static{
         Create();
     }
-    
+
+    public static Map<String, Professor> getProfessores(){
+        return professores;
+    }
+
+    public static Professor getProfessorFromID(long ID){
+        return professor.getOrDefault(
+                Entity.getGroupFromID("Professor") + ID,
+                professor.get(Entity.getGroupFromID("Professor") + "0")
+        );
+    }
+
     public static Professor getProfessorFromID(Entity ID){
         return professor.getOrDefault(
                 ID.getCodeID(),

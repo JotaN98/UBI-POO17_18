@@ -37,7 +37,7 @@ public class Aula extends Entity {
     public static Aula getAulaFromID(Entity ID){
         return aulas.getOrDefault(
                 ID.getCodeID(),
-                aulas.get(Entity.getGroupIDFromGroup("Aula") + ID)
+                aulas.get(Entity.getGroupIDFromGroup("Aula") + "0")
         );
     }
     

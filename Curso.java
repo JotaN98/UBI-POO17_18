@@ -13,9 +13,23 @@ public class Curso extends Entity {
         // Curso null
         Create();
     }
-            
+
+    public static Map<String, Curso> getCursos(){
+        return cursos;
+    }
+
+    public static Curso getCursoFromID(long ID){
+		return cursos.getOrDefault(
+				Entity.getGroupFromID("Curso") + ID,
+				cursos.get(Entity.getGroupFromID("Curso") + "0")
+		);
+	}
+
     public static Curso getCursoFromID(Entity ID){
-        return cursos.get(ID.getCodeID());
+        return cursos.getOrDefault(
+        		ID.getCodeID(),
+				cursos.get(Entity.getGroupIDFromGroup("Curso") + "0")
+		);
     }
             
     public static void addCurso(Curso x) throws IllegalArgumentException{
@@ -41,14 +55,14 @@ public class Curso extends Entity {
         if(!cursos.containsKey(ID.getCodeID()))
             throw new IllegalArgumentException("Curos -" + ID.getCodeID() + "- não existe.");
 
-        Curso curso = getCursoFromID(ID);
-        for (Entity turma : Curso.getCursoFromID(ID).getTurmas()) {
-            if(turma.getID() != 0){
-                curso.removeTurma(turma);
-            }
-        }
+        //Curso curso = getCursoFromID(ID);
+        //for (Entity turma : Curso.getCursoFromID(ID).getTurmas()) {
+		//   if(turma.getID() != 0){
+		//      curso.removeTurma(turma);
+		// }
+        //}
 
-        curso.setID(0);
+		getCursoFromID(ID).setID(0);
     }
 
     private String nome;
