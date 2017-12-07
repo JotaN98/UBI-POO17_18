@@ -215,6 +215,6 @@ public class Professor extends Pessoa{
     }
     
     public String toString() {
-        return " -" + getCodeID() + "- " + getNome();
+        return getCodeID() + ": " + getNome();
     } 
 }

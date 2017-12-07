@@ -154,7 +154,30 @@ public class Teste extends Entity{
             System.out.println(e.getMessage());
             System.out.println("Não foi possivel remover nota -"+nota+"- do aluno -"+Nota.getNotaFromID(nota).getAluno());
         }
-
-
     }
+
+    // -- method overrides
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && obj.getClass() == getClass()) {
+			Teste nObj = (Teste) obj;
+
+			return super.equals(obj) &&
+					nObj.notas.equals(notas) &&
+					nObj.data.equals(data) &&
+					nObj.aula.equals(aula);
+		}
+		return false;
+	}
+
+	@Override
+	protected Object clone() {
+		return new Teste(this);
+	}
+
+	@Override
+	public String toString() {
+		return getCodeID() + ": "+ Disciplina.getDisciplinaFromID(Aula.getAulaFromID(aula).getDisciplina()).getNome() +" - "+ data;
+	}
 }

@@ -195,7 +195,7 @@ public class Curso extends Entity {
 
     @Override
     public String toString() {
-        return  "nome=" + nome + "ID"+ getCodeID();
+        return  getCodeID() +": "+ getNome();
     }
     
 }

@@ -136,6 +136,6 @@ public class Nota extends Entity{
    }  
     
     public String toString() {
-        return " -"+getCodeID()+"- "+" Aluno: " + Aluno.getAlunoFromID(aluno) + " Valor: " + valor;
+        return ""+getCodeID()+": "+" Aluno: " + Aluno.getAlunoFromID(aluno) + " Valor: " + valor;
     }   
 }

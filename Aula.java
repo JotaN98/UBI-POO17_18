@@ -222,7 +222,8 @@ public class Aula extends Entity {
     
     @Override
     public String toString() {
-        return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ Professor.getProfessorFromID(prof) + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
+        return ""+getCodeID()+": " + disciplina + " " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dadao por "+ Professor.getProfessorFromID(prof) + " na sala: " + sala;
+        //return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ Professor.getProfessorFromID(prof) + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
     }
     
 }
