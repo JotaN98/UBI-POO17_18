@@ -42,9 +42,9 @@ public class Aula extends Entity {
     }
     
     public static void addAula(Aula x)throws IllegalArgumentException{
-        if(getAulaFromID(x).getID()!= 0){
-            throw new IllegalArgumentException("Objeto já existe.");
-        }
+        //if(getAulaFromID(x).getID()!= 0){
+        //    throw new IllegalArgumentException("Objeto já existe.");
+        //}
         aulas.put(x.getCodeID(), x);
     }
    

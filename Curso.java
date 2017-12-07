@@ -19,9 +19,9 @@ public class Curso extends Entity {
     }
             
     public static void addCurso(Curso x) throws IllegalArgumentException{
-        if(getCursoFromID(x).getID() != 0){
-            throw new IllegalArgumentException("Curso existente");
-        }
+        //if(getCursoFromID(x).getID() != 0){
+        //    throw new IllegalArgumentException("Curso existente");
+        //}
         cursos.put(x.getCodeID(), x);
     }
     public static Curso Create() {

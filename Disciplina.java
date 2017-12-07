@@ -151,7 +151,7 @@ public class Disciplina extends Entity {
 	}
 
 	public void addProfessor(Entity prof) throws NullPointerException {
-		if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
+		//if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
 
 		// check if prof exists
 		if (Professor.getProfessorFromID(prof).getID() == 0)

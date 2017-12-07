@@ -20,9 +20,9 @@ public class Nota extends Entity{
     }
       
     public static void addNota(Nota x) throws IllegalArgumentException{
-        if(getNotaFromID(x).getID() != 0){
-            throw new IllegalArgumentException("Objeto já existe.");
-        }
+        //if(getNotaFromID(x).getID() != 0){
+        //    throw new IllegalArgumentException("Objeto já existe.");
+        //}
         nota.put(x.getCodeID(), x);
     }
 	

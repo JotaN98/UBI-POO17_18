@@ -23,9 +23,9 @@ public class Aluno extends Pessoa {
     }
      
     public static void addAluno(Aluno x) throws NullPointerException{
-        if(getAlunoFromID(x).getID() != 0){
-            throw new NullPointerException("Aluno já foi adicionada.");
-        }
+        //if(getAlunoFromID(x).getID() != 0){
+        //    throw new NullPointerException("Aluno já foi adicionada.");
+        //}
 		alunos.put(x.getCodeID(), x);
 	}
      
@@ -34,6 +34,12 @@ public class Aluno extends Pessoa {
     	addAluno(nAluno);
     	return nAluno;
     }
+
+	public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento) {
+		Aluno nAluno = new Aluno(pNome, uNome, nascimento);
+		addAluno(nAluno);
+		return nAluno;
+	}
 	
     public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, boolean active) {
     	Aluno nAluno = new Aluno(pNome, uNome, nascimento, ano, curso, active);
@@ -85,6 +91,16 @@ public class Aluno extends Pessoa {
         activity = new HashMap<ZonedDateTime,String>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
+	public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
+		super("Aluno", IDCount++, pNome, uNome, nascimento);
+		ano = 0;
+		curso = Entity.Zero;
+		turma = Entity.Zero;
+		this.active = true;
+		notas = new ArrayList<Entity>();
+		activity = new HashMap<ZonedDateTime,String>();
+		activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
+	}
 	public Aluno(String pNome,String uNome, ZonedDateTime nascimento, int ano, Entity curso, boolean active) {
 		super("Aluno", IDCount++, pNome, uNome, nascimento);
 		setAno(ano);

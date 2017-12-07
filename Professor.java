@@ -23,9 +23,9 @@ public class Professor extends Pessoa{
     }
      
     public static void addProfessor (Professor x) throws IllegalArgumentException{
-        if(getProfessorFromID(x).getID() != 0){
-            throw new IllegalArgumentException("Objeto já existe.");
-        }
+        //if(getProfessorFromID(x).getID() != 0){
+        //    throw new IllegalArgumentException("Objeto já existe.");
+        //}
         professores.put(x.getCodeID(), x);
     }
      

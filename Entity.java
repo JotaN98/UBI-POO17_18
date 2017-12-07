@@ -19,7 +19,7 @@ public class Entity {
         groups.put("Turma","TRM");
         groups.put("Outro","???");
 
-        Zero = new Entity("???", 0);
+        Zero = new Entity("Outro", 0);
     }
     // -- methods
     protected static String getGroupIDFromGroup(Object groupClass){
@@ -46,8 +46,8 @@ public class Entity {
 
     // -- constructors
     public Entity(String groupClass, long ID) throws IllegalArgumentException {
-        if(!groups.containsValue(groupClass))
-            throw new IllegalArgumentException();
+        if(!groups.containsKey(groupClass))
+            throw new IllegalArgumentException("Grupo \""+groupClass+"\" nâo foi encontrado");
 
         groupID = getGroupIDFromGroup(groupClass);
         this.ID = ID;

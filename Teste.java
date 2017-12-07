@@ -21,9 +21,9 @@ public class Teste extends Entity{
     }
        
     public static void addTeste(Teste x) throws IllegalArgumentException{
-        if(getTesteFromID(x).getID() != 0){
-            System.out.println("Objeto já existe.");
-        }
+        //if(getTesteFromID(x).getID() != 0){
+        //    System.out.println("Objeto já existe.");
+        //}
         testes.put(x.getCodeID(), x);
     }
      
