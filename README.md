@@ -5,6 +5,7 @@
 3. Não defenirás a turma de um aluno, defenirás vários alunos a cada turma.
 4. Nunca usem a função clone de nenhuma classe.
 5. Primeiro criarás as disciplinas e só depois é que criarás os professores. (?)
+6. Os testes só seram criados nos professores.
 6. As notas só seram criadas nos testes.
 
 
