@@ -47,6 +47,20 @@ public class Aluno extends Pessoa {
     	if(!alunos.containsKey(ID.getCodeID()))
 			throw new IllegalArgumentException("Aluno -" + ID.getCodeID() + "- não existe.");
 
+    	Teste teste;
+    	for (Entity nota : getAlunoFromID(ID).getNotas()){
+    		if(nota.getID() != 0) {
+				teste = Teste.getTesteFromID(Nota.getNotaFromID(nota).getTeste());
+				if(teste.getID() != 0) {
+					try {
+						teste.removeNota(nota);
+					} catch (IllegalArgumentException | NullPointerException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			}
+		}
+
     	getAlunoFromID(ID).setID(0);
 	}
 
@@ -171,9 +185,13 @@ public class Aluno extends Pessoa {
         return curso;
     }
 
-    public Entity getTurma() {
+	public Entity getTurma() {
         return turma;
     }
+
+	public ArrayList<Entity> getNotas() {
+		return notas;
+	}
 
     public boolean getActive(){
     	return active;

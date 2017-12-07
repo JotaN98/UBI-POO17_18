@@ -47,9 +47,10 @@ public class Turma extends Entity{
 
 		if(!turmas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Aula -"+ID.getCodeID()+"- não existe.");
 
-		for(Entity aula : getTurmaFromID(ID).aulas){
+		Turma turma = getTurmaFromID(ID);
+		for(Entity aula : turma.aulas){
 			try {
-				Aula.Remove(aula);
+				turma.removeAula(aula);
 			} catch (IllegalArgumentException | NullPointerException e){
 				System.out.println(e.getMessage());
 			}
@@ -73,7 +74,7 @@ public class Turma extends Entity{
 	private ArrayList<ArrayList<Entity/*Aula*/>> horario;
     
     // -- construtores
-    public Turma() throws IllegalArgumentException {
+    public Turma() {
 		super("Turma", IDCount++);
 		anoLetivo = "";
 		nome = "";
@@ -90,7 +91,7 @@ public class Turma extends Entity{
 			}
 		}
 	}
-	public Turma(String anoLetivo, String nome, int ano, Entity curso, Entity diretor) throws IllegalArgumentException {
+	public Turma(String anoLetivo, String nome, int ano, Entity curso, Entity diretor){
 		super("Turma", IDCount++);
 		this.anoLetivo = anoLetivo;
 		this.nome = nome;
@@ -209,7 +210,7 @@ public class Turma extends Entity{
 		if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
 
 		if(!aulas.contains(ID)){
-			throw new IllegalArgumentException("Aula -"+ID+"- não existe.");
+			throw new IllegalArgumentException("Aula -"+ID+"- não existe na turma -"+this+"-.");
 		}
 
 		aulas.remove(ID);

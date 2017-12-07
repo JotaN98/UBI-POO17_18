@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Curso extends Entity {
 	// -- beginning of static fields
         // -- vars
-    private static long IDCount = 1;
+    private static long IDCount = 0;
     
 
     private static Map<String, Curso> cursos = new HashMap<String, Curso>();
+    static {
+        // Curso null
+        Create();
+    }
             
     public static Curso getCursoFromID(Entity ID){
         return cursos.get(ID.getCodeID());
@@ -21,14 +24,37 @@ public class Curso extends Entity {
         }
         cursos.put(x.getCodeID(), x);
     }
-    public static Curso Create(String nome,Entity diretor) {
-    	Curso nCurso = new Curso(nome,diretor);
-    	addCurso(nCurso);
-    	return nCurso;
+    public static Curso Create() {
+        Curso nCurso = new Curso();
+        addCurso(nCurso);
+        return nCurso;
     }
+    public static Curso Create(String nome,Entity diretor) {
+        Curso nCurso = new Curso(nome,diretor);
+        addCurso(nCurso);
+        return nCurso;
+    }
+
+    public static void Remove(Entity ID){
+        if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
+
+        if(!cursos.containsKey(ID.getCodeID()))
+            throw new IllegalArgumentException("Curos -" + ID.getCodeID() + "- não existe.");
+
+        Curso curso = getCursoFromID(ID);
+        for (Entity turma : Curso.getCursoFromID(ID).getTurmas()) {
+            if(turma.getID() != 0){
+                curso.removeTurma(turma);
+            }
+        }
+
+        curso.setID(0);
+    }
+
     private String nome;
     private ArrayList<Entity> disciplinas;
     private Entity diretor;
+    private ArrayList<Entity> turmas;
     private boolean ativo=true;
 
     //Contrutores
@@ -36,18 +62,21 @@ public class Curso extends Entity {
     	super("Curso", IDCount++);
     	this.nome=nome;
         disciplinas=new ArrayList<Entity>();
+        turmas=new ArrayList<Entity>();
         this.diretor=diretor;
     }
     public Curso(){
     	super("Curso", IDCount++);
     	this.nome="";
         disciplinas=new ArrayList<Entity>();
+        turmas=new ArrayList<Entity>();
         this.diretor=Entity.Zero;
     }
     public Curso(Curso curso){
     	super("Curso", curso.getID());
     	this.nome=curso.getNome();
         disciplinas=(ArrayList<Entity>)curso.disciplinas.clone();
+        turmas=(ArrayList<Entity>)curso.turmas.clone();
         this.diretor=curso.getDiretor();
     }
     public void addDisciplina(Entity disciplina) throws IllegalArgumentException, NullPointerException{
@@ -72,6 +101,55 @@ public class Curso extends Entity {
             throw new NullPointerException("Disciplina "+disciplina+" nao faz parte");
         disciplinas.remove(disciplina);
     }
+    public void addDisciplinas(ArrayList<Entity> disciplinas) throws IllegalArgumentException,NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objeto já foi removido");
+
+        for(Entity disciplina : disciplinas){
+            try{
+                addDisciplina(disciplina);
+            }catch(NullPointerException | IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public ArrayList<Entity> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void addTurma(String anoLetivo, String nome, int ano, Entity diretor) throws NullPointerException, IllegalArgumentException{
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+        if(ano < 10 || ano > 12)
+            throw new IllegalArgumentException("Ano tem que ser entre 10 e 12.");
+
+        for(Curso curso : cursos.values()){
+            for(Entity turma : curso.turmas){
+                if(Turma.getTurmaFromID(turma).getNome() == nome){
+                    throw new IllegalArgumentException("Nome de turma \""+nome+"\" já exsite.");
+                }
+            }
+        }
+
+        turmas.add(Turma.Create(anoLetivo,nome,ano,this,diretor));
+    }
+    public void removeTurma(Entity ID){
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+        if(ID.getID()==0) throw new NullPointerException("Turma não existe.");
+
+        if(!turmas.contains(ID)){
+            throw new IllegalArgumentException("Turma -"+ID+"- não existe no curso -"+this+"-.");
+        }
+
+        turmas.remove(ID);
+
+        Turma.Remove(ID);
+    }
+    public ArrayList<Entity> getTurmas() {
+        return turmas;
+    }
+
     public void setAtivo(boolean ativo)throws NullPointerException{
         if(this.getID()==0)
             throw new NullPointerException("Objeto já foi removido");
@@ -80,6 +158,7 @@ public class Curso extends Entity {
     public boolean getAtivo(){
         return ativo;
     }
+
     public void setNome(String nome)throws NullPointerException {
         if(this.getID()==0)
             throw new NullPointerException("Objeto já foi removido");
@@ -88,20 +167,7 @@ public class Curso extends Entity {
     public String getNome() {
 	return nome;
     }
-    public ArrayList<Entity> getDisciplinas() {
-        return disciplinas;
-    }
-    public void addDisciplinas(ArrayList<Entity> disciplinas) throws IllegalArgumentException,NullPointerException{
-        if(this.getID()==0)
-            throw new NullPointerException("Objeto já foi removido");
-	for(Entity disciplina : disciplinas){
-            try{
-                addDisciplina(disciplina);
-            }catch(NullPointerException | IllegalArgumentException e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+
     public Entity getDiretor(){
         return diretor;
     }
@@ -110,6 +176,7 @@ public class Curso extends Entity {
             throw new NullPointerException("Objeto já foi removido");
         this.diretor=diretor;
     }
+
     @Override
     public boolean equals(Object obj) {
         if(obj!=null && obj.getClass()==this.getClass()){

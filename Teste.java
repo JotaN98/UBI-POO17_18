@@ -1,5 +1,4 @@
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,8 +43,19 @@ public class Teste extends Entity{
         
         if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
         
-        if(!testes.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Teste -"+ID.getCodeID()+"- não existe.");  
-            
+        if(!testes.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Teste -"+ID.getCodeID()+"- não existe.");
+
+        Teste teste = getTesteFromID(ID);
+        for (Entity nota : teste.getNotas().values()){
+            if(nota.getID() != 0) {
+                try {
+                    teste.removeNota(nota);
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
         getTesteFromID(ID).setID(0);
     }
     
@@ -111,28 +121,40 @@ public class Teste extends Entity{
             throw new IllegalArgumentException("As notas estão compreendidas entre 0 e 20");
         if(notas.containsKey(aluno))
             throw new IllegalArgumentException("O aluno ja tem uma nota");
+
         Entity notaNova = Nota.Create(aluno,valor);
         try{
             Aluno.getAlunoFromID(aluno).addNota(notaNova);
-        }catch(NullPointerException | IllegalArgumentException e){
-         notas.put(aluno, notaNova);
-        }
-    }
-    public void removeNota(double valor,Entity aluno,Entity teste) throws IllegalArgumentException, NullPointerException{
-        if(this.getID()==0)
-            throw new NullPointerException("Objecto ja foi removido");
-        if(aluno.getID()==0)
-            throw new NullPointerException("Objeto nao encontrado ou apagado");
-        if(teste.getID()==0)
-            throw new NullPointerException("Objeto nao encontrado ou apagado");
-        if(valor<0 && valor>20)
-            throw new IllegalArgumentException("As notas têm compreendidas entre 0 e 20");
-        if(notas.containsValue(valor))
-            throw new IllegalArgumentException("Essa nota não existe");
-        try{
-            notas.remove(aluno);
+            notas.put(aluno, notaNova);
         }catch(NullPointerException | IllegalArgumentException e){
             System.out.println(e.getMessage());
+            System.out.println("Não foi possivel adicionar nota ao Aluno -"+ aluno +"-.");
+            Nota.Remove(notaNova);
         }
+    }
+
+    public Map<Entity, Entity> getNotas() {
+        return notas;
+    }
+
+    public void removeNota(Entity nota) throws IllegalArgumentException, NullPointerException{
+        if(this.getID()==0)
+            throw new NullPointerException("Objecto ja foi removido");
+
+        if(Nota.getNotaFromID(nota).getID() == 0)
+            throw new IllegalArgumentException("Nota já foi removida.");
+
+        if(!notas.containsValue(nota))
+            throw new IllegalArgumentException("Essa nota não existe");
+
+        try {
+            Nota.Remove(nota);
+            notas.remove(Nota.getNotaFromID(nota).getAluno());
+        } catch (IllegalArgumentException | NullPointerException e){
+            System.out.println(e.getMessage());
+            System.out.println("Não foi possivel remover nota -"+nota+"- do aluno -"+Nota.getNotaFromID(nota).getAluno());
+        }
+
+
     }
 }

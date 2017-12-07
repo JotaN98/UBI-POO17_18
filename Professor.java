@@ -1,4 +1,3 @@
-import java.text.DateFormat;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +85,7 @@ public class Professor extends Pessoa{
     
     //Clone constructor
     public Professor(Professor professor){
-        super("Professor", professor.getID(), professor.getPrimeiroNome(), professor.getUltimoNome(), professor.getNascimento());
+        super("Professor",  IDCount++, professor.getPrimeiroNome(), professor.getUltimoNome(), professor.getNascimento());
         this.aulas=(ArrayList<Entity>)professor.aulas.clone();
         this.horario=(ArrayList<ArrayList<Entity>>)professor.horario.clone();
         this.testes=(ArrayList<Entity>)professor.testes.clone();
