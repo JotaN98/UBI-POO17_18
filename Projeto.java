@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 public class Projeto {
 	public static int exitop = 5;
 
+	//Mostrar Menu principal	
 	public static void printMenu(String singular, String plural){
 		System.out.println(plural +":");
 		System.out.println("0- Mostrar "+ plural);
@@ -17,6 +18,8 @@ public class Projeto {
 		System.out.println("5- Voltar");
 	}
 
+	
+	//Mostrar todos os cursos
 	public static void printTodosCursos(){
 		System.out.println("---");
 		System.out.println("Todos os cursos");
@@ -31,6 +34,35 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
+	
+	//Mostrar todas as Disciplinas
+	public static void printTodasDisciplinas(){
+		System.out.println("---");
+		System.out.println("Todas as Disciplinas");
+		System.out.println("---");
+		//Fazer isto
+		for(Disciplina disciplina : disciplina.get.values()){
+			if(disciplina.getID() != 0){
+				System.out.println(disciplina);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}
+	
+	//Mostrar Menu Disciplinas->Selecionar
+	public static void printMenuSelecionar(){
+		System.out.println("1- Mudar Nome");
+		System.out.println("2- Mudar Ano");
+		System.out.println("3- Mudar Aula");
+		System.out.println("4- Inserir Professor");
+		System.out.println("5- Inserir possível sala");
+		System.out.println("6- Voltar");
+	}
+	
+	//Mostrar todos os professores
 	public static void printTodosProfessores(){
 		System.out.println("---");
 		System.out.println("Todos os Professores");
@@ -45,6 +77,7 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
+<<<<<<< HEAD
         public static void PrintTodosAlunos(){
           System.out.println("---");
 		System.out.println("Todos os Alunos");
@@ -60,6 +93,12 @@ public class Projeto {
 		} catch (IOException e){}
 	}  
         
+=======
+
+
+	
+	//Função Main
+>>>>>>> master
     public static void main(String[] args) {
 		int valorIntroduzido=0;
 
@@ -161,7 +200,9 @@ public class Projeto {
 
 								System.out.println("Curso \""+nome+"\" criado com sucesso.");
 								break;
-							case 2:
+								
+								
+							case 2://Eliminar um Curso
 								System.out.println("Insira o ID do curso para eliminar (0 para mostrar todos, -1 para cancelar): ");
 
 								cursoID = 0;
@@ -181,15 +222,23 @@ public class Projeto {
 								}
 
 								break;
+								
+								
 							case 3:
 
 								break;
+								
+								
 							case 4:
 
 								break;
+								
+								
 							case 5:
                                                                 
 								break;
+								
+								
 							default:
 								System.out.println("Por favor introduza um valor entre 1 e 6.");
 
@@ -197,21 +246,153 @@ public class Projeto {
 					}
 					valorIntroduzido = 1;
 					break;
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 2:
 					printMenu("Turma","Turmas");
 
 					valorIntroduzido = 2;
 					break;
+					
+					
+					
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 3:
-					printMenu("Disciplina","Disciplinas");
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Discipina", "Disciplinas");
 
-					valorIntroduzido = 3;
+						// ler a opçãoo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que serão utilizadas no Menu
+						Entity nDisciplina;
+						Disciplina disciplina;
+						long DisciplinaID;
+						long profID;
+						Entity profEntity;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodasDisciplinas();
+								break;
+								
+							case 1:// criar Disciplina
+								
+								nDisciplina = Disciplina.Create();
+								disciplina = Disciplina.getDisciplinaFromID(nDisciplina);
+
+								//set nome da Disciplina
+								String nome = "";
+								while (nome == "") {
+									System.out.println("Insira o nome da Disciplina: ");
+									try {
+										nome = Ler.processarTecladoString();
+									} catch (IOException e) {
+										System.out.println("Ocurreu um erro, insira novamente.");
+									}
+									if(nome == "")
+										System.out.println("Insira um nome correto.");
+								}
+								disciplina.setNome(nome);
+								System.out.println("Nome alterado.");
+
+								// set ano da Disciplina
+								int ano = 0;
+								while(ano == 0){
+									System.out.println("Insira o nome da Disciplina");
+									try{
+										ano = Ler.processarTecladoInt();
+									} catch(IOException e){
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+									if(ano == 0)
+										System.out.println("Insira um ano correto.");
+								}
+								disciplina.setAno(ano);
+								System.out.println("Ano alterado");
+							break;
+								
+							case 2://Eliminar Disciplina
+								
+
+								break;
+								
+							case 3://Selecionar Disciplina
+								printMenuSelecionar();
+								//Ler Valor para opçao do menu
+								try {
+									valorIntroduzido = Ler.processarTecladoInt();
+								} catch (IOException e) {
+									System.out.println("Por favor introduza um valor entre 1 e 6.");
+								}
+								 switch(valorIntroduzido){
+								 		case 1://Mudar Nome
+									 
+								 		break;
+									 
+								 		case 2://Mudar Ano
+									 
+								 		break;
+								 		
+								 		case 3://Inserir Ano
+								 			
+								 		break;
+									 
+								 		case 4://Inserir Professor
+									 
+								 		break;
+									 
+								 		case 5://Inserir Possivel Sala
+									 
+								 		break;
+								 		
+								 		case 6://Voltar
+								 			printMenu("Disciplina", "Disciplinas");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas as Disciplinas
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
 					break;
+
+					
+					
+					
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 4:
 					printMenu("Professor","Professores");
+<<<<<<< HEAD
                                         
+=======
+					
+>>>>>>> master
 					valorIntroduzido = 4;
 					break;
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 5:
                                         switch (valorIntroduzido) {
                                             case 1:
@@ -343,11 +524,11 @@ public class Projeto {
                         
 					valorIntroduzido = 5;
 					break;
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 6:
 					break;
 
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 				default:
 					System.out.println("Por favor introduza um valor entre 1 e 6.");
 			}
