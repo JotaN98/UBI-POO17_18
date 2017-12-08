@@ -20,7 +20,9 @@ public class Turma extends Entity{
 				turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
 		);
     }
-     
+     public static Map<String, Turma> getTurmas(){
+        return turmas;
+    }
     
     public static void addTurma(Turma x) throws NullPointerException{
         //if(getTurmaFromID(x).getID() != 0){
@@ -65,7 +67,7 @@ public class Turma extends Entity{
     // -- beginning of non static fields
     // -- vars
 	private String anoLetivo;
-    private String nome;
+        private String nome;
 	private int ano;
 	private ArrayList<Entity/*Aluno*/> alunos;
 	private Entity curso;

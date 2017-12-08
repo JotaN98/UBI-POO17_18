@@ -14,7 +14,11 @@ public class Aluno extends Pessoa {
     	// Aluno null
     	Create();
 	}
-
+    
+    public static Map<String, Aluno> getAlunos(){
+        return alunos;
+    }
+    
     public static Aluno getAlunoFromID(Entity ID){
         return alunos.getOrDefault(
         		ID.getCodeID(),
@@ -84,10 +88,10 @@ public class Aluno extends Pessoa {
     public Aluno() {
         super("Aluno", IDCount++, "", "", null);
         ano = 0;
-		turma = Entity.Zero;
-		curso = Entity.Zero;
-		active = false;
-		notas = new ArrayList<Entity>();
+        turma = Entity.Zero;
+	curso = Entity.Zero;
+	active = false;
+	notas = new ArrayList<Entity>();
         activity = new HashMap<ZonedDateTime,String>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
     }
