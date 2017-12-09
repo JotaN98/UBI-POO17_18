@@ -1,8 +1,6 @@
 import myinput.Ler;
 
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
 
 public class Projeto {
 	public static int exitop = 5;
@@ -41,7 +39,7 @@ public class Projeto {
 		System.out.println("Todas as Disciplinas");
 		System.out.println("---");
 		//Fazer isto
-		for(Disciplina disciplina : disciplina.get.values()){
+		for(Disciplina disciplina : Disciplina.getDisciplinas().values()){
 			if(disciplina.getID() != 0){
 				System.out.println(disciplina);
 			}
@@ -77,28 +75,10 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
-<<<<<<< HEAD
-        public static void PrintTodosAlunos(){
-          System.out.println("---");
-		System.out.println("Todos os Alunos");
-		System.out.println("---");
-		for(Aluno alu : Aluno.getAlunos().values()){
-			if(alu.getID() != 0){
-				System.out.println(alu);
-			}
-		}
-		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
-	}  
-        
-=======
 
 
 	
 	//Função Main
->>>>>>> master
     public static void main(String[] args) {
 		int valorIntroduzido=0;
 
@@ -138,7 +118,7 @@ public class Projeto {
 						Curso curso;
 						long cursoID;
 						long profID;
-						Entity profEnity;
+						Entity profEnity
 						switch (valorIntroduzido){
 							case 0:
 								// Mostrar tudo
@@ -235,7 +215,7 @@ public class Projeto {
 								
 								
 							case 5:
-                                                                
+
 								break;
 								
 								
@@ -273,7 +253,7 @@ public class Projeto {
 						//Variaveis que serão utilizadas no Menu
 						Entity nDisciplina;
 						Disciplina disciplina;
-						long DisciplinaID;
+						long disciplinaID;
 						long profID;
 						Entity profEntity;
 						
@@ -320,18 +300,61 @@ public class Projeto {
 							break;
 								
 							case 2://Eliminar Disciplina
+								System.out.println("Insira o ID da Disciplina para eliminar (0 para mostrar todos, -1 para cancelar): ");
+
+								disciplinaID = 0;
+								nDisciplina = Entity.Zero;
 								
+								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
+									try {
+										disciplinaID = Ler.processarTecladoLong();
+
+										if(disciplinaID == 0){
+											printTodosCursos();
+										} else if (disciplinaID != -1){
+											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+									}
+								}
+
 
 								break;
 								
 							case 3://Selecionar Disciplina
+								
+								//Perguntar qual a disciplina que ele quer alterar
+								System.out.println("Insira o ID da Disciplina que predente selecionar (0 para mostrar todos, -1 para cancelar): ");
+
+								disciplinaID = 0;
+								nDisciplina = Entity.Zero;
+								
+								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
+									try {
+										disciplinaID = Ler.processarTecladoLong();
+
+										if(disciplinaID == 0){
+											printTodosCursos();
+										} else if (disciplinaID != -1){
+											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+									}
+								}
+
+								
+								//Print do enu selecionar
 								printMenuSelecionar();
+								
 								//Ler Valor para opçao do menu
 								try {
 									valorIntroduzido = Ler.processarTecladoInt();
 								} catch (IOException e) {
 									System.out.println("Por favor introduza um valor entre 1 e 6.");
 								}
+								
 								 switch(valorIntroduzido){
 								 		case 1://Mudar Nome
 									 
@@ -385,143 +408,13 @@ public class Projeto {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 4:
 					printMenu("Professor","Professores");
-<<<<<<< HEAD
-                                        
-=======
 					
->>>>>>> master
 					valorIntroduzido = 4;
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 5:
-                                        switch (valorIntroduzido) {
-                                            case 1:
-                                                valorIntroduzido=-1;
-                                                while(valorIntroduzido!=exitop){
-                                                    printMenu("Aluno","Alunos");
-                                                    
-                                                    try{
-                                                        valorIntroduzido=Ler.processarTecladoInt();
-                                                    }catch(IOException e){
-                                                        System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
-                                                    }
-                                                    
-                                                    Entity nAluno;
-                                                    Aluno aluno;
-                                                    String pNome="",uNome="";
-                                                    ZonedDateTime nascimento;
-                                                    
-                                                    switch(valorIntroduzido){
-                                                        case 0:
-                                                            PrintTodosAlunos();
-                                                            break;
-                                                        case 1:
-                                                            //criar alunos
-                                                            nAluno = Aluno.Create();
-                                                            aluno = Aluno.getAlunoFromID(nAluno);
-                                                            
-                                                            //set nomes
-                                                            while(pNome=="" && uNome=="" ){
-                                                                System.out.println("Insira o primeiro e o ultimo nome do aluno.");
-                                                                try {
-                                                                    pNome = Ler.processarTecladoString();
-                                                                    uNome = Ler.processarTecladoString();
-                                                                } catch (IOException e) {
-                                                                    System.out.println("Ocurreu um erro, insira novamente.");
-                                                                }
-                                                                if(pNome==""  && uNome=="" )
-                                                                    System.out.println("Insira um nome correto.");
-                                                            }
-                                                            aluno.setPrimeiroNome(pNome);
-                                                            aluno.setUltimoNome(uNome);
-                                                            System.out.println("Nome alterado.");
-                                                            
-                                                            //set turma
-                                                            Entity turma=Entity.Zero;
-                                                            long turmaID=0;
-                                                            while(turma.getID()==0){
-                                                                System.out.println("Insira o ID da turma(0 para mostrar todos, -1 para cancelar).");
-                                                                try {
-                                                                    turmaID = Ler.processarTecladoLong();
-                                                                    
-                                                                    if(turmaID==0){
-                                                                        PrintTodosAlunos();
-                                                                    }else if(turmaID!=-1){
-                                                                        turma = Turma.getTurmaFromID(turma);
-                                                                    }
-                                                                } catch (IOException e) {
-                                                                    System.out.println("Ocurreu um erro, insira novamente.");
-                                                                }
-                                                            }
-                                                                if(Turma.getTurmas().size() == 0)
-                                                                    System.out.println("NÃ£o existem turmas.");
-                                                                System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
-								break;
-                                                    }
-                                                }
-                                            case 2:
-                                                    //Eliminar um aluno
-                                                    System.out.println("Insira o ID do aluno para eliminar(0 para mostrar todos, -1 para cancelar).");
-                                                    Aluno aluno;      
-                                                    long alunoID=0;
-                                                    Entity nAluno=Entity.Zero;
-                                                    while(nAluno.getID() == 0 && Aluno.getAlunos().size()!=0){
-                                                        try{
-                                                            alunoID = Ler.processarTecladoLong();
-                                                            if(alunoID ==0){
-                                                                PrintTodosAlunos();
-                                                            }else if(alunoID != -1){
-                                                                aluno=Aluno.getAlunoFromID(alunoID);//extends entity ???
-                                                            }
-                                                        }catch (IOException e) {
-                                                        	System.out.println("Occureu um erro, inisra novamente.");
-                                                        }
-                                                       }
-                                            case 3:
-                                                    valorIntroduzido = -1;
-                                                while (valorIntroduzido != exitop) {
-                                                    // Mostrar o menu
-                                                    printMenu("Curso", "Cursos");
+					printMenu("Aluno","Alunos");
 
-                                                    // ler a opÃ§Ã£o do utilizador
-                                                    try {
-                                                    	valorIntroduzido = Ler.processarTecladoInt();
-                                                    } catch (IOException e) {
-							System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
-                                                    }
-                                                    
-                                                    
-                                                    int x;
-                                                    int turmaID;
-                                                    Entity mudarturma;
-                                                    switch (valorIntroduzido){
-							case 0:
-								// Mostrar tudo
-								printTodosCursos();
-								break;
-                                                        case 1:
-                                                            System.out.println("Insira o ano que deseja alterar.");
-                                                            try{          
-                                                                x=Ler.processarTecladoInt();
-                                                                if(x<=10 || x>=12){
-                                                                    aluno.setAno(x);
-                                                                    System.out.println("Mudou o ano.");
-                                                                }
-                                                            }catch(IOException e){
-                                                                System.out.println("Insira um valor entre 10 e 12 inclusive.");
-                                                            }
-                                                        case 2:
-                                                            System.out.println("Insira a turma que seja alterar.");
-                                                            try{          
-                                                                turmaID=Ler.processarTecladoInt();
-                                                                aluno.setTurma(turmaID);//recebe um Entity
-                                                                System.out.println("Mudou o ano"); 
-                                                            }catch(IOException e){
-                                                                e.getMessage();
-                                                                System.out.println("A turma que quer mudar nao existe.");
-                                                            }
-                                        }
-                        
 					valorIntroduzido = 5;
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
