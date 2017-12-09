@@ -3,7 +3,7 @@ import myinput.Ler;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-
+import java.time.ZoneId;
 public class Projeto {
 	public static int exitop = 5;
 
@@ -31,6 +31,62 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	//Mostrar todas as turmas
+	public static void printTodasTurmas(){
+		System.out.println("---");
+		System.out.println("Todas as Turmas");
+		System.out.println("---");
+		for(Turma turma : Turma.getTurmas().values()){
+			if(turma.getID() != 0){
+				System.out.println(turma);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}
+	
+	
+	
+	//Mostrar todas as Disciplinas
+	public static void printTodasDisciplinas(){
+		System.out.println("---");
+		System.out.println("Todas as Disciplinas");
+		System.out.println("---");
+		//Fazer isto
+		for(Disciplina disciplina : Disciplina.getDisciplinas().values()){
+			if(disciplina.getID() != 0){
+				System.out.println(disciplina);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}
+	
+	
+	
+	//Mostrar Menu Disciplinas->Selecionar
+	public static void printMenuSelecionar(){
+		System.out.println("1- Mudar Nome");
+		System.out.println("2- Mudar Ano");
+		System.out.println("3- Mudar Aula");
+		System.out.println("4- Inserir Professor");
+		System.out.println("5- Inserir poss�vel sala");
+		System.out.println("6- Voltar");
+	}
+	
+	
+	
+	//Mostrar todos os professores
+>>>>>>> master
 	public static void printTodosProfessores(){
 		System.out.println("---");
 		System.out.println("Todos os Professores");
@@ -45,6 +101,14 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
+<<<<<<< HEAD
+=======
+<<<<<<<
+
+
+=======
+
+>>>>>>> master
         public static void PrintTodosAlunos(){
           System.out.println("---");
 		System.out.println("Todos os Alunos");
@@ -59,7 +123,13 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}  
+<<<<<<< HEAD
         
+=======
+>>>>>>>
+	
+	//Fun��o Main
+>>>>>>> master
     public static void main(String[] args) {
 		int valorIntroduzido=0;
 
@@ -117,7 +187,7 @@ public class Projeto {
 									try {
 										nome = Ler.processarTecladoString();
 									} catch (IOException e) {
-										System.out.println("Ocurreu um erro, insira novamente.");
+										System.out.println("Ocorreu um erro, insira novamente.");
 									}
 									if(nome == "")
 										System.out.println("Insira um nome correto.");
@@ -188,7 +258,7 @@ public class Projeto {
 
 								break;
 							case 5:
-                                                                
+
 								break;
 							default:
 								System.out.println("Por favor introduza um valor entre 1 e 6.");
@@ -197,11 +267,110 @@ public class Projeto {
 					}
 					valorIntroduzido = 1;
 					break;
+<<<<<<< HEAD
 				case 2:
 					printMenu("Turma","Turmas");
+=======
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+				case 2://Op�ao Turmas
+					
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Turma", "Turmas");
+>>>>>>> master
 
-					valorIntroduzido = 2;
+						// ler a op��oo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que ser�o utilizadas no Menu abaixo
+						Turma turma;
+						
+						Entity nTurma;
+						long turmaID;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodasTurmas();
+								break;
+								
+							case 1://criar Turma
+								
+								nTurma = Turma.Create();
+								turma = Turma.getTurmaFromID(nTurma);
+
+								
+								
+								
+							case 2://Eliminar Turma
+								
+
+								break;
+								
+							case 3://Selecionar Turma
+								
+								//Perguntar qual a Turma que o utilizador pretende alterar
+								
+								
+								//Submenu das op�oes que o utilizador tem
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
+
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
+								 		
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Turma", "Turmas");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas as Turmas
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
 					break;
+<<<<<<< HEAD
 				case 3:
 					printMenu("Disciplina","Disciplinas");
 
@@ -211,8 +380,450 @@ public class Projeto {
 					printMenu("Professor","Professores");
                                         
 					valorIntroduzido = 4;
+=======
+
+					
+					
+					
+					
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+				case 3://Op�ao Disciplinas
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Disciplina", "Disciplinas");
+
+						// ler a op��oo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que ser�o utilizadas no Menu abaixo
+						Disciplina disciplina;
+						
+						Entity nDisciplina;
+						long disciplinaID;
+						
+						long profID;
+						Entity profEntity;
+						
+						String nome;
+						int ano = 0;
+						
+						Entity nAula;
+						long aulaID;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodasDisciplinas();
+								break;
+								
+							case 1:// criar Disciplina
+								
+								nDisciplina = Disciplina.Create();
+								disciplina = Disciplina.getDisciplinaFromID(nDisciplina);
+
+								//set nome da Disciplina
+								nome = "";
+								while (nome == "") {
+									System.out.println("Insira o nome da Disciplina: ");
+									try {
+										nome = Ler.processarTecladoString();
+									} catch (IOException e) {
+										System.out.println("Ocurreu um erro, insira novamente.");
+									}
+									if(nome == "")
+										System.out.println("Insira um nome correto.");
+								}
+								disciplina.setNome(nome);
+								System.out.println("Nome alterado.");
+
+								// set ano da Disciplina
+								ano = 0;
+								while(ano == 0){
+									System.out.println("Insira o ano da Disciplina");
+									try{
+										ano = Ler.processarTecladoInt();
+									} catch(IOException e){
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+									if(ano == 0)
+										System.out.println("Insira um ano correto.");
+								}
+								disciplina.setAno(ano);
+								System.out.println("Ano alterado");
+							break;
+								
+							case 2://Eliminar Disciplina
+								System.out.println("Insira o ID da Disciplina para eliminar (0 para mostrar todos, -1 para cancelar): ");
+
+								disciplinaID = 0;
+								nDisciplina = Entity.Zero;
+								
+								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
+									try {
+										disciplinaID = Ler.processarTecladoLong();
+
+										if(disciplinaID == 0){
+											printTodasDisciplinas();
+										} else if (disciplinaID != -1){
+											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+									}
+								}
+
+
+								break;
+								
+							case 3://Selecionar Disciplina
+								
+								//Perguntar qual a disciplina que ele quer alterar
+								System.out.println("Insira o ID da Disciplina que predente selecionar (0 para mostrar todos, -1 para cancelar): ");
+
+								disciplinaID = 0;
+								nDisciplina = Entity.Zero;
+								
+								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
+									try {
+										disciplinaID = Ler.processarTecladoLong();
+
+										if(disciplinaID == 0){
+											printTodasDisciplinas();
+										} else if (disciplinaID != -1){
+											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+									}
+								}
+
+								System.out.println("Voce selecionou a disciplina " + disciplina.getNome());
+								
+								//Print do enu selecionar
+								printMenuSelecionar();
+								
+								//Ler Valor para op�ao do menu
+								try {
+									valorIntroduzido = Ler.processarTecladoInt();
+								} catch (IOException e) {
+									System.out.println("Por favor introduza um valor entre 1 e 6.");
+								}
+								
+								
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------Mudar Nome------------------------------------------------------
+								 			nome = "";
+											while (nome == "") {
+												System.out.println("Insira o nome da Disciplina: ");
+												try {
+													nome = Ler.processarTecladoString();
+												} catch (IOException e) {
+													System.out.println("Ocurreu um erro, insira novamente.");
+												}
+												if(nome == "")
+													System.out.println("Insira um nome correto.");
+											}
+											disciplina.setNome(nome);
+											System.out.println("Nome alterado.");
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------Mudar ano------------------------------------------------------
+								 			ano = 0;
+											while(ano == 0){
+												System.out.println("Insira o ano da Disciplina");
+												try{
+													ano = Ler.processarTecladoInt();
+												} catch(IOException e){
+													System.out.println("Ocorreu um erro, insira novamente.");
+												}
+												if(ano == 0)
+													System.out.println("Insira um ano correto.");
+											}
+								 			
+								 			disciplina.setAno(ano);
+								 			System.out.println("Ano alterado");
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------Inserir Aula------------------------------------------------------
+								 			aulaID = 0;
+								 			nAula = Entity.Zero;
+								 			
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------Inserir Professor------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------Inserir Possivel sala---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Disciplina", "Disciplinas");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas as Disciplinas
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
+					break;
+
+					
+					
+					
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+<<<<<<<
+				case 4://op�ao professores
+					
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Professor", "Professores");
+
+						// ler a op��oo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que ser�o utilizadas no Menu abaixo
+						Professor professor;
+						
+						Entity nProfessores;
+						long ProfessorID;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodosProfessores();
+								break;
+								
+							case 1://criar Professor
+								
+								nProfessores = Professor.Create();
+								professor = Professor.getProfessorFromID(nProfessores);
+
+								
+								
+								
+							case 2://Eliminar Professor
+								
+
+								break;
+								
+							case 3://Selecionar Professor
+								
+								//Perguntar qual o Prodfessor que o utilizador pretende alterar
+								
+								
+								//Submenu das op�oes que o utilizador tem
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
+
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
+								 		
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Professor", "Professores");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas os Professores
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
+=======
+				case 4:
+                                    valorIntroduzido = -1;
+                                    while(valorIntroduzido != exitop){
+                                        //Mostrar menu
+                                        printMenu("Professor","Professores");
+                                        
+                                        //ler a opção do utilizador
+                                        try{
+                                            valorIntroduzido = Ler.processarTecladoInt();
+                                        } catch (IOException e){
+                                            System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
+                                        }
+                                        
+                                        //proximos menus
+                                        Entity nProfessor;
+                                        Professor professor;
+                                        long profID;
+                                        long aulaID;
+                                        long testeID;
+                                        long alunoID;
+                                        Entity profEntity;
+                                        Entity aulaEntity;
+                                        Entity testeEntity;
+                                        Entity alunoEntity;
+                                        switch(valorIntroduzido){
+                                            case 0:
+                                                //Mostrar tudo
+                                                printTodosProfessores();
+                                                break;
+                                            case 1:
+                                                //criar professor
+                                                nProfessor=Professor.Create();
+                                                professor = Professor.getProfessorFromID(nProfessor);
+                                                
+                                                // set primeiro e último nome
+						String pNome="", uNome = "" ;
+						while(pNome=="" || uNome=="" ){
+                                                    System.out.println("Insira o primeiro e o ultimo nome do professor.");
+                                                    try {
+                                                        pNome = Ler.processarTecladoString();
+                                                        uNome = Ler.processarTecladoString();
+                                                    } catch (IOException e) {
+                                                        System.out.println("Ocurreu um erro, insira novamente.");
+                                                    }
+                                                    if(pNome==""  || uNome=="" )
+                                                        System.out.println("Insira um nome correto.");
+                                                }
+                                                professor.setPrimeiroNome(pNome);
+                                                professor.setUltimoNome(uNome);
+                                                System.out.println("Nome alterado.");
+                                                
+                                                //set nascimento
+                                                ZoneId zoneid = ZoneId.systemDefault();
+                                                ZonedDateTime nascimento = ZonedDateTime.now();
+                                                while(nascimento.getYear() == ZonedDateTime.now().getYear()){
+                                                    System.out.println("Insira a data de nascimento no seguinte formato ano-mês-dia.");
+                                                    try{
+                                                        nascimento = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, 0, 0, zoneid);
+                                                    } catch (IOException e){
+                                                        System.out.println("Introduza uma data correta.");
+                                                    }
+                                                }
+                                                professor.setNascimento(nascimento);
+                                                System.out.println("Data de nascimento alterada.");
+                                                System.out.println("Professor: " +pNome+" "+uNome+" criado com sucesso.");
+                                                break;
+                                            
+                                                
+                                            case 2://Eliminar um Professor
+                                        }
+                                        
+                                    }
+/*				System.out.println("Curso \""+nome+"\" criado com sucesso.");
+								break;
+								
+								
+							case 2://Eliminar um Curso
+								System.out.println("Insira o ID do curso para eliminar (0 para mostrar todos, -1 para cancelar): ");
+
+								cursoID = 0;
+								nCurso = Entity.Zero;
+								while(nCurso.getID() == 0 && Curso.getCursos().size() != 0) {
+									try {
+										cursoID = Ler.processarTecladoLong();
+
+										if(cursoID == 0){
+											printTodosCursos();
+										} else if (cursoID != -1){
+											curso = Curso.getCursoFromID(cursoID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+									}
+								}
+
+								break;
+								
+								
+							case 3:
+
+								break;
+								
+								
+							case 4:
+
+								break;
+								
+								
+							case 5:
+                                                                
+								break;
+								
+								
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					*/
+					valorIntroduzido = 1;
+>>>>>>>
+>>>>>>> master
 					break;
 				case 5:
+<<<<<<<
+					printMenu("Aluno","Alunos");
+=======
                                         switch (valorIntroduzido) {
                                             case 1:
                                                 valorIntroduzido=-1;
@@ -228,7 +839,6 @@ public class Projeto {
                                                     Entity nAluno;
                                                     Aluno aluno;
                                                     String pNome="",uNome="";
-                                                    ZonedDateTime nascimento;
                                                     
                                                     switch(valorIntroduzido){
                                                         case 0:
@@ -240,7 +850,7 @@ public class Projeto {
                                                             aluno = Aluno.getAlunoFromID(nAluno);
                                                             
                                                             //set nomes
-                                                            while(pNome=="" && uNome=="" ){
+                                                            while(pNome=="" || uNome=="" ){
                                                                 System.out.println("Insira o primeiro e o ultimo nome do aluno.");
                                                                 try {
                                                                     pNome = Ler.processarTecladoString();
@@ -248,12 +858,27 @@ public class Projeto {
                                                                 } catch (IOException e) {
                                                                     System.out.println("Ocurreu um erro, insira novamente.");
                                                                 }
-                                                                if(pNome==""  && uNome=="" )
+                                                                if(pNome==""  || uNome=="" )
                                                                     System.out.println("Insira um nome correto.");
                                                             }
                                                             aluno.setPrimeiroNome(pNome);
                                                             aluno.setUltimoNome(uNome);
                                                             System.out.println("Nome alterado.");
+                                                            
+                                                            //set nascimento
+                                                            ZoneId zoneid = ZoneId.systemDefault();
+                                                            ZonedDateTime nascimento = ZonedDateTime.now();
+                                                            while(nascimento.getYear() == ZonedDateTime.now().getYear()){
+                                                                System.out.println("Insira a data de nascimento no seguinte formato ano-mês-dia.");
+                                                                try{
+                                                                    nascimento = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, 0, 0, zoneid);
+                                                                } catch (IOException e){
+                                                                    System.out.println("Introduza uma data correta.");
+                                                                }
+                                                            }
+                                                            aluno.setNascimento(nascimento);
+                                                            System.out.println("Data de nascimento alterada.");
+                                                            
                                                             
                                                             //set turma
                                                             Entity turma=Entity.Zero;
@@ -301,46 +926,8 @@ public class Projeto {
                                                 while (valorIntroduzido != exitop) {
                                                     // Mostrar o menu
                                                     printMenu("Curso", "Cursos");
+>>>>>>>
 
-                                                    // ler a opção do utilizador
-                                                    try {
-                                                    	valorIntroduzido = Ler.processarTecladoInt();
-                                                    } catch (IOException e) {
-							System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
-                                                    }
-                                                    
-                                                    
-                                                    int x;
-                                                    int turmaID;
-                                                    Entity mudarturma;
-                                                    switch (valorIntroduzido){
-							case 0:
-								// Mostrar tudo
-								printTodosCursos();
-								break;
-                                                        case 1:
-                                                            System.out.println("Insira o ano que deseja alterar.");
-                                                            try{          
-                                                                x=Ler.processarTecladoInt();
-                                                                if(x<=10 || x>=12){
-                                                                    aluno.setAno(x);
-                                                                    System.out.println("Mudou o ano.");
-                                                                }
-                                                            }catch(IOException e){
-                                                                System.out.println("Insira um valor entre 10 e 12 inclusive.");
-                                                            }
-                                                        case 2:
-                                                            System.out.println("Insira a turma que seja alterar.");
-                                                            try{          
-                                                                turmaID=Ler.processarTecladoInt();
-                                                                aluno.setTurma(turmaID);//recebe um Entity
-                                                                System.out.println("Mudou o ano"); 
-                                                            }catch(IOException e){
-                                                                e.getMessage();
-                                                                System.out.println("A turma que quer mudar nao existe.");
-                                                            }
-                                        }
-                        
 					valorIntroduzido = 5;
 					break;
 
