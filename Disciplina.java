@@ -14,6 +14,11 @@ public class Disciplina extends Entity {
 		// Disciplina null
 		Create();
 	}
+        
+        public static Map<String, Disciplina> getDisciplina(){
+             return disciplina;
+        }
+
 
 	public static Disciplina getDisciplinaFromID(Entity ID) {
 		return disciplina.getOrDefault(

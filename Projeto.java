@@ -41,7 +41,7 @@ public class Projeto {
 		System.out.println("Todas as Disciplinas");
 		System.out.println("---");
 		//Fazer isto
-		for(Disciplina disciplina : disciplina.get.values()){
+		for(Disciplina disciplina : Disciplina.getDisciplina().values()){
 			if(disciplina.getID() != 0){
 				System.out.println(disciplina);
 			}
@@ -58,7 +58,7 @@ public class Projeto {
 		System.out.println("2- Mudar Ano");
 		System.out.println("3- Mudar Aula");
 		System.out.println("4- Inserir Professor");
-		System.out.println("5- Inserir possível sala");
+		System.out.println("5- Inserir possï¿½vel sala");
 		System.out.println("6- Voltar");
 	}
 	
@@ -97,7 +97,7 @@ public class Projeto {
 
 
 	
-	//Função Main
+	//Funï¿½ï¿½o Main
 >>>>>>> master
     public static void main(String[] args) {
 		int valorIntroduzido=0;
@@ -156,7 +156,7 @@ public class Projeto {
 									try {
 										nome = Ler.processarTecladoString();
 									} catch (IOException e) {
-										System.out.println("Ocurreu um erro, insira novamente.");
+										System.out.println("Ocorreu um erro, insira novamente.");
 									}
 									if(nome == "")
 										System.out.println("Insira um nome correto.");
@@ -262,7 +262,7 @@ public class Projeto {
 						// Mostrar o menu
 						printMenu("Discipina", "Disciplinas");
 
-						// ler a opçãoo do utilizador
+						// ler a opï¿½ï¿½oo do utilizador
 						try {
 							valorIntroduzido = Ler.processarTecladoInt();
 						} catch (IOException e) {
@@ -270,7 +270,7 @@ public class Projeto {
 						}
 
 					
-						//Variaveis que serão utilizadas no Menu
+						//Variaveis que serï¿½o utilizadas no Menu
 						Entity nDisciplina;
 						Disciplina disciplina;
 						long DisciplinaID;
@@ -326,7 +326,7 @@ public class Projeto {
 								
 							case 3://Selecionar Disciplina
 								printMenuSelecionar();
-								//Ler Valor para opçao do menu
+								//Ler Valor para opï¿½ao do menu
 								try {
 									valorIntroduzido = Ler.processarTecladoInt();
 								} catch (IOException e) {
