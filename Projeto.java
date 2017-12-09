@@ -1,10 +1,10 @@
 import myinput.Ler;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class Projeto {
@@ -229,11 +229,11 @@ public class Projeto {
                                                     }
                                                     
                                                     Entity nAluno;
+                                                    int ano=0,mes=0,dia=0;
                                                     Aluno aluno;
                                                     long turmID;
+                                                    ZonedDateTime nascimento=null;
                                                     String pNome="",uNome="";
-
-                                                    
                                                     switch(valorIntroduzido){
                                                         case 0:
                                                             PrintTodosAlunos();
@@ -244,19 +244,28 @@ public class Projeto {
                                                             aluno = Aluno.getAlunoFromID(nAluno);
                                                             
                                                             //set nomes
-                                                            while(pNome=="" && uNome=="" ){
+                                                            while(pNome=="" && uNome==""  ){
                                                                 System.out.println("Insira o primeiro e o ultimo nome do aluno.");
                                                                 try {
                                                                     pNome = Ler.processarTecladoString();
                                                                     uNome = Ler.processarTecladoString();
+                                                                    System.out.println("Insira o dia.");
+                                                                    dia=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o mês.");
+                                                                    mes=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o ano.");
+                                                                    ano=Ler.processarTecladoInt();
                                                                 } catch (IOException e) {
                                                                     System.out.println("Ocurreu um erro, insira novamente.");
                                                                 }
-                                                                if(pNome==""  && uNome=="" )
+                                                                if(pNome==""  || uNome=="" || (dia<=0 && dia >=31) || (mes<0 && mes >12) || (ano<=0 && ano>Integer.MAX_VALUE) )
                                                                     System.out.println("Insira um nome correto.");
                                                             }
                                                             aluno.setPrimeiroNome(pNome);
                                                             aluno.setUltimoNome(uNome);
+                                                            aluno.setNascimento(nascimento);//dia???
+                                                            aluno.setNascimento(nascimento.withDayOfMonth(mes));
+                                                            aluno.setNascimento(nascimento.withDayOfYear(ano));
                                                             System.out.println("Nome alterado.");
                                                         case 2:   
                                                             //set turma
@@ -280,14 +289,33 @@ public class Projeto {
                                                                     System.out.println("Não existem turmas.");
                                                                 System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
 								break;
-                                                                /////////////SET NASCIMENTO////////////
+                                                        case 3:
+                                                            //set nascimento/??????????????NAO SEI COMO FAZER ISTO
+                                                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd(ano/mes/dia)");
+                                                            while(ZonedDateTime.now()!=null){
+                                                                try{
+                                                                    System.out.println("Insira o dia que quer alterar");
+                                                                    dia=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o mês que quer alterar");
+                                                                    mes=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o ano que quer alterar");
+                                                                    ano=Ler.processarTecladoInt();
+                                                                    if((dia<=0 && dia >=31) && (mes<0 && mes >12) && (ano<=0 && ano>Integer.MAX_VALUE))
+                                                                        System.out.println("Nao é possivel inserir esses valores(dia esta compreendido entre 0 e 31, mês entre 0 e 12 e ano entre 0 e Integer.MAX_VALUE )");
+                                                                    else
+                                                                        System.out.println("Data mudada.");
+                                                                }catch(IOException | NullPointerException e){
+                                                                    e.getMessage();
+                                                                    System.out.println("Insira novamente os valores");
+                                                                }
+                                                            }
                                                     }
                                                 }
                                             case 2:
                                                     //Eliminar um aluno
                                                     System.out.println("Insira o ID do aluno para eliminar(0 para mostrar todos, -1 para cancelar).");
                                                     long alunoID=0;
-                                                    Aluno aluno = null;
+                                                    Aluno aluno=null ;
                                                     Entity nAluno=Entity.Zero;
                                                     while(nAluno.getID() == 0 && Aluno.getAlunos().size()!=0){
                                                         try{
@@ -295,7 +323,7 @@ public class Projeto {
                                                             if(alunoID ==0){
                                                                 PrintTodosAlunos();
                                                             }else if(alunoID != -1){
-                                                                aluno=Aluno.getAlunoFromID(nAluno);//extends entity ???
+                                                                aluno=Aluno.getAlunoFromID(nAluno);
                                                             }
                                                         }catch (IOException e) {
                                                         	System.out.println("Occureu um erro, inisra novamente.");
@@ -313,13 +341,12 @@ public class Projeto {
                                                     } catch (IOException e) {
 							System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
                                                     }
-                                                    
-                                                    
                                                     int x;
                                                     int turmaID;
                                                     Entity mudarTurma=Entity.Zero;
                                                     Entity mudarCurso=Entity.Zero;
                                                     boolean ativo;
+                                                    Aluno alu=null;
                                                     switch (valorIntroduzido){
 							case 0:
 								// Mostrar tudo
@@ -330,7 +357,7 @@ public class Projeto {
                                                             try{          
                                                                 x=Ler.processarTecladoInt();
                                                                 if(x<=10 || x>=12){
-                                                                    aluno.setAno(x);
+                                                                    alu.setAno(x);
                                                                     System.out.println("Mudou o ano.");
                                                                 }
                                                             }catch(IOException e){
@@ -340,21 +367,21 @@ public class Projeto {
                                                             System.out.println("Insira a turma que seja alterar.");
                                                             try{          
                                                                 Turma.getTurmaFromID(mudarTurma);
-                                                                Aluno.getAlunoFromID(aluno).setTurma(mudarTurma);
+                                                                Aluno.getAlunoFromID(alu).setTurma(mudarTurma);
                                                                 System.out.println("Mudou a turma"); 
-                                                            }catch(IOException e){
+                                                            }catch(NullPointerException e){
                                                                 e.getMessage();
                                                                 System.out.println("A turma que quer mudar nao existe.");
                                                             }
                                                         case 3:
-                                                            System.out.println("Insira a turma que seja alterar.");
+                                                            System.out.println("Insira o curso que seja alterar.");
                                                             try{          
                                                                 Curso.getCursoFromID(mudarCurso);
-                                                                Aluno.getAlunoFromID(aluno).setCurso(mudarCurso);
+                                                                Aluno.getAlunoFromID(alu).setCurso(mudarCurso);
                                                                 System.out.println("Mudou o curso"); 
-                                                            }catch(IOException e){
+                                                            }catch(NullPointerException e){
                                                                 e.getMessage();
-                                                                System.out.println("A turma que quer mudar nao existe.");
+                                                                System.out.println("O curso que quer mudar nao existe.");
                                                             }
                                                         case 4:
                                                             System.out.println("Diga se quer o aluno ativo ou não(true or false)");
@@ -363,10 +390,10 @@ public class Projeto {
                                                                 System.out.println("Diga qual o aluno.");
                                                                 alunoID=Ler.processarTecladoLong();
                                                                 if(ativo==true){
-                                                                    aluno.setActive(ativo);
+                                                                    alu.setActive(ativo);
                                                                     System.out.println("Aluno ativo");
                                                                 }else if(ativo==false){
-                                                                    aluno.setActive(ativo);
+                                                                    alu.setActive(ativo);
                                                                     System.out.println("Aluno inativo");
                                                                 }
                                                             }catch(IOException e){
@@ -375,7 +402,7 @@ public class Projeto {
                                                             }
                                                         case 5:
                                                             System.out.println("Atividade:");
-                                                            for (Map.Entry<ZonedDateTime, String> actividade : aluno.activity.getActivity)
+                                                            for (Map.Entry<ZonedDateTime, String> actividade : alu.getNascimento())
                                                                 System.out.println(actividade.getKey() +": "+ actividade.getValue());
                         
 					valorIntroduzido = 5;
