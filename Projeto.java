@@ -118,7 +118,7 @@ public class Projeto {
 						Curso curso;
 						long cursoID;
 						long profID;
-						Entity profEnity
+						Entity profEnity;
 						switch (valorIntroduzido){
 							case 0:
 								// Mostrar tudo
@@ -250,12 +250,20 @@ public class Projeto {
 						}
 
 					
-						//Variaveis que serão utilizadas no Menu
-						Entity nDisciplina;
+						//Variaveis que serão utilizadas no Menu abaixo
 						Disciplina disciplina;
+						
+						Entity nDisciplina;
 						long disciplinaID;
+						
 						long profID;
 						Entity profEntity;
+						
+						String nome;
+						int ano = 0;
+						
+						Entity nAula;
+						long aulaID;
 						
 						
 						switch (valorIntroduzido){
@@ -269,7 +277,7 @@ public class Projeto {
 								disciplina = Disciplina.getDisciplinaFromID(nDisciplina);
 
 								//set nome da Disciplina
-								String nome = "";
+								nome = "";
 								while (nome == "") {
 									System.out.println("Insira o nome da Disciplina: ");
 									try {
@@ -284,9 +292,9 @@ public class Projeto {
 								System.out.println("Nome alterado.");
 
 								// set ano da Disciplina
-								int ano = 0;
+								ano = 0;
 								while(ano == 0){
-									System.out.println("Insira o nome da Disciplina");
+									System.out.println("Insira o ano da Disciplina");
 									try{
 										ano = Ler.processarTecladoInt();
 									} catch(IOException e){
@@ -310,7 +318,7 @@ public class Projeto {
 										disciplinaID = Ler.processarTecladoLong();
 
 										if(disciplinaID == 0){
-											printTodosCursos();
+											printTodasDisciplinas();
 										} else if (disciplinaID != -1){
 											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
 										}
@@ -335,7 +343,7 @@ public class Projeto {
 										disciplinaID = Ler.processarTecladoLong();
 
 										if(disciplinaID == 0){
-											printTodosCursos();
+											printTodasDisciplinas();
 										} else if (disciplinaID != -1){
 											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
 										}
@@ -344,6 +352,7 @@ public class Projeto {
 									}
 								}
 
+								System.out.println("Voce selecionou a disciplina " + disciplina.getNome());
 								
 								//Print do enu selecionar
 								printMenuSelecionar();
@@ -355,28 +364,62 @@ public class Projeto {
 									System.out.println("Por favor introduza um valor entre 1 e 6.");
 								}
 								
+								
 								 switch(valorIntroduzido){
-								 		case 1://Mudar Nome
-									 
+								 
+								 		case 1://----------------------------------------------Mudar Nome------------------------------------------------------
+								 			nome = "";
+											while (nome == "") {
+												System.out.println("Insira o nome da Disciplina: ");
+												try {
+													nome = Ler.processarTecladoString();
+												} catch (IOException e) {
+													System.out.println("Ocurreu um erro, insira novamente.");
+												}
+												if(nome == "")
+													System.out.println("Insira um nome correto.");
+											}
+											disciplina.setNome(nome);
+											System.out.println("Nome alterado.");
 								 		break;
 									 
-								 		case 2://Mudar Ano
-									 
+								 		
+								 		case 2://----------------------------------------------Mudar ano------------------------------------------------------
+								 			ano = 0;
+											while(ano == 0){
+												System.out.println("Insira o ano da Disciplina");
+												try{
+													ano = Ler.processarTecladoInt();
+												} catch(IOException e){
+													System.out.println("Ocorreu um erro, insira novamente.");
+												}
+												if(ano == 0)
+													System.out.println("Insira um ano correto.");
+											}
+								 			
+								 			disciplina.setAno(ano);
+								 			System.out.println("Ano alterado");
 								 		break;
 								 		
-								 		case 3://Inserir Ano
+								 		
+								 		case 3://----------------------------------------------Inserir Aula------------------------------------------------------
+								 			aulaID = 0;
+								 			nAula = Entity.Zero;
+								 			
 								 			
 								 		break;
 									 
-								 		case 4://Inserir Professor
+								 		
+								 		case 4://----------------------------------------------Inserir Professor------------------------------------------------------
 									 
 								 		break;
 									 
-								 		case 5://Inserir Possivel Sala
+								 		
+								 		case 5://----------------------------------------------Inserir Possivel sala---------------------------------------------------
 									 
 								 		break;
 								 		
-								 		case 6://Voltar
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
 								 			printMenu("Disciplina", "Disciplinas");
 								 		break;
 								 
