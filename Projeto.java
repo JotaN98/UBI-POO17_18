@@ -1,8 +1,11 @@
 import myinput.Ler;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Map;
 
 public class Projeto {
 	public static int exitop = 5;
@@ -227,8 +230,9 @@ public class Projeto {
                                                     
                                                     Entity nAluno;
                                                     Aluno aluno;
+                                                    long turmID;
                                                     String pNome="",uNome="";
-                                                    ZonedDateTime nascimento;
+
                                                     
                                                     switch(valorIntroduzido){
                                                         case 0:
@@ -254,7 +258,7 @@ public class Projeto {
                                                             aluno.setPrimeiroNome(pNome);
                                                             aluno.setUltimoNome(uNome);
                                                             System.out.println("Nome alterado.");
-                                                            
+                                                        case 2:   
                                                             //set turma
                                                             Entity turma=Entity.Zero;
                                                             long turmaID=0;
@@ -276,13 +280,14 @@ public class Projeto {
                                                                     System.out.println("Não existem turmas.");
                                                                 System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
 								break;
+                                                                /////////////SET NASCIMENTO////////////
                                                     }
                                                 }
                                             case 2:
                                                     //Eliminar um aluno
                                                     System.out.println("Insira o ID do aluno para eliminar(0 para mostrar todos, -1 para cancelar).");
-                                                    Aluno aluno;      
                                                     long alunoID=0;
+                                                    Aluno aluno = null;
                                                     Entity nAluno=Entity.Zero;
                                                     while(nAluno.getID() == 0 && Aluno.getAlunos().size()!=0){
                                                         try{
@@ -290,7 +295,7 @@ public class Projeto {
                                                             if(alunoID ==0){
                                                                 PrintTodosAlunos();
                                                             }else if(alunoID != -1){
-                                                                aluno=Aluno.getAlunoFromID(alunoID);//extends entity ???
+                                                                aluno=Aluno.getAlunoFromID(nAluno);//extends entity ???
                                                             }
                                                         }catch (IOException e) {
                                                         	System.out.println("Occureu um erro, inisra novamente.");
@@ -312,7 +317,9 @@ public class Projeto {
                                                     
                                                     int x;
                                                     int turmaID;
-                                                    Entity mudarturma;
+                                                    Entity mudarTurma=Entity.Zero;
+                                                    Entity mudarCurso=Entity.Zero;
+                                                    boolean ativo;
                                                     switch (valorIntroduzido){
 							case 0:
 								// Mostrar tudo
@@ -332,14 +339,44 @@ public class Projeto {
                                                         case 2:
                                                             System.out.println("Insira a turma que seja alterar.");
                                                             try{          
-                                                                turmaID=Ler.processarTecladoInt();
-                                                                aluno.setTurma(turmaID);//recebe um Entity
-                                                                System.out.println("Mudou o ano"); 
+                                                                Turma.getTurmaFromID(mudarTurma);
+                                                                Aluno.getAlunoFromID(aluno).setTurma(mudarTurma);
+                                                                System.out.println("Mudou a turma"); 
                                                             }catch(IOException e){
                                                                 e.getMessage();
                                                                 System.out.println("A turma que quer mudar nao existe.");
                                                             }
-                                        }
+                                                        case 3:
+                                                            System.out.println("Insira a turma que seja alterar.");
+                                                            try{          
+                                                                Curso.getCursoFromID(mudarCurso);
+                                                                Aluno.getAlunoFromID(aluno).setCurso(mudarCurso);
+                                                                System.out.println("Mudou o curso"); 
+                                                            }catch(IOException e){
+                                                                e.getMessage();
+                                                                System.out.println("A turma que quer mudar nao existe.");
+                                                            }
+                                                        case 4:
+                                                            System.out.println("Diga se quer o aluno ativo ou não(true or false)");
+                                                            try{
+                                                                ativo=Ler.processarTecladoBoolean();
+                                                                System.out.println("Diga qual o aluno.");
+                                                                alunoID=Ler.processarTecladoLong();
+                                                                if(ativo==true){
+                                                                    aluno.setActive(ativo);
+                                                                    System.out.println("Aluno ativo");
+                                                                }else if(ativo==false){
+                                                                    aluno.setActive(ativo);
+                                                                    System.out.println("Aluno inativo");
+                                                                }
+                                                            }catch(IOException e){
+                                                                e.getMessage();
+                                                                System.out.println("");
+                                                            }
+                                                        case 5:
+                                                            System.out.println("Atividade:");
+                                                            for (Map.Entry<ZonedDateTime, String> actividade : aluno.activity.getActivity)
+                                                                System.out.println(actividade.getKey() +": "+ actividade.getValue());
                         
 					valorIntroduzido = 5;
 					break;
