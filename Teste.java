@@ -13,10 +13,6 @@ public class Teste extends Entity{
         Create();
     }
     
-    public static Map<String, Teste> getTestes(){
-        return testes;
-    }
-    
     public static Teste getTesteFromID(Entity ID){
         return testes.getOrDefault(
                 ID.getCodeID(),

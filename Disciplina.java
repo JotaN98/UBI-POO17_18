@@ -10,32 +10,16 @@ public class Disciplina extends Entity {
 
 	private static Map<String, Disciplina> disciplina = new HashMap<String, Disciplina>();
 
-	
-    public static Map<String, Disciplina> getDisciplinas(){
-        return disciplina;
-    }
-	
 	static {
 		// Disciplina null
 		Create();
 	}
-        
-        public static Map<String, Disciplina> getDisciplina(){
-             return disciplina;
-        }
-
 
 	public static Disciplina getDisciplinaFromID(Entity ID) {
 		return disciplina.getOrDefault(
 				ID.getCodeID(),
 				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
 		);
-	}
-	
-    public static Disciplina getDisciplinaFromID(long ID){
-		return disciplina.getOrDefault(
-				Entity.getGroupFromID("Disciplina") + ID,
-				disciplina.get(Entity.getGroupFromID("Disciplina") + "0"));
 	}
 
 
