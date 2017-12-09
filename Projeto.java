@@ -33,6 +33,26 @@ public class Projeto {
 		} catch (IOException e){}
 	}
 	
+	
+	
+	//Mostrar todas as turmas
+	public static void printTodasTurmas(){
+		System.out.println("---");
+		System.out.println("Todas as Turmas");
+		System.out.println("---");
+		for(Turma turma : Turma.getTurmas().values()){
+			if(turma.getID() != 0){
+				System.out.println(turma);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}
+	
+	
+	
 	//Mostrar todas as Disciplinas
 	public static void printTodasDisciplinas(){
 		System.out.println("---");
@@ -50,6 +70,8 @@ public class Projeto {
 		} catch (IOException e){}
 	}
 	
+	
+	
 	//Mostrar Menu Disciplinas->Selecionar
 	public static void printMenuSelecionar(){
 		System.out.println("1- Mudar Nome");
@@ -59,6 +81,8 @@ public class Projeto {
 		System.out.println("5- Inserir possível sala");
 		System.out.println("6- Voltar");
 	}
+	
+	
 	
 	//Mostrar todos os professores
 	public static void printTodosProfessores(){
@@ -227,16 +251,110 @@ public class Projeto {
 					valorIntroduzido = 1;
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 2:
-					printMenu("Turma","Turmas");
+				case 2://Opçao Turmas
+					
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Turma", "Turmas");
 
-					valorIntroduzido = 2;
+						// ler a opçãoo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que serão utilizadas no Menu abaixo
+						Turma turma;
+						
+						Entity nTurma;
+						long turmaID;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodasTurmas();
+								break;
+								
+							case 1://criar Turma
+								
+								nTurma = Turma.Create();
+								turma = Turma.getTurmaFromID(nTurma);
+
+								
+								
+								
+							case 2://Eliminar Turma
+								
+
+								break;
+								
+							case 3://Selecionar Turma
+								
+								//Perguntar qual a Turma que o utilizador pretende alterar
+								
+								
+								//Submenu das opçoes que o utilizador tem
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
+
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
+								 		
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Turma", "Turmas");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas as Turmas
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
 					break;
+
+					
 					
 					
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 3:
+				case 3://Opçao Disciplinas
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
@@ -449,10 +567,102 @@ public class Projeto {
 					
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 4:
-					printMenu("Professor","Professores");
+				case 4://opçao professores
 					
-					valorIntroduzido = 4;
+					valorIntroduzido = -1;
+					while (valorIntroduzido != exitop) {
+						// Mostrar o menu
+						printMenu("Professor", "Professores");
+
+						// ler a opçãoo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+						}
+
+					
+						//Variaveis que serão utilizadas no Menu abaixo
+						Professor professor;
+						
+						Entity nProfessores;
+						long ProfessorID;
+						
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodosProfessores();
+								break;
+								
+							case 1://criar Professor
+								
+								nProfessores = Professor.Create();
+								professor = Professor.getProfessorFromID(nProfessores);
+
+								
+								
+								
+							case 2://Eliminar Professor
+								
+
+								break;
+								
+							case 3://Selecionar Professor
+								
+								//Perguntar qual o Prodfessor que o utilizador pretende alterar
+								
+								
+								//Submenu das opçoes que o utilizador tem
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
+
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
+								 		
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Professor", "Professores");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas os Professores
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 5:
