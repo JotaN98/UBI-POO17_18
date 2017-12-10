@@ -16,7 +16,7 @@ public class Professor extends Pessoa{
     }
 
     public static Map<String, Professor> getProfessores(){
-        return professor;
+        return professores;
     }
 
     public static Professor getProfessorFromID(long ID){

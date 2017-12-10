@@ -14,24 +14,16 @@ public class Turma extends Entity{
     	Create();
 	}
 
-    public static Map<String, Turma> getTurmas(){
-        return turmas;
-    }   
-    
-    public static Turma getTurmaFromID(long ID){
-        return turmas.getOrDefault(
-                Entity.getGroupFromID("Turma") + ID,
-                turmas.get(Entity.getGroupFromID("Turma") + "0")
-        );
-    }
-    
     public static Turma getTurmaFromID(Entity ID){
         return turmas.getOrDefault(
         		ID.getCodeID(),
 				turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
 		);
     }
-
+     public static Map<String, Turma> getTurmas(){
+        return turmas;
+    }
+    
     public static void addTurma(Turma x) throws NullPointerException{
         //if(getTurmaFromID(x).getID() != 0){
         //    throw new NullPointerException("Turma já foi adicionada.");
