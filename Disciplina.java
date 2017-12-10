@@ -16,6 +16,17 @@ public class Disciplina extends Entity {
 	}
         
 
+	public static Map<String, Disciplina> getDisciplinas(){
+		return disciplina;
+	}
+
+	public static Disciplina getDisciplinaFromID(long ID) {
+		return disciplina.getOrDefault(
+				Entity.getGroupIDFromGroup("Disciplina") + ID,
+				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
+		);
+	}
+
 	public static Disciplina getDisciplinaFromID(Entity ID) {
 		return disciplina.getOrDefault(
 				ID.getCodeID(),
@@ -31,13 +42,13 @@ public class Disciplina extends Entity {
 		disciplina.put(x.getCodeID(), x);
 	}
 
-	public static Disciplina Create() {
+	public static Entity Create() {
 		Disciplina nDisciplina = new Disciplina();
 		addDisciplina(nDisciplina);
 		return nDisciplina;
 	}
 
-	public static Disciplina Create(String pNome, int ano) {
+	public static Entity Create(String pNome, int ano) {
 		Disciplina nDisciplina = new Disciplina(pNome, ano);
 		addDisciplina(nDisciplina);
 		return nDisciplina;

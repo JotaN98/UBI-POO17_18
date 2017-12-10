@@ -1,11 +1,7 @@
 import myinput.Ler;
 
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
+import java.util.InputMismatchException;
 
 public class Projeto {
 	public static int exitop = 5;
@@ -30,9 +26,6 @@ public class Projeto {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 	
 	
@@ -97,9 +90,6 @@ public class Projeto {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
         public static void PrintTodosAlunos(){
           System.out.println("---");
@@ -120,7 +110,6 @@ public class Projeto {
 		int valorIntroduzido=0;
 
 		while(valorIntroduzido != 6) {
-			valorIntroduzido = 0;
 
 			System.out.println("1- Cursos");
 			System.out.println("2- Turmas");
@@ -131,15 +120,16 @@ public class Projeto {
 
 			try {
 				valorIntroduzido = Ler.processarTecladoInt();
-			} catch (IOException e) {
-				System.out.println("Por favor introduza um valor entre 1 e 6.");
+			} catch (IOException | InputMismatchException e) {
+				System.out.println("Ocurreu um erro, tente novamente.");
+				valorIntroduzido = 0;
 			}
 
 
 			switch (valorIntroduzido) {
 				case 1:
 					valorIntroduzido = -1;
-					while (valorIntroduzido != exitop) {
+					while (valorIntroduzido != exitop) { // mostrar menu curso
 						// Mostrar o menu
 						printMenu("Curso", "Cursos");
 
@@ -155,8 +145,13 @@ public class Projeto {
 						Curso curso;
 						long cursoID;
 						long profID;
-						Entity profEnity;
-						switch (valorIntroduzido){
+						long discID;
+						Entity discEnt;
+						Entity profEntity;
+						Turma turma;
+						int anoDeTurma;
+						String stringInput;
+						switch (valorIntroduzido){ // menu curso
 							case 0:
 								// Mostrar tudo
 								printTodosCursos();
@@ -168,14 +163,14 @@ public class Projeto {
 
 								// set nome
 								String nome = "";
-								while (nome == "") {
+								while (nome.equals("")) {
 									System.out.println("Insira o nome do Curso: ");
 									try {
 										nome = Ler.processarTecladoString();
 									} catch (IOException e) {
 										System.out.println("Ocurreu um erro, insira novamente.");
 									}
-									if(nome == "")
+									if(nome.equals(""))
 										System.out.println("Insira um nome correto.");
 								}
 								curso.setNome(nome);
@@ -183,8 +178,8 @@ public class Projeto {
 
 								// set diretor
 								profID = 0;
-								profEnity = Entity.Zero;
-								while(profEnity.getID() == 0 && Professor.getProfessores().size() != 0){
+								profEntity = Entity.Zero;
+								while(profEntity.getID() == 0 && Professor.getProfessores().size() != 0 && profID != -1){
 									System.out.println("Insira o ID do Professor (0 para mostrar todos, -1 para cancelar): ");
 									try {
 										profID = Ler.processarTecladoLong();
@@ -192,19 +187,19 @@ public class Projeto {
 										if(profID == 0){
 											printTodosProfessores();
 										} else if(profID != -1){
-											profEnity = Professor.getProfessorFromID(profID);
+											profEntity = Professor.getProfessorFromID(profID);
 										}
 									} catch (IOException e) {
 										System.out.println("Ocurreu um erro, insira novamente.");
 									}
 
 
-									if(profEnity.getID() == 0 && profID != 0 && profID != -1) {
+									if(profEntity.getID() == 0 && profID != 0 && profID != -1) {
 										System.out.println("Professor não encontrado.");
 
-									}else if(profEnity.getID() != 0) {
+									}else if(profEntity.getID() != 0) {
 										System.out.println("Diretor definido.");
-										curso.setDiretor(profEnity);
+										curso.setDiretor(profEntity);
 
 									}else if(profID == -1){
 										System.out.println("Diretor não definido.");
@@ -222,26 +217,348 @@ public class Projeto {
 
 								cursoID = 0;
 								nCurso = Entity.Zero;
-								while(nCurso.getID() == 0 && Curso.getCursos().size() != 0) {
+								while(Curso.getCursos().size() != 0) {
 									try {
 										cursoID = Ler.processarTecladoLong();
 
 										if(cursoID == 0){
 											printTodosCursos();
 										} else if (cursoID != -1){
-											curso = Curso.getCursoFromID(cursoID);
+											nCurso = Curso.getCursoFromID(cursoID);
 										}
 									} catch (IOException e) {
 										System.out.println("Occureu um erro, inisra novamente.");
+									}
+
+									if(		nCurso.getID() == 0 &&
+											cursoID != 0 &&
+											cursoID != -1){
+										System.out.println("Curso não encontrado.");
+
+									}else if(nCurso.getID() != 0){
+										try{
+											Curso.Remove(nCurso);
+											System.out.println("Curso apagado.");
+											break;
+										} catch (IllegalArgumentException | NullPointerException e) {
+											System.out.println(e.getMessage());
+										}
+									}else if(cursoID == -1){
+										System.out.println("Operação cancelada.");
+										break;
 									}
 								}
 
 								break;
 							case 3:
 
+								cursoID = 0;
+								curso = Curso.getCursoFromID(0);
+								System.out.println(curso);
+								while(cursoID != -1 &&
+										curso.getID() == 0) {
+									System.out.println("Insira o ID do curso (0 para mostrar todos, -1 para cancelar): ");
+									try {
+										cursoID = Ler.processarTecladoLong();
+
+										if (cursoID == 0) {
+											printTodosCursos();
+										} else if (cursoID != -1) {
+											curso = Curso.getCursoFromID(cursoID);
+										}
+									} catch (IOException e) {
+										System.out.println("Occureu um erro, inisra novamente.");
+										cursoID = 0;
+									}
+								}
+								if(Curso.getCursos().size() == 0) {
+									System.out.println("Não existem cursos.");
+									try {
+										System.in.read();
+									} catch (IOException e){}
+									break;
+								} else if(curso.getID() != 0) {
+									// menu curso
+									valorIntroduzido = -1;
+
+									while(valorIntroduzido != 7) { // while para mostrar o menu
+										System.out.println("Curso " + curso + "");
+										System.out.println("1- Mudar Nome");
+										System.out.println("2- Mudar Diretor");
+										System.out.println("3- Inserir Disciplina");
+										System.out.println("4- Remover uma Disciplina");
+										System.out.println("5- Criar Turma");
+										System.out.println("6- Mudar para " + (curso.getAtivo() ? "in" : "") + "activo");
+										System.out.println("7- Voltar");
+
+										try {
+											valorIntroduzido = Ler.processarTecladoInt();
+										} catch (IOException e){
+											System.out.println("Ocurreu um erro, tente novamente.");
+											valorIntroduzido = -1;
+										}
+
+										switch (valorIntroduzido){ // menu selecionar curso
+											case 1:
+												System.out.println("Enter para voltar ou insira um nome.");
+												System.out.println("Nome atual: "+curso.getNome());
+
+												stringInput = "";
+												while(stringInput.equals("")) {
+													try {
+														stringInput = Ler.processarTecladoString();
+													} catch (IOException e) {
+														System.out.println("Ocurreu um erro, tente novamente.");
+														stringInput = "";
+													}
+												}
+												System.out.println("Nome mudade de \""+curso.getNome()+"\" para \""+stringInput+"\".");
+												curso.setNome(stringInput);
+
+												valorIntroduzido = 1;
+												break;
+
+											case 2:
+												System.out.println("(0 para mostrar todos os professores, -1 para voltar)");
+												System.out.println("Diretor atual: "+Professor.getProfessorFromID(curso.getDiretor()));
+
+												profID = 0;
+												profEntity = Entity.Zero;
+												while(profEntity.getID() == 0 && Professor.getProfessores().size() != 0 && profID != -1){
+													try {
+														profID = Ler.processarTecladoLong();
+
+														if(profID == 0){
+															printTodosProfessores();
+														} else if(profID != -1){
+															profEntity = Professor.getProfessorFromID(profID);
+														}
+													} catch (IOException e) {
+														System.out.println("Ocorreu um erro, insira novamente.");
+														profID = 0;
+														continue;
+													}
+
+													if(profEntity.getID() == 0 && profID != 0 && profID != -1) {
+														System.out.println("Professor não encontrado.");
+
+													}else if(profEntity.getID() != 0) {
+														System.out.println("Diretor definido.");
+														curso.setDiretor(profEntity);
+
+													}else if(profID == -1){
+														System.out.println("Operação cancelada.");
+													}
+												}
+												if(Professor.getProfessores().size() == 0)
+													System.out.println("Não existem professores.");
+												break;
+
+											case 3:
+												System.out.println("Disciplinas já adicionadas:");
+												for(Entity dis : curso.getDisciplinas()){
+													System.out.println(Disciplina.getDisciplinaFromID(dis));
+												}
+
+												discID = 0;
+												discEnt = Entity.Zero;
+												while(Disciplina.getDisciplinas().size() != 0 && discID == 0 && discEnt.getID() == 0){
+													System.out.println("(0 para mostrar todas as disciplinas, -1 para voltar)");
+													System.out.println("Insira o ID da disciplina a inserir:");
+
+													try {
+														discID = Ler.processarTecladoLong();
+
+														if (discID == 0){
+															printTodasDisciplinas();
+														} else if(discID != -1){
+															discEnt = Disciplina.getDisciplinaFromID(discID);
+														}
+													} catch (IOException e){
+														System.out.println("Ocorreu um erro, insira novamente");
+														discID = 0;
+
+													}
+												}
+												if (Disciplina.getDisciplinas().size() == 0){
+													System.out.println("Não existem disciplinas.");
+												} else if(discEnt.getID() != 0){
+													try {
+														curso.addDisciplina(discEnt);
+													} catch (NullPointerException | IllegalArgumentException e){
+														System.out.println(e.getMessage());
+													}
+												} else if(discID == -1){
+													System.out.println("Operação cancelada");
+												}
+
+												break;
+											case 4:
+												System.out.println("Disciplinas já adicionadas:");
+												for(Entity dis : curso.getDisciplinas()){
+													System.out.println(Disciplina.getDisciplinaFromID(dis));
+												}
+
+												discID = 0;
+												discEnt = Entity.Zero;
+												while(Disciplina.getDisciplinas().size() != 0 && discID == 0 && discEnt.getID() == 0){
+													System.out.println("(0 para mostrar todas as disciplinas, -1 para voltar)");
+													System.out.println("Insira o ID da disciplina a apagar:");
+
+													try {
+														discID = Ler.processarTecladoLong();
+
+														if (discID == 0){
+															printTodasDisciplinas();
+														} else if(discID != -1){
+															discEnt = Disciplina.getDisciplinaFromID(discID);
+														}
+													} catch (IOException e){
+														System.out.println("Ocorreu um erro, insira novamente");
+														discID = 0;
+
+													}
+												}
+												if (Disciplina.getDisciplinas().size() == 0){
+													System.out.println("Não existem disciplinas.");
+												} else if(discEnt.getID() != 0){
+													try {
+														curso.removeDisciplina(discEnt);
+													} catch (NullPointerException | IllegalArgumentException e){
+														System.out.println(e.getMessage());
+													}
+												} else if(discID == -1){
+													System.out.println("Operação cancelada");
+												}
+
+												break;
+
+											case 5:
+												System.out.println("Criar nova turma");
+
+												turma = Turma.getTurmaFromID(Turma.Create());
+												turma.setCurso(curso);
+
+
+												stringInput = "";
+												while(stringInput.equals("")) {
+													System.out.println("Insira o ano letivo:");
+													try {
+														stringInput = Ler.processarTecladoString();
+													} catch (IOException e){
+														System.out.println("Ocurreu um erro, tente novamente.");
+														stringInput = "";
+													}
+												}
+												turma.setAnoLetivo(stringInput);
+
+												stringInput = "";
+												while(stringInput.equals("")) {
+													System.out.println("Insira o nome da turma:");
+													try {
+														stringInput = Ler.processarTecladoString();
+													} catch (IOException e){
+														System.out.println("Ocurreu um erro, tente novamente.");
+														stringInput = "";
+													}
+												}
+												turma.setAnoLetivo(stringInput);
+
+												anoDeTurma = 0;
+												while(anoDeTurma == 0) {
+													System.out.println("Insira o ano da turma:");
+													try {
+														anoDeTurma = Ler.processarTecladoInt();
+														if(anoDeTurma < 10 || anoDeTurma > 12){
+															System.out.println("Ano tem que ser entre 10 e 12.");
+															anoDeTurma = 0;
+														}
+													} catch (IOException e){
+														System.out.println("Ocurreu um erro, tente novamente.");
+														anoDeTurma = 0;
+													}
+												}
+												turma.setAno(anoDeTurma);
+
+												profID = 0;
+												profEntity = Entity.Zero;
+												while(profEntity.getID() == 0 && Professor.getProfessores().size() != 0 && profID != -1) {
+													System.out.println("Insira o ID do professor (0 para mostrar todos, -1 para no definir):");
+													try {
+														profID = Ler.processarTecladoInt();
+														if(profID == 0){
+															printTodosProfessores();
+														}else if(profID != -1){
+															profEntity = Professor.getProfessorFromID(profID);
+														}
+													} catch (IOException e){
+														System.out.println("Ocurreu um erro, tente novamente.");
+														profID = 0;
+													}
+													if(profID != -1 && profEntity.getID() == 0)
+														System.out.println("Professore não encontrado.");
+
+												}
+												if (Professor.getProfessores().size() == 0)
+													System.out.println("Ainda não há professores.");
+												try{
+													turma.setDiretor(profEntity);
+												} catch (IllegalArgumentException e){
+												}catch (NullPointerException e){
+													System.out.println(e.getMessage());
+												}
+
+												System.out.println("Turma criada com sucesso.");
+
+
+												break;
+
+											case 6:
+												curso.setAtivo(!curso.getAtivo());
+												break;
+
+											case 7:
+												break;
+
+											default:
+												System.out.println("Insira um numero entre 1 e 7");
+										}
+									}
+
+									valorIntroduzido = 3;
+
+								} else if(cursoID == -1){
+									System.out.println("Operação cancelada.");
+								}
 								break;
 							case 4:
+								System.out.println("Tem a certeza que quer remover todos os Cursos [s/n]:");
 
+								stringInput = "";
+								while(	!stringInput.equalsIgnoreCase("n") && !stringInput.equalsIgnoreCase("nao") &&
+										!stringInput.equalsIgnoreCase("s") && !stringInput.equalsIgnoreCase("sim")){
+									try{
+										stringInput = Ler.processarTecladoString();
+									} catch (IOException e){
+										stringInput = "";
+										System.out.println("Ocurreu um erro, tente novamente.");
+									}
+								}
+								if(stringInput.toLowerCase().equals("n") || stringInput.toLowerCase().equals("nao"))
+									break;
+								else if(stringInput.equalsIgnoreCase("s") || stringInput.equalsIgnoreCase("sim")){
+									System.out.println("A limpar todos os cursos.");
+									for(Curso _curso : Curso.getCursos().values()){
+										if(_curso.getID() != 0){
+											try {
+												Curso.Remove(_curso);
+												System.out.println("Curso \""+_curso+"\" removido com sucesso.");
+											} catch (IllegalArgumentException | NullPointerException e){
+												System.out.println(e.getMessage());
+											}
+										}
+									}
+								}
 								break;
 							case 5:
                                                                 

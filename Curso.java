@@ -11,7 +11,7 @@ public class Curso extends Entity {
     private static Map<String, Curso> cursos = new HashMap<String, Curso>();
     static {
         // Curso null
-        Create();
+        Entity e = Create();
     }
 
     public static Map<String, Curso> getCursos(){
@@ -20,7 +20,7 @@ public class Curso extends Entity {
 
     public static Curso getCursoFromID(long ID){
 		return cursos.getOrDefault(
-				Entity.getGroupFromID("Curso") + ID,
+				Entity.getGroupIDFromGroup("Curso") + ID,
 				cursos.get(Entity.getGroupFromID("Curso") + "0")
 		);
 	}
@@ -38,29 +38,30 @@ public class Curso extends Entity {
         //}
         cursos.put(x.getCodeID(), x);
     }
-    public static Curso Create() {
+    public static Entity Create() {
         Curso nCurso = new Curso();
         addCurso(nCurso);
         return nCurso;
     }
-    public static Curso Create(String nome,Entity diretor) {
+    public static Entity Create(String nome,Entity diretor) {
         Curso nCurso = new Curso(nome,diretor);
         addCurso(nCurso);
         return nCurso;
     }
 
-    public static void Remove(Entity ID){
+    public static void Remove(Entity ID) throws NullPointerException, IllegalArgumentException{
         if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
 
         if(!cursos.containsKey(ID.getCodeID()))
             throw new IllegalArgumentException("Curos -" + ID.getCodeID() + "- não existe.");
 
-        //Curso curso = getCursoFromID(ID);
-        //for (Entity turma : Curso.getCursoFromID(ID).getTurmas()) {
-		//   if(turma.getID() != 0){
-		//      curso.removeTurma(turma);
-		// }
-        //}
+        Curso curso = getCursoFromID(ID);
+        for (Entity turma : Curso.getCursoFromID(ID).getTurmas()) {
+		   if(turma.getID() != 0){
+                //curso.removeTurma(turma);
+				System.out.println("Turma \"" + Turma.getTurmaFromID(turma) + "\" ficou sem curso.");
+		   }
+        }
 
 		getCursoFromID(ID).setID(0);
     }
