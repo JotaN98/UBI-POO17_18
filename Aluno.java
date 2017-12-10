@@ -19,6 +19,13 @@ public class Aluno extends Pessoa {
         return alunos;
     }
     
+    public static Aluno getAlunoFromID(long ID){
+        return alunos.getOrDefault(
+                Entity.getGroupFromID("Aluno") + ID,
+                alunos.get(Entity.getGroupFromID("Aluno") + "0")
+        );
+    }
+    
     public static Aluno getAlunoFromID(Entity ID){
         return alunos.getOrDefault(
         		ID.getCodeID(),
@@ -52,7 +59,7 @@ public class Aluno extends Pessoa {
     }
 
     public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
-		if(ID.getID() == 0) throw new NullPointerException("Aluno não existe ou já foi removido.");
+        if(ID.getID() == 0) throw new NullPointerException("Aluno não existe ou já foi removido.");
 
     	if(!alunos.containsKey(ID.getCodeID()))
 			throw new IllegalArgumentException("Aluno -" + ID.getCodeID() + "- não existe.");

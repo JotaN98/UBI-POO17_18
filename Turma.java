@@ -31,8 +31,7 @@ public class Turma extends Entity{
 				turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
 		);
     }
-    
-    
+
     public static void addTurma(Turma x) throws NullPointerException{
         //if(getTurmaFromID(x).getID() != 0){
         //    throw new NullPointerException("Turma já foi adicionada.");
