@@ -262,106 +262,184 @@ public class Projeto {
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
 						printMenu("Turma", "Turmas");
-                                                
-                                                try{
-                                                    valorIntroduzido = Ler.processarTecladoInt();
-                                                }catch(IOException e){
+
+						// ler a op��oo do utilizador
+						try {
+							valorIntroduzido = Ler.processarTecladoInt();
+						} catch (IOException e) {
                                                     System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
-                                                }
-    
-                                                Turma turma;
-                                                Entity nTurma;
-                                                long turmaID;
-                                                String nome;
-                                                int ano=0;
-                                                String anoLetivo;
-                                                
-                                                
-                                                
-                                                switch(valorIntroduzido){
-                                                    case 0:
-                                                        printTodasTurmas();
-                                                        break;
-                                                    //criar turma
-                                                    case 1:
-                                                        nTurma = Turma.Create();
-                                                        turma=Turma.getTurmaFromID(nTurma);
-                                                        
-                                                        //set nome turma
-                                                        nome="";
-                                                        while(nome==""){
-                                                            System.out.println("Insira o nome da turma:");
-                                                            try{
-                                                                nome=Ler.processarTecladoString();
-                                                            }
-                                                            catch(IOException e){
-                                                                System.out.println("Ocorreu um erro, insira novamente.");
-                                                            }if(nome=="")
-                                                                System.out.println("Insira um nome correto.");
-                                                        }
-                                                        turma.setNome(nome);
-                                                        System.out.println("Nome alterado");
-                                                        
-                                                        //set ano da turma
-                                                        ano=0;
-                                                        while(ano==0){
-                                                            System.out.println("Insira o ano da turma");
-                                                            try{
-                                                                ano=Ler.processarTecladoInt();
-                                                            }catch(IOException e){
-                                                                System.out.println("Ocorreu um erro, insira novamente.");
-                                                            }
-                                                            if(ano==0)
-                                                                System.out.println("Insira um ano correto");
-                                                        }
-                                                        turma.setAno(ano);
-                                                        System.out.println("Ano alterado");
-                                                        
-                                                        //set Ano letivo da turma
-                                                        anoLetivo="";
-                                                        while(anoLetivo==""){
-                                                            System.out.println("Insira o ano letivo: ");
-									try {
-										anoLetivo = Ler.processarTecladoString();
-									} catch (IOException e) {
-										System.out.println("Ocurreu um erro, insira novamente.");
-									}
-									if(anoLetivo == "")
-										System.out.println("Insira um nome correto.");
-								}
-								turma.setAnoLetivo(anoLetivo);
-								System.out.println("Ano letivo alterado.");
-                                                        break;
-                                                    //eliminar turma    
-                                                    case 2:
-                                                        System.out.println("Insira o ID da Disciplina para eliminar (0 para mostrar todos, -1 para cancelar): ");
-                                                        turmaID=0;
-                                                        nTurma=Entity.Zero;
-                                                        while(nTurma.getID()==0 && Turma.getTurmas().size() !=0){
-                                                            try{
-                                                                turmaID = Ler.processarTecladoLong();
+						}
+
+					
+						//Variaveis que ser�o utilizadas no Menu abaixo
+						Turma turma;
+						Entity nTurma;
+						long turmaID;
+						long cursoID;
+                                                long profID;
+                                                Entity profEntity;
+                                                Entity cursoEntity;
+						
+						switch (valorIntroduzido){
+							case 0:// Mostrar tudo
+								printTodasTurmas();
+								break;
+								
+							case 1://criar Turma
+								nTurma = Turma.Create();
+								turma = Turma.getTurmaFromID(nTurma);
+                                                                //set ano letivo
+                                                                String anoLetivo="", nome="";
+                                                                while(anoLetivo=="" || nome==""){
+                                                                    System.out.println("Insira o ano letivo no formato ano/anoseg e o nome da Turma.");
+                                                                    try{
+                                                                        anoLetivo = Ler.processarTecladoString();
+                                                                        nome = Ler.processarTecladoString();
+                                                                        if(anoLetivo=="" || nome == ""){
+                                                                            System.out.println("Insira as informações corretas.");
+                                                                        }
+                                                                    } catch(IOException e){
+                                                                       System.out.println("Ocorreu um erro, insira novamente.");
+                                                                    }
+                                                                }
+                                                                turma.setAnoLetivo(anoLetivo);
+                                                                turma.setNome(nome);
+                                                                System.out.println("Ano letivo e nome alterados.");
                                                                 
-                                                                if(turmaID == 0){
-                                                                    printTodasTurmas();
-                                                                }else if(turmaID != -1){
-                                                                    turma = Turma.getTurmaFromID(turmaID);
+                                                                //set ano
+                                                                int ano=0;
+                                                                while(ano==0){
+                                                                    System.out.println("Insira o ano da turma.");
+                                                                    try{
+                                                                        ano = Ler.processarTecladoInt();
+                                                                    } catch(IOException e){
+                                                                        System.out.println("Insira um ano correto.");
+                                                                    }
                                                                 }
-                                                                }catch(IOException e){
-                                                                        System.out.println("Ocorreu um erro, tentar novamente");
+                                                                turma.setAno(ano);
+                                                                System.out.println("Ano alterado.");
+
+								// set diretor
+								profID = 0;
+								profEntity = Entity.Zero;
+								while(profEntity.getID() == 0 && Professor.getProfessores().size() != 0){
+									System.out.println("Insira o ID do Professor (0 para mostrar todos, -1 para cancelar): ");
+									try {
+										profID = Ler.processarTecladoLong();
+
+										if(profID == 0){
+											printTodosProfessores();
+										} else if(profID != -1){
+											profEntity = Professor.getProfessorFromID(profID);
+										}
+									} catch (IOException e) {
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+
+
+									if(profEntity.getID() == 0 && profID != 0 && profID != -1) {
+										System.out.println("Professor não encontrado.");
+
+									}else if(profEntity.getID() != 0) {
+										System.out.println("Diretor definido.");
+										turma.setDiretor(profEntity);
+
+									}else if(profID == -1){
+										System.out.println("Diretor não definido.");
+                                                                        }
                                                                 }
-                                                            }
-                                                        Turma.Remove(nTurma);
-                                                        break;
-                                                        }
-                                                
-                                                
-                                                        }
-                                                }
-                                                
-                                                
-                                                
-                                                
-					valorIntroduzido = 2;
+                                                                
+                                                                //set curso
+								cursoID = 0;
+								cursoEntity = Entity.Zero;
+								while(cursoEntity.getID() == 0 && Curso.getCursos().size() != 0){
+									System.out.println("Insira o ID do Curso (0 para mostrar todos, -1 para cancelar): ");
+									try {
+										cursoID = Ler.processarTecladoLong();
+
+										if(cursoID == 0){
+											printTodosCursos();
+										} else if(profID != -1){
+											cursoEntity = Curso.getCursoFromID(cursoID);
+										}
+									} catch (IOException e) {
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+
+
+									if(cursoEntity.getID() == 0 && cursoID != 0 && cursoID != -1) {
+										System.out.println("Curso não encontrado.");
+
+									}else if(cursoEntity.getID() != 0) {
+										System.out.println("Curso definido.");
+										turma.setCurso(cursoEntity);
+
+									}else if(cursoID == -1){
+										System.out.println("Curso não definido.");
+                                                                        }
+                                                                }
+								
+							case 2://Eliminar Turma
+								
+
+								break;
+								
+							case 3://Selecionar Turma
+								
+								//Perguntar qual a Turma que o utilizador pretende alterar
+								
+								
+								//Submenu das op�oes que o utilizador tem
+								 switch(valorIntroduzido){
+								 
+								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
+
+								 		break;
+									 
+								 		
+								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
+								 		
+								 		break;
+								 		
+								 		
+								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+								 			
+								 		break;
+									 
+								 		
+								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
+									 
+								 		break;
+									 
+								 		
+								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
+									 
+								 		break;
+								 		
+								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 			printMenu("Turma", "Turmas");
+								 		break;
+								 
+								 		default:
+								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
+								 }
+
+							break;
+							
+							case 4://Limpar Todas as Turmas
+
+							break;
+						
+							case 5://Voltar
+								
+							break;
+						
+							default:
+								System.out.println("Por favor introduza um valor entre 1 e 6.");
+
+						}
+					}
+					valorIntroduzido = 1;
 					break;
 				case 3:
 					printMenu("Disciplina","Disciplinas");
