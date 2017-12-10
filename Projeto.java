@@ -348,16 +348,18 @@ public class Projeto {
 						try {
 							valorIntroduzido = Ler.processarTecladoInt();
 						} catch (IOException e) {
-							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+                                                    System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
 						}
 
 					
 						//Variaveis que ser�o utilizadas no Menu abaixo
 						Turma turma;
-						
 						Entity nTurma;
 						long turmaID;
-						
+						long cursoID;
+                                                long profID;
+                                                Entity profEntity;
+                                                Entity cursoEntity;
 						
 						switch (valorIntroduzido){
 							case 0:// Mostrar tudo
@@ -365,12 +367,98 @@ public class Projeto {
 								break;
 								
 							case 1://criar Turma
-								
 								nTurma = Turma.Create();
 								turma = Turma.getTurmaFromID(nTurma);
+                                                                //set ano letivo
+                                                                String anoLetivo="", nome="";
+                                                                while(anoLetivo=="" || nome==""){
+                                                                    System.out.println("Insira o ano letivo no formato ano/anoseg e o nome da Turma.");
+                                                                    try{
+                                                                        anoLetivo = Ler.processarTecladoString();
+                                                                        nome = Ler.processarTecladoString();
+                                                                        if(anoLetivo=="" || nome == ""){
+                                                                            System.out.println("Insira as informações corretas.");
+                                                                        }
+                                                                    } catch(IOException e){
+                                                                       System.out.println("Ocorreu um erro, insira novamente.");
+                                                                    }
+                                                                }
+                                                                turma.setAnoLetivo(anoLetivo);
+                                                                turma.setNome(nome);
+                                                                System.out.println("Ano letivo e nome alterados.");
+                                                                
+                                                                //set ano
+                                                                int ano=0;
+                                                                while(ano==0){
+                                                                    System.out.println("Insira o ano da turma.");
+                                                                    try{
+                                                                        ano = Ler.processarTecladoInt();
+                                                                    } catch(IOException e){
+                                                                        System.out.println("Insira um ano correto.");
+                                                                    }
+                                                                }
+                                                                turma.setAno(ano);
+                                                                System.out.println("Ano alterado.");
 
-								
-								
+								// set diretor
+								profID = 0;
+								profEntity = Entity.Zero;
+								while(profEntity.getID() == 0 && Professor.getProfessores().size() != 0){
+									System.out.println("Insira o ID do Professor (0 para mostrar todos, -1 para cancelar): ");
+									try {
+										profID = Ler.processarTecladoLong();
+
+										if(profID == 0){
+											printTodosProfessores();
+										} else if(profID != -1){
+											profEntity = Professor.getProfessorFromID(profID);
+										}
+									} catch (IOException e) {
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+
+
+									if(profEntity.getID() == 0 && profID != 0 && profID != -1) {
+										System.out.println("Professor não encontrado.");
+
+									}else if(profEntity.getID() != 0) {
+										System.out.println("Diretor definido.");
+										turma.setDiretor(profEntity);
+
+									}else if(profID == -1){
+										System.out.println("Diretor não definido.");
+                                                                        }
+                                                                }
+                                                                
+                                                                //set curso
+								cursoID = 0;
+								cursoEntity = Entity.Zero;
+								while(cursoEntity.getID() == 0 && Curso.getCursos().size() != 0){
+									System.out.println("Insira o ID do Curso (0 para mostrar todos, -1 para cancelar): ");
+									try {
+										cursoID = Ler.processarTecladoLong();
+
+										if(cursoID == 0){
+											printTodosCursos();
+										} else if(profID != -1){
+											cursoEntity = Curso.getCursoFromID(cursoID);
+										}
+									} catch (IOException e) {
+										System.out.println("Ocorreu um erro, insira novamente.");
+									}
+
+
+									if(cursoEntity.getID() == 0 && cursoID != 0 && cursoID != -1) {
+										System.out.println("Curso não encontrado.");
+
+									}else if(cursoEntity.getID() != 0) {
+										System.out.println("Curso definido.");
+										turma.setCurso(cursoEntity);
+
+									}else if(cursoID == -1){
+										System.out.println("Curso não definido.");
+                                                                        }
+                                                                }
 								
 							case 2://Eliminar Turma
 								
