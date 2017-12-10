@@ -256,13 +256,90 @@ public class Projeto {
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				
-				case 2://Op�ao Turmas
+				case 2://Opção Turmas
 					
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
 						printMenu("Turma", "Turmas");
+                                                
+                                                try{
+                                                    valorIntroduzido = Ler.processarTecladoInt();
+                                                }catch(IOException e){
+                                                    System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
+                                                }
+                                                
+                                                
+                                                
+                                                Turma turma;
+                                                Entity nTurma;
+                                                long turmID;
+                                                String nome;
+                                                int ano=0;
+                                                String anoLetivo;
+                                                
+                                                
+                                                
+                                                switch(valorIntroduzido){
+                                                    case 0:
+                                                        printTodasTurmas();
+                                                        break;
+                                                    //criar turma
+                                                    case 1:
+                                                        nTurma = Turma.Create();
+                                                        turma=Turma.getTurmaFromID(nTurma);
+                                                        
+                                                        //set nome turma
+                                                        nome="";
+                                                        while(nome==""){
+                                                            System.out.println("Insira o nome da turma:");
+                                                            try{
+                                                                nome=Ler.processarTecladoString();
+                                                            }
+                                                            catch(IOException e){
+                                                                System.out.println("Ocorreu um erro, insira novamente.");
+                                                            }if(nome=="")
+                                                                System.out.println("Insira um nome correto.");
+                                                        }
+                                                        turma.setNome(nome);
+                                                        System.out.println("Nome alterado");
+                                                        
+                                                        //set ano da turma
+                                                        ano=0;
+                                                        while(ano==0){
+                                                            System.out.println("Insira o ano da turma");
+                                                            try{
+                                                                ano=Ler.processarTecladoInt();
+                                                            }catch(IOException e){
+                                                                System.out.println("Ocorreu um erro, insira novamente.");
+                                                            }
+                                                            if(ano==0)
+                                                                System.out.println("Insira um ano correto");
+                                                        }
+                                                        turma.setAno(ano);
+                                                        System.out.println("Ano alterado");
+                                                        
+                                                        //set Ano letivo da turma
+                                                        anoLetivo="";
+                                                        while(anoLetivo==""){
+                                                            System.out.println("Insira o ano letivo: ");
+									try {
+										anoLetivo = Ler.processarTecladoString();
+									} catch (IOException e) {
+										System.out.println("Ocurreu um erro, insira novamente.");
+									}
+									if(anoLetivo == "")
+										System.out.println("Insira um nome correto.");
+								}
+								turma.setAnoLetivo(anoLetivo);
+								System.out.println("Ano letivo alterado.");
 
+                                                        }
+                                                }
+                                                
+                                                
+                                                
+                                                
 					valorIntroduzido = 2;
 					break;
 				case 3:
@@ -273,13 +350,13 @@ public class Projeto {
 					
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 3://Op�ao Disciplinas
+				case 3://Opçao Disciplinas
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
 						printMenu("Disciplina", "Disciplinas");
 
-						// ler a op��oo do utilizador
+						// ler a opção do utilizador
 						try {
 							valorIntroduzido = Ler.processarTecladoInt();
 						} catch (IOException e) {
@@ -287,7 +364,7 @@ public class Projeto {
 						}
 
 					
-						//Variaveis que ser�o utilizadas no Menu abaixo
+						//Variaveis que serão utilizadas no Menu abaixo
 						
 						Disciplina disciplina;
 						Entity nDisciplina;
@@ -993,6 +1070,7 @@ public class Projeto {
                                                                     System.out.println("Não existem turmas.");
                                                                 System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
 								break;
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
                                                         case 3:
                                                             //set nascimento/??????????????NAO SEI COMO FAZER ISTO
                                                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd(ano/mes/dia)");
@@ -1013,6 +1091,7 @@ public class Projeto {
                                                                     System.out.println("Insira novamente os valores");
                                                                 }
                                                             }
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
                                                     }
                                                 }
                                             case 2:
