@@ -76,7 +76,7 @@ public class Projeto {
 	
 	
 	//Mostrar Menu Disciplinas->Selecionar
-	public static void printMenuSelecionar(){
+	public static void printSelecionarDisciplina(){
 		System.out.println("1- Mudar Nome");
 		System.out.println("2- Mudar Ano");
 		System.out.println("3- Mudar Aula");
@@ -334,7 +334,9 @@ public class Projeto {
 					}
 					valorIntroduzido = 1;
 					break;
+					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+				
 				case 2://Op�ao Turmas
 					
 					valorIntroduzido = -1;
@@ -453,17 +455,19 @@ public class Projeto {
 
 					
 						//Variaveis que ser�o utilizadas no Menu abaixo
-						Disciplina disciplina;
 						
-						Entity nDisciplina;
 						Disciplina disciplina;
+						Entity nDisciplina;
 						long disciplinaID;
+						
+						Professor professor;
 						long profID;
-						Entity profEntity;
+						Entity nProf;
 						
 						String nome;
 						int ano = 0;
 						
+						Aula aula;
 						Entity nAula;
 						long aulaID;
 						
@@ -527,8 +531,8 @@ public class Projeto {
 										System.out.println("Occureu um erro, inisra novamente.");
 									}
 								}
-
-
+								
+								Disciplina.Remove(disciplina);
 								break;
 								
 							case 3://Selecionar Disciplina
@@ -539,6 +543,8 @@ public class Projeto {
 								disciplinaID = 0;
 								nDisciplina = Entity.Zero;
 								
+								
+								//Procurar a Disciplina pretendida
 								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
 									try {
 										disciplinaID = Ler.processarTecladoLong();
@@ -547,28 +553,31 @@ public class Projeto {
 											printTodasDisciplinas();
 										} else if (disciplinaID != -1){
 											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
+											System.out.println("Voce selecionou a disciplina " + disciplina.getNome() + ".");
 										}
 									} catch (IOException e) {
 										System.out.println("Occureu um erro, inisra novamente.");
 									}
 								}
 
-								System.out.println("Voce selecionou a disciplina " + disciplina.getNome());
 								
-								//Print do enu selecionar
-								printMenuSelecionar();
+							
 								
-								//Ler Valor para op�ao do menu
-								try {
-									valorIntroduzido = Ler.processarTecladoInt();
-								} catch (IOException e) {
-									System.out.println("Por favor introduza um valor entre 1 e 6.");
-								}
-								
-								
-								 switch(valorIntroduzido){
+								valorIntroduzido = -1;
+								while(valorIntroduzido != exitop){
+									//Print Menu Disciplina->Selecionar
+									printSelecionarDisciplina();
+									
+									//Ler Valor para op�ao do menu
+									try {
+										valorIntroduzido = Ler.processarTecladoInt();
+									} catch (IOException e) {
+										System.out.println("Por favor introduza um valor entre 0 e" + exitop + ".");
+									}
+									
+									switch(valorIntroduzido){
 								 
-								 		case 1://----------------------------------------------Mudar Nome------------------------------------------------------
+								 		case 0://----------------------------------------------Mudar Nome------------------------------------------------------
 								 			nome = "";
 											while (nome == "") {
 												System.out.println("Insira o nome da Disciplina: ");
@@ -580,12 +589,13 @@ public class Projeto {
 												if(nome == "")
 													System.out.println("Insira um nome correto.");
 											}
+											
 											disciplina.setNome(nome);
 											System.out.println("Nome alterado.");
 								 		break;
 									 
 								 		
-								 		case 2://----------------------------------------------Mudar ano------------------------------------------------------
+								 		case 1://----------------------------------------------Mudar ano------------------------------------------------------
 								 			ano = 0;
 											while(ano == 0){
 												System.out.println("Insira o ano da Disciplina");
@@ -603,35 +613,101 @@ public class Projeto {
 								 		break;
 								 		
 								 		
-								 		case 3://----------------------------------------------Inserir Aula------------------------------------------------------
-								 			aulaID = 0;
+								 		case 2://----------------------------------------------Inserir Aula------------------------------------------------------
+								 			/*Falta aqui esta*/
 								 			nAula = Entity.Zero;
+								 			aulaID=0;
+                                             //Create(hora, DiaDaSemana, prof, nDisciplina, turma, sala);
+								 			nAula = Aula.Create();
+								 			aula = Aula.getAulaFromID(nAula);
+								 			
+								 			
+								 			
+								 			disciplina.addAula(nAula);
 								 			
 								 			
 								 		break;
 									 
 								 		
-								 		case 4://----------------------------------------------Inserir Professor------------------------------------------------------
-									 
+								 		case 3://----------------------------------------------Inserir Professor------------------------------------------------------
+								 			//criar professor
+                                            nProf = Professor.Create();
+                                            professor = Professor.getProfessorFromID(nProf);
+                                            
+                                            // set primeiro e ultimo nome
+                                            String pNome="", uNome = "" ;
+                                            
+                                            while(pNome=="" || uNome=="" ){
+                                                System.out.println("Insira o primeiro e o ultimo nome do professor.");
+                                                try {
+                                                    pNome = Ler.processarTecladoString();
+                                                    uNome = Ler.processarTecladoString();
+                                                } catch (IOException e) {
+                                                    System.out.println("Ocurreu um erro, insira novamente.");
+                                                }
+                                                if(pNome==""  || uNome=="" )
+                                                    System.out.println("Insira um nome correto.");
+                                            }
+                                            
+                                            professor.setPrimeiroNome(pNome);
+                                            professor.setUltimoNome(uNome);
+                                            
+                                            System.out.println("Nome alterado.");
+                                            
+                                            //set nascimento
+                                            ZoneId zoneid = ZoneId.systemDefault();
+                                            ZonedDateTime nascimento = ZonedDateTime.now();
+                                            
+                                            //Enquanto o ano do nascimento for diferente do ano atual
+                                            while(nascimento.getYear() == ZonedDateTime.now().getYear()){
+                                                System.out.println("Insira a data de nascimento no seguinte formato ano->mes->dia.");
+                                                
+                                                try{
+                                                    nascimento = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, 0, 0, zoneid);
+                                                } catch (IOException e){
+                                                    System.out.println("Introduza uma data correta.");
+                                                }
+                                            }
+                                            
+                                            professor.setNascimento(nascimento);
+                                            System.out.println("Data de nascimento alterada.");
+                                            
+                                            disciplina.addProfessor(professor);
+                                            System.out.println("Professor adicionado com sucesso.");
+								 			
 								 		break;
-									 
+				
+								 		case 4://----------------------------------------------Inserir Possivel sala---------------------------------------------------
+								 			String nomeSala;
+								 			
+								 			while(nomeSala == ""){
+                                                System.out.println("Insira a Sala desejada:");
+                                                try {
+                                                	nomeSala = Ler.processarTecladoString();
+                                                } catch (IOException e) {
+                                                    System.out.println("Ocurreu um erro, insira novamente.");
+                                                }
+                                                if(nomeSala == "")
+                                                    System.out.println("Insira uma Sala correta:");
+                                            }
+								 			
+								 			disciplina.addPossibleSala(nomeSala);
+								 			System.out.println("Sala " + nomeSala + "adicionada com sucesso!");
 								 		
-								 		case 5://----------------------------------------------Inserir Possivel sala---------------------------------------------------
-									 
 								 		break;
 								 		
-								 		case 6://----------------------------------------------Voltar------------------------------------------------------
+								 		case 5://----------------------------------------------Voltar------------------------------------------------------
 								 			printMenu("Disciplina", "Disciplinas");
 								 		break;
 								 
 								 		default:
 								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
-								 }
+										}
 
-							break;
-							
+									break;
+								}
 							case 4://Limpar Todas as Disciplinas
-
+								/*Falta aqui esta*/
 							break;
 						
 							case 5://Voltar
@@ -795,7 +871,7 @@ public class Projeto {
                                                                 }
                                                                 break;
                                                             case 2://mostrar horario
-                                                                String wtf //FALTA FAZER HORARIOOO
+                                                                String wtf; //FALTA FAZER HORARIOOO
                                                                 ArrayList<ArrayList<Entity>> horario = Professor.getProfessorFromID(profID).getHorario();
                                                                 for(int i=0;i<5;i++){
                                                                     System.out.println("\n"+horario.get(i).toString());
@@ -1016,6 +1092,7 @@ public class Projeto {
                                         }   
                                     }
 					break;
+					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 5:
 
