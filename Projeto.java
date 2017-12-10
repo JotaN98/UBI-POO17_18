@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 public class Projeto {
 	public static int exitop = 5;
 
@@ -101,11 +102,8 @@ public class Projeto {
 			System.in.read();
 		} catch (IOException e){}
 	}
-<<<<<<<
-
-
-=======
-
+        
+        //Mostrar todos os alunos
         public static void PrintTodosAlunos(){
           System.out.println("---");
 		System.out.println("Todos os Alunos");
@@ -119,9 +117,75 @@ public class Projeto {
 		try {
 			System.in.read();
 		} catch (IOException e){}
-	}  
->>>>>>>
+	}
 	
+        //Mostrar todas as aulas
+        public static void PrintTodasAulas(){
+          System.out.println("---");
+		System.out.println("Todas as Aulas");
+		System.out.println("---");
+		for(Aula aul : Aula.getAulas().values()){
+			if(aul.getID() != 0){
+				System.out.println(aul);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}        
+        
+        //Mostrar todos os testes
+        public static void PrintTodosTestes(){
+          System.out.println("---");
+		System.out.println("Todos os Testes");
+		System.out.println("---");
+		for(Teste test : Teste.getTestes().values()){
+			if(test.getID() != 0){
+				System.out.println(test);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	}         
+        
+        //Mostrar menu Professor->Selecionar 
+        public static void printSelecionarProfessor(){
+                System.out.println("1- Inserir Aula");
+		System.out.println("2- Mostrar horario");
+		System.out.println("3- Criar teste");
+		System.out.println("4- Selecionar teste");
+		System.out.println("5- Voltar");
+        }    
+        
+        //Mostrar menu Professor->Selecionar->Selecionar Teste
+        public static void printSelecionarTeste(){
+            	System.out.println("1- Mudar Nota");
+		System.out.println("2- Eliminar Nota");
+		System.out.println("3- Criar Nota");
+		System.out.println("4- Mudar Data");
+		System.out.println("5- Mudar aula");
+		System.out.println("6- Voltar");
+        }
+        
+        //Mostrar toda as notas
+        public static void printTodasNotas(){
+          System.out.println("---");
+		System.out.println("Todas as Notas");
+		System.out.println("---");
+		for(Nota not : Nota.getNotas().values()){
+			if(not.getID() != 0){
+				System.out.println(not);
+			}
+		}
+		System.out.println("---");
+		try {
+			System.in.read();
+		} catch (IOException e){}
+	} 
+    
 	//Fun��o Main
     public static void main(String[] args) {
 		int valorIntroduzido=0;
@@ -586,105 +650,7 @@ public class Projeto {
 					
 					
 					
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
-<<<<<<<
-				case 4://op�ao professores
-					
-					valorIntroduzido = -1;
-					while (valorIntroduzido != exitop) {
-						// Mostrar o menu
-						printMenu("Professor", "Professores");
-
-						// ler a op��oo do utilizador
-						try {
-							valorIntroduzido = Ler.processarTecladoInt();
-						} catch (IOException e) {
-							System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
-						}
-
-					
-						//Variaveis que ser�o utilizadas no Menu abaixo
-						Professor professor;
-						
-						Entity nProfessores;
-						long ProfessorID;
-						
-						
-						switch (valorIntroduzido){
-							case 0:// Mostrar tudo
-								printTodosProfessores();
-								break;
-								
-							case 1://criar Professor
-								
-								nProfessores = Professor.Create();
-								professor = Professor.getProfessorFromID(nProfessores);
-
-								
-								
-								
-							case 2://Eliminar Professor
-								
-
-								break;
-								
-							case 3://Selecionar Professor
-								
-								//Perguntar qual o Prodfessor que o utilizador pretende alterar
-								
-								
-								//Submenu das op�oes que o utilizador tem
-								 switch(valorIntroduzido){
-								 
-								 		case 1://----------------------------------------------xxxxxxxx------------------------------------------------------
-
-								 		break;
-									 
-								 		
-								 		case 2://----------------------------------------------xxxxxxxxxx------------------------------------------------------
-								 		
-								 		break;
-								 		
-								 		
-								 		case 3://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
-								 			
-								 		break;
-									 
-								 		
-								 		case 4://----------------------------------------------xxxxxxxxxxxx------------------------------------------------------
-									 
-								 		break;
-									 
-								 		
-								 		case 5://----------------------------------------------xxxxxxxxxxxxx---------------------------------------------------
-									 
-								 		break;
-								 		
-								 		case 6://----------------------------------------------Voltar------------------------------------------------------
-								 			printMenu("Professor", "Professores");
-								 		break;
-								 
-								 		default:
-								 			System.out.println("Por favor introduza um valor entre 1 e 6.");
-								 }
-
-							break;
-							
-							case 4://Limpar Todas os Professores
-
-							break;
-						
-							case 5://Voltar
-								
-							break;
-						
-							default:
-								System.out.println("Por favor introduza um valor entre 1 e 6.");
-
-						}
-					}
-					valorIntroduzido = 1;
-=======
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------       
 				case 4:
                                     valorIntroduzido = -1;
                                     while(valorIntroduzido != exitop){
@@ -702,13 +668,7 @@ public class Projeto {
                                         Entity nProfessor;
                                         Professor professor;
                                         long profID;
-                                        long aulaID;
-                                        long testeID;
-                                        long alunoID;
-                                        Entity profEntity;
-                                        Entity aulaEntity;
-                                        Entity testeEntity;
-                                        Entity alunoEntity;
+                                        
                                         switch(valorIntroduzido){
                                             case 0:
                                                 //Mostrar tudo
@@ -739,8 +699,9 @@ public class Projeto {
                                                 //set nascimento
                                                 ZoneId zoneid = ZoneId.systemDefault();
                                                 ZonedDateTime nascimento = ZonedDateTime.now();
+                                                //Enquanto o ano do nascimento for diferente do ano atual
                                                 while(nascimento.getYear() == ZonedDateTime.now().getYear()){
-                                                    System.out.println("Insira a data de nascimento no seguinte formato ano-mês-dia.");
+                                                    System.out.println("Insira a data de nascimento no seguinte formato ano->mês->dia.");
                                                     try{
                                                         nascimento = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, 0, 0, zoneid);
                                                     } catch (IOException e){
@@ -754,63 +715,312 @@ public class Projeto {
                                             
                                                 
                                             case 2://Eliminar um Professor
-                                        }
-                                        
-                                    }
-/*				System.out.println("Curso \""+nome+"\" criado com sucesso.");
-								break;
-								
-								
-							case 2://Eliminar um Curso
-								System.out.println("Insira o ID do curso para eliminar (0 para mostrar todos, -1 para cancelar): ");
-
-								cursoID = 0;
-								nCurso = Entity.Zero;
-								while(nCurso.getID() == 0 && Curso.getCursos().size() != 0) {
-									try {
-										cursoID = Ler.processarTecladoLong();
-
-										if(cursoID == 0){
-											printTodosCursos();
-										} else if (cursoID != -1){
-											curso = Curso.getCursoFromID(cursoID);
-										}
-									} catch (IOException e) {
-										System.out.println("Occureu um erro, inisra novamente.");
-									}
-								}
-
-								break;
-								
-								
-							case 3:
-
-								break;
-								
-								
-							case 4:
-
-								break;
-								
-								
-							case 5:
+                                                    System.out.println("Insira o ID do Professor para eliminar (0 para mostrar todos, -1 para cancelar): ");
+                                                    
+                                                    profID=0;
+                                                    nProfessor=Entity.Zero;
+                                                    while(nProfessor.getID() == 0 && Professor.getProfessores().size() != 0){
+                                                        try{
+                                                            profID = Ler.processarTecladoLong();
+                                                            
+                                                            if(profID == 0){
+                                                                printTodosProfessores();
+                                                            }
+                                                            else if (profID != -1){
+                                                                professor = Professor.getProfessorFromID(profID);
+                                                                Professor.Remove(professor);
+                                                            }
+                                                        } catch (IOException e){
+                                                            System.out.println("Ocorreu um erro, insira novamente.");
+                                                        }    
+                                                    }
+                                                    break;
+                                                    
+                                            case 3://Selecionar Professor
+                                                System.out.println("Insira o ID do Professor (0 para mostrar todos, -1 para cancelar): ");
+                                                    
+                                                profID=0;
+                                                nProfessor=Entity.Zero;
+                                                while(nProfessor.getID()==0 && Professor.getProfessores().size()!=0){
+                                                     try{
+                                                         profID = Ler.processarTecladoLong();
+                                                    
+                                                         if(profID == 0){
+                                                            printTodosProfessores();
+                                                        }
+                                                        else if(profID!=-1){
+                                                           professor = Professor.getProfessorFromID(profID);
+                                                           
+                                                           System.out.println("Selecionou o professor "+professor.getNome()+".");
+                                                        }
+                                                    } catch (IOException e){
+                                                         System.out.println("Ocorreu um erro, insira novamente.");
+                                                    } 
+                                                   
+                                                   valorIntroduzido=-1;
+                                                   while(valorIntroduzido != exitop){
+                                                        //Print do Menu Selecionar
+                                                        printSelecionarProfessor();   
+                                                        //ler valor do utilizador
+                                                        try{
+                                                            valorIntroduzido = Ler.processarTecladoInt();
+                                                        } catch(IOException e){
+                                                            System.out.println("Por favor introduza um valor entre 1 e"+exitop+".");
+                                                        }
+                                                        //proximos menus
+                                                        Entity aulaEntity;
+                                                        Aula aula;
+                                                        long aulaID;
+                                                        Entity nTeste;
+                                                        Teste teste;
+                                                        long testeID;
+                                                        
+                                                        switch(valorIntroduzido){
+                                                            case 1://adicionar aula
+                                                                aulaID=0;
+                                                                aulaEntity = Entity.Zero;
+                                                                while(aulaEntity.getID()==0){
+                                                                    System.out.println("Insira o ID da aula (0 para mostrar todos, -1 para cancelar): ");
+                                                                    try{
+                                                                        aulaID = Ler.processarTecladoLong();
+                                                                        
+                                                                        if(aulaID == 0){
+                                                                            PrintTodasAulas();
+                                                                        } else if(aulaID != -1){
+                                                                            aulaEntity = Aula.getAulaFromID(aulaID);
+                                                                            Professor.getProfessorFromID(profID).addAula(aulaEntity);
+                                                                        }
+                                                                    } catch(IOException e){
+                                                                        System.out.println("Ocorreu um erro, insira novamente.");
+                                                                    }
+                                                                }
+                                                                break;
+                                                            case 2://mostrar horario
+                                                                String wtf //FALTA FAZER HORARIOOO
+                                                                ArrayList<ArrayList<Entity>> horario = Professor.getProfessorFromID(profID).getHorario();
+                                                                for(int i=0;i<5;i++){
+                                                                    System.out.println("\n"+horario.get(i).toString());
+                                                                    for(int j=0;j<5;j++){
+                                                                        System.out.print(horario.get(i).get(j));
+                                                                    }
+                                                                }
+                                                                break;
+                                                            case 3://Criar teste
+                                                                nTeste = Teste.Create();
+                                                                teste = Teste.getTesteFromID(nTeste);
                                                                 
-								break;
-								
-								
-							default:
-								System.out.println("Por favor introduza um valor entre 1 e 6.");
+                                                                //set aula
+                                                                aulaID=0;
+                                                                aulaEntity = Entity.Zero;
+                                                                while(aulaEntity.getID()==0 && Aula.getAulas().size() != 0){
+                                                                    System.out.println("Insira o ID da aula (0 para mostrar todas, -1 para cancelar): ");
+                                                                    try{
+                                                                        aulaID = Ler.processarTecladoLong();
+                                                                        
+                                                                        if(aulaID == 0){
+                                                                            PrintTodasAulas();
+                                                                        } else if( aulaID != -1){
+                                                                            aulaEntity = Aula.getAulaFromID(aulaID);
+                                                                        }
+                                                                    } catch (IOException e){
+                                                                        System.out.println("Ocorreu um erro, introduza novamente.");
+                                                                    }
+                                                                }
+                                                                teste.setAula(aulaEntity);
+                                                                System.out.println("Aula introduzida.");
+                                                                
+                                                                //set data
+                                                                zoneid = ZoneId.systemDefault();
+                                                                ZonedDateTime data = ZonedDateTime.now();
+                                                                //Enquanto o dia do ano for diferente do dia do ano atual
+                                                                while(data.getDayOfYear()== ZonedDateTime.now().getDayOfYear()){
+                                                                    System.out.println("Insira a data no seguinte formato ano->mês->dia->hora->minuto.");
+                                                                    try{
+                                                                        data = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, zoneid);
+                                                                    } catch (IOException e){
+                                                                        System.out.println("Introduza uma data correta.");
+                                                                    }
+                                                                }
+                                                                teste.setData(data);
+                                                                System.out.println("Data introduzida.");
+                                                                Professor.getProfessorFromID(profID).addTeste(teste);
+                                                                break;
+                                                            case 4://Selecionar teste
+                                                                System.out.println("Insira o ID do teste (0 para mostrar todos, -1 para cancelar): ");
+                                                                
+                                                                testeID=0;
+                                                                nTeste=Entity.Zero;
+                                                                while(nTeste.getID()==0 && Teste.getTestes().size() !=0){
+                                                                    try{
+                                                                        testeID = Ler.processarTecladoLong();
+                                                                        
+                                                                        if(testeID == 0){
+                                                                            PrintTodosTestes();
+                                                                        } else if(testeID != -1){
+                                                                            teste = Teste.getTesteFromID(testeID);
+                                                                        }
+                                                                    } catch (IOException e){
+                                                                        System.out.println("Ocorreu um erro, insira novamente.");
+                                                                    }
+                                                                    
+                                                                    valorIntroduzido=-1;
+                                                                    while(valorIntroduzido != exitop){
+                                                                        //print do menu selecionar 
+                                                                        printSelecionarTeste();
+                                                                        //ler valor do utilizador
+                                                                        try{
+                                                                            valorIntroduzido = Ler.processarTecladoInt();
+                                                                        } catch (IOException e){
+                                                                            System.out.println("Por favor introduza um valor entre 1 e"+exitop+".");
+                                                                        }
+                                                                        //proximos menus 
+                                                                        Entity alunoEntity;
+                                                                        Aluno aluno;
+                                                                        long alunoID;
+                                                                        Entity nNota;
+                                                                        Nota nota;
+                                                                        long notaID;
+                                                                        
+                                                                        switch(valorIntroduzido){
+                                                                            case 1://Alterar Nota
+                                                                                nNota = Nota.Create();
+                                                                                nota = Nota.getNotaFromID(nNota);
+                                                                                
+                                                                                //set aluno
+                                                                                alunoID=0;
+                                                                                alunoEntity=Entity.Zero;
+                                                                                while(alunoEntity.getID()==0){
+                                                                                        System.out.println("Insira o ID do aluno (0 para mostrar todos, -1 para cancelar): ");
+                                                                                    try{
+                                                                                        alunoID = Ler.processarTecladoLong();
+                                                                        
+                                                                                        if(alunoID == 0){
+                                                                                            PrintTodosAlunos();
+                                                                                        } else if(alunoID != -1 && Aluno.getAlunoFromID(alunoID).getID()!=0){
+                                                                                            alunoEntity = Aluno.getAlunoFromID(alunoID);
+                                                                                        }
+                                                                                    } catch(IOException e){
+                                                                                        System.out.println("Ocorreu um erro, insira um aluno existente.");
+                                                                                    }
+                                                                                }
+                                                                                nota.setAluno(alunoEntity);
+                                                                                System.out.println("Aluno encontrado.");
+                                                                                
+                                                                                //set valor
+                                                                                double valor = -1;
+                                                                                while(valor<0 || valor>20){
+                                                                                    System.out.println("Insira o valor da nova nota do aluno.");
+                                                                                    try{
+                                                                                        valor = Ler.processarTecladoDouble();
+                                                                                    } catch (IOException e){
+                                                                                        System.out.println("Introduza um valor entre 0 e 20.");
+                                                                                    }
+                                                                                }
+                                                                                nota.setValor(valor);
+                                                                                
+                                                                                Teste.getTesteFromID(testeID).getNotas().replace(alunoEntity,nota);
+                                                                            break;
+                                                                            
+                                                                            case 2://Eliminar Nota
+                                                                                System.out.println("Insira o ID do Teste para eliminar (0 para mostrar todos, -1 para cancelar): ");
+                                                                                
+                                                                                notaID=0;
+                                                                                nNota=Entity.Zero;
+                                                                                while(nNota.getID()==0 && Nota.getNotas().size()!=0){
+                                                                                    try{
+                                                                                        notaID = Ler.processarTecladoLong();
+                                                                                        if(notaID ==0){
+                                                                                           PrintTodasAulas();
+                                                                                        } else if(notaID != -1){
+                                                                                            nota = Nota.getNotaFromID(notaID);
+                                                                                            Nota.Remove(nota);
+                                                                                        }
+                                                                                    } catch (IOException e){
+                                                                                        System.out.println("Ocorreu um erro, insira novamente.");
+                                                        }                           }
+                                                                            break;
+                                                                               
+                                                                            case 3://Criar nota
+                                                                                nNota = Nota.Create();
+                                                                                nota = Nota.getNotaFromID(nNota);
+                                                                                
+                                                                                //set aluno
+                                                                                alunoID=0;
+                                                                                alunoEntity=Entity.Zero;
+                                                                                while(alunoEntity.getID()==0){
+                                                                                        System.out.println("Insira o ID do aluno (0 para mostrar todos, -1 para cancelar): ");
+                                                                                    try{
+                                                                                        alunoID = Ler.processarTecladoLong();
+                                                                        
+                                                                                        if(alunoID == 0){
+                                                                                            PrintTodosAlunos();
+                                                                                        } else if(alunoID != -1){
+                                                                                            alunoEntity = Aluno.getAlunoFromID(alunoID);
+                                                                                        }
+                                                                                    } catch(IOException e){
+                                                                                        System.out.println("Ocorreu um erro, insira novamente.");
+                                                                                    }
+                                                                                }
+                                                                                nota.setAluno(alunoEntity);
+                                                                                System.out.println("Aluno introduzido.");
+                                                                                
+                                                                                //set valor
+                                                                                valor = -1;
+                                                                                while(valor<0 || valor>20){
+                                                                                    System.out.println("Insira o valor da nota do aluno.");
+                                                                                    try{
+                                                                                        valor = Ler.processarTecladoDouble();
+                                                                                    } catch (IOException e){
+                                                                                        System.out.println("Introduza um valor entre 0 e 20.");
+                                                                                    }
+                                                                                }
+                                                                                nota.setValor(valor);
+                                                                                nota.setTeste(Teste.getTesteFromID(testeID));
+                                                                            break;
+                                                                            
+                                                                            case 4://Mudar data
+                                                                                zoneid = ZoneId.systemDefault();
+                                                                                data = ZonedDateTime.now();
+                                                                                //Enquanto o dia do ano for diferente do dia do ano atual
+                                                                                while(data.getDayOfYear()== ZonedDateTime.now().getDayOfYear()){
+                                                                                    System.out.println("Insira a data no seguinte formato ano->mês->dia->hora->minuto.");
+                                                                                    try{
+                                                                                        data = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, zoneid);
+                                                                                    } catch (IOException e){
+                                                                                        System.out.println("Introduza uma data correta.");
+                                                                                     }               
+                                                                                }
+                                                                                Teste.getTesteFromID(testeID).setData(data);
+                                                                            break;
+                                                                            
+                                                                            case 5://Voltar
+                                                                                break;
+                                                                        
+                                                                            default:    System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
 
-						}
-					*/
-					valorIntroduzido = 1;
->>>>>>>
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                                
+                                                                break;
+                                                            case 5://Voltar
+                                                                break;
+                                                                
+                                                            default:
+								System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
+
+                                                        }
+                                                   }
+                                                    
+                                                
+                                        }   
+                                    }
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				case 5:
-<<<<<<<
+
 					printMenu("Aluno","Alunos");
-=======
                                         switch (valorIntroduzido) {
                                             case 1:
                                                 valorIntroduzido=-1;
@@ -856,7 +1066,7 @@ public class Projeto {
                                                             ZoneId zoneid = ZoneId.systemDefault();
                                                             ZonedDateTime nascimento = ZonedDateTime.now();
                                                             while(nascimento.getYear() == ZonedDateTime.now().getYear()){
-                                                                System.out.println("Insira a data de nascimento no seguinte formato ano-mês-dia.");
+                                                                System.out.println("Insira a data de nascimento no seguinte formato ano->mês->dia.");
                                                                 try{
                                                                     nascimento = ZonedDateTime.of(Ler.processarTecladoInt(), Ler.processarTecladoInt(), Ler.processarTecladoInt(), 0, 0, 0, 0, zoneid);
                                                                 } catch (IOException e){
@@ -881,7 +1091,7 @@ public class Projeto {
                                                                         turma = Turma.getTurmaFromID(turma);
                                                                     }
                                                                 } catch (IOException e) {
-                                                                    System.out.println("Ocurreu um erro, insira novamente.");
+                                                                    System.out.println("Ocorreu um erro, insira novamente.");
                                                                 }
                                                             }
                                                                 if(Turma.getTurmas().size() == 0)
@@ -913,7 +1123,6 @@ public class Projeto {
                                                 while (valorIntroduzido != exitop) {
                                                     // Mostrar o menu
                                                     printMenu("Curso", "Cursos");
->>>>>>>
 
 					valorIntroduzido = 5;
 					break;

@@ -17,6 +17,13 @@ public class Teste extends Entity{
         return testes;
     }
     
+    public static Teste getTesteFromID(long ID){
+        return testes.getOrDefault(
+                Entity.getGroupFromID("Teste") + ID,
+                testes.get(Entity.getGroupFromID("Teste") + "0")
+        );
+    }
+        
     public static Teste getTesteFromID(Entity ID){
         return testes.getOrDefault(
                 ID.getCodeID(),
