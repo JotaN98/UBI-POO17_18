@@ -456,8 +456,8 @@ public class Projeto {
 						Disciplina disciplina;
 						
 						Entity nDisciplina;
+						Disciplina disciplina;
 						long disciplinaID;
-						
 						long profID;
 						Entity profEntity;
 						
@@ -514,13 +514,12 @@ public class Projeto {
 
 								disciplinaID = 0;
 								nDisciplina = Entity.Zero;
-								
 								while(nDisciplina.getID() == 0 && Disciplina.getDisciplinas().size() != 0) {
 									try {
 										disciplinaID = Ler.processarTecladoLong();
 
 										if(disciplinaID == 0){
-											printTodasDisciplinas();
+											printTodosCursos();
 										} else if (disciplinaID != -1){
 											disciplina = Disciplina.getDisciplinaFromID(disciplinaID);
 										}
