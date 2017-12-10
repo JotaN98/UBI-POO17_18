@@ -16,10 +16,6 @@ public class Aula extends Entity {
         Create();
     }
     
-    public static Map<String, Aula> getAulas(){
-        return aulas;
-    }
-    
     //Initialize Hours and Days of the week converters
     static{
         ConversorHoras = new ArrayList<String>();
@@ -37,13 +33,7 @@ public class Aula extends Entity {
         ConversorDiaDaSemana.add("Sexta-feira");
     }
     
-     public static Aula getAulaFromID(long ID){
-        return aulas.getOrDefault(
-                Entity.getGroupFromID("Aula") + ID,
-                aulas.get(Entity.getGroupFromID("Aula") + "0")
-        );
-    }  
-    
+            
     public static Aula getAulaFromID(Entity ID){
         return aulas.getOrDefault(
                 ID.getCodeID(),
