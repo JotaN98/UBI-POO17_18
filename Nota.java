@@ -12,6 +12,18 @@ public class Nota extends Entity{
         Create();
     }
     
+    public static Map<String, Nota> getNotas(){
+        return nota;
+    }
+   
+    
+    public static Nota getNotaFromID(long ID){
+        return nota.getOrDefault(
+                Entity.getGroupFromID("Nota") + ID,
+                nota.get(Entity.getGroupFromID("Nota") + "0")
+        );
+    }  
+    
     public static Nota getNotaFromID(Entity ID){
         return nota.getOrDefault(
                 ID.getCodeID(),

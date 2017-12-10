@@ -268,9 +268,7 @@ public class Projeto {
                                                 }catch(IOException e){
                                                     System.out.println("Por favor introduza um valor entre 1 e " + exitop + ".");
                                                 }
-                                                
-                                                
-                                                
+    
                                                 Turma turma;
                                                 Entity nTurma;
                                                 long turmaID;
