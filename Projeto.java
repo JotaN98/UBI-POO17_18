@@ -1208,7 +1208,6 @@ public class Projeto {
                                                             System.out.println("Atividade:");
                                                             for (Map.Entry<ZonedDateTime, String> actividade : alu.getNascimento())
                                                                 System.out.println(actividade.getKey() +": "+ actividade.getValue());
-                        
 					valorIntroduzido = 5;
 					break;
 

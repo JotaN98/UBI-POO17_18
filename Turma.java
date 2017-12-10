@@ -31,9 +31,7 @@ public class Turma extends Entity{
 				turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
 		);
     }
-     public static Map<String, Turma> getTurmas(){
-        return turmas;
-    }
+    
     
     public static void addTurma(Turma x) throws NullPointerException{
         //if(getTurmaFromID(x).getID() != 0){
