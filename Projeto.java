@@ -337,7 +337,7 @@ public class Projeto {
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 				
-				case 2://Op�ao Turmas
+				case 2://Opção Turmas
 					
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
@@ -528,13 +528,13 @@ public class Projeto {
 					
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 3://Op�ao Disciplinas
+				case 3://Opçao Disciplinas
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
 						printMenu("Disciplina", "Disciplinas");
 
-						// ler a op��oo do utilizador
+						// ler a opção do utilizador
 						try {
 							valorIntroduzido = Ler.processarTecladoInt();
 						} catch (IOException e) {
@@ -542,7 +542,7 @@ public class Projeto {
 						}
 
 					
-						//Variaveis que ser�o utilizadas no Menu abaixo
+						//Variaveis que serão utilizadas no Menu abaixo
 						
 						Disciplina disciplina;
 						Entity nDisciplina;
@@ -1262,6 +1262,28 @@ public class Projeto {
                                                                     System.out.println("Não existem turmas.");
                                                                 System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
 								break;
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+                                                        case 3:
+                                                            //set nascimento/??????????????NAO SEI COMO FAZER ISTO
+                                                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd(ano/mes/dia)");
+                                                            while(ZonedDateTime.now()!=null){
+                                                                try{
+                                                                    System.out.println("Insira o dia que quer alterar");
+                                                                    dia=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o mês que quer alterar");
+                                                                    mes=Ler.processarTecladoInt();
+                                                                    System.out.println("Insira o ano que quer alterar");
+                                                                    ano=Ler.processarTecladoInt();
+                                                                    if((dia<=0 && dia >=31) && (mes<0 && mes >12) && (ano<=0 && ano>Integer.MAX_VALUE))
+                                                                        System.out.println("Nao é possivel inserir esses valores(dia esta compreendido entre 0 e 31, mês entre 0 e 12 e ano entre 0 e Integer.MAX_VALUE )");
+                                                                    else
+                                                                        System.out.println("Data mudada.");
+                                                                }catch(IOException | NullPointerException e){
+                                                                    e.getMessage();
+                                                                    System.out.println("Insira novamente os valores");
+                                                                }
+                                                            }
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
                                                     }
                                                 }
                                             case 2:
@@ -1288,6 +1310,75 @@ public class Projeto {
                                                     // Mostrar o menu
                                                     printMenu("Curso", "Cursos");
 
+                                                    // ler a opção do utilizador
+                                                    try {
+                                                    	valorIntroduzido = Ler.processarTecladoInt();
+                                                    } catch (IOException e) {
+							System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
+                                                    }
+                                                    int x;
+                                                    int turmaID;
+                                                    Entity mudarTurma=Entity.Zero;
+                                                    Entity mudarCurso=Entity.Zero;
+                                                    boolean ativo;
+                                                    Aluno alu=null;
+                                                    switch (valorIntroduzido){
+							case 0:
+								// Mostrar tudo
+								printTodosCursos();
+								break;
+                                                        case 1:
+                                                            System.out.println("Insira o ano que deseja alterar.");
+                                                            try{          
+                                                                x=Ler.processarTecladoInt();
+                                                                if(x<=10 || x>=12){
+                                                                    alu.setAno(x);
+                                                                    System.out.println("Mudou o ano.");
+                                                                }
+                                                            }catch(IOException e){
+                                                                System.out.println("Insira um valor entre 10 e 12 inclusive.");
+                                                            }
+                                                        case 2:
+                                                            System.out.println("Insira a turma que seja alterar.");
+                                                            try{          
+                                                                Turma.getTurmaFromID(mudarTurma);
+                                                                Aluno.getAlunoFromID(alu).setTurma(mudarTurma);
+                                                                System.out.println("Mudou a turma"); 
+                                                            }catch(NullPointerException e){
+                                                                e.getMessage();
+                                                                System.out.println("A turma que quer mudar nao existe.");
+                                                            }
+                                                        case 3:
+                                                            System.out.println("Insira o curso que seja alterar.");
+                                                            try{          
+                                                                Curso.getCursoFromID(mudarCurso);
+                                                                Aluno.getAlunoFromID(alu).setCurso(mudarCurso);
+                                                                System.out.println("Mudou o curso"); 
+                                                            }catch(NullPointerException e){
+                                                                e.getMessage();
+                                                                System.out.println("O curso que quer mudar nao existe.");
+                                                            }
+                                                        case 4:
+                                                            System.out.println("Diga se quer o aluno ativo ou não(true or false)");
+                                                            try{
+                                                                ativo=Ler.processarTecladoBoolean();
+                                                                System.out.println("Diga qual o aluno.");
+                                                                alunoID=Ler.processarTecladoLong();
+                                                                if(ativo==true){
+                                                                    alu.setActive(ativo);
+                                                                    System.out.println("Aluno ativo");
+                                                                }else if(ativo==false){
+                                                                    alu.setActive(ativo);
+                                                                    System.out.println("Aluno inativo");
+                                                                }
+                                                            }catch(IOException e){
+                                                                e.getMessage();
+                                                                System.out.println("");
+                                                            }
+                                                        case 5:
+                                                            System.out.println("Atividade:");
+                                                            for (Map.Entry<ZonedDateTime, String> actividade : alu.getNascimento())
+                                                                System.out.println(actividade.getKey() +": "+ actividade.getValue());
 					valorIntroduzido = 5;
 					break;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
