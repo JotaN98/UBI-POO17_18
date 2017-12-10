@@ -273,7 +273,7 @@ public class Projeto {
                                                 
                                                 Turma turma;
                                                 Entity nTurma;
-                                                long turmID;
+                                                long turmaID;
                                                 String nome;
                                                 int ano=0;
                                                 String anoLetivo;
@@ -333,7 +333,30 @@ public class Projeto {
 								}
 								turma.setAnoLetivo(anoLetivo);
 								System.out.println("Ano letivo alterado.");
-
+                                                        break;
+                                                    //eliminar turma    
+                                                    case 2:
+                                                        System.out.println("Insira o ID da Disciplina para eliminar (0 para mostrar todos, -1 para cancelar): ");
+                                                        turmaID=0;
+                                                        nTurma=Entity.Zero;
+                                                        while(nTurma.getID()==0 && Turma.getTurmas().size() !=0){
+                                                            try{
+                                                                turmaID = Ler.processarTecladoLong();
+                                                                
+                                                                if(turmaID == 0){
+                                                                    printTodasTurmas();
+                                                                }else if(turmaID != -1){
+                                                                    turma = Turma.getTurmaFromID(turmaID);
+                                                                }
+                                                                }catch(IOException e){
+                                                                        System.out.println("Ocorreu um erro, tentar novamente");
+                                                                }
+                                                            }
+                                                        Turma.Remove(nTurma);
+                                                        break;
+                                                        }
+                                                
+                                                
                                                         }
                                                 }
                                                 
