@@ -27,6 +27,17 @@ public class Disciplina extends Entity {
 		);
 	}
 
+	public static Map<String, Disciplina> getDisciplinas(){
+		return disciplina;
+	}
+
+	public static Disciplina getDisciplinaFromID(long ID) {
+		return disciplina.getOrDefault(
+				Entity.getGroupIDFromGroup("Disciplina") + ID,
+				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
+		);
+	}
+
 	public static Disciplina getDisciplinaFromID(Entity ID) {
 		return disciplina.getOrDefault(
 				ID.getCodeID(),
