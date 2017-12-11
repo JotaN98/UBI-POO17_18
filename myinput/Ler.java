@@ -36,9 +36,6 @@ public class Ler {
     public static boolean processarTecladoBoolean() throws IOException {
         return keyboardScanner.nextBoolean();
     }
-    public static ZonedDateTime processarZonedDateTime() throws IOException{
-        return keyboardScanner.nextZonedDateTime();
-    }
     // object methods
     int processar(int tipoDeVariavel) throws IOException{
         return streamScanner.nextInt();
