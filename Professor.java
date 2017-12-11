@@ -8,28 +8,27 @@ public class Professor extends Pessoa{
     // -- vars
     private static Map<String, Professor> professores = new HashMap<String, Professor>();
     private static long IDCount = 0;
-    
-    private static Map<String, Professor> professor = new HashMap<String, Professor>();
+
     
     static{
         Create();
     }
 
     public static Map<String, Professor> getProfessores(){
-        return professor;
+        return professores;
     }
 
     public static Professor getProfessorFromID(long ID){
-        return professor.getOrDefault(
+        return professores.getOrDefault(
                 Entity.getGroupFromID("Professor") + ID,
-                professor.get(Entity.getGroupFromID("Professor") + "0")
+                professores.get(Entity.getGroupFromID("Professor") + "0")
         );
     }
 
     public static Professor getProfessorFromID(Entity ID){
-        return professor.getOrDefault(
+        return professores.getOrDefault(
                 ID.getCodeID(),
-                professor.get(Entity.getGroupFromID("Professor") + "0")
+                professores.get(Entity.getGroupFromID("Professor") + "0")
         );
     }
      

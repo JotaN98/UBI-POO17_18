@@ -8,52 +8,31 @@ public class Disciplina extends Entity {
 	// -- vars
 	private static long IDCount = 0;
 
-	private static Map<String, Disciplina> disciplina = new HashMap<String, Disciplina>();
+	private static Map<String, Disciplina> disciplinas = new HashMap<String, Disciplina>();
 
 	
     public static Map<String, Disciplina> getDisciplinas(){
-        return disciplina;
+        return disciplinas;
     }
 	
 	static {
 		// Disciplina null
 		Create();
 	}
-        
 
-	public static Map<String, Disciplina> getDisciplinas(){
-		return disciplina;
-	}
 
 	public static Disciplina getDisciplinaFromID(long ID) {
-		return disciplina.getOrDefault(
+		return disciplinas.getOrDefault(
 				Entity.getGroupIDFromGroup("Disciplina") + ID,
-				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
-		);
-	}
-
-	public static Map<String, Disciplina> getDisciplinas(){
-		return disciplina;
-	}
-
-	public static Disciplina getDisciplinaFromID(long ID) {
-		return disciplina.getOrDefault(
-				Entity.getGroupIDFromGroup("Disciplina") + ID,
-				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
+				disciplinas.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
 		);
 	}
 
 	public static Disciplina getDisciplinaFromID(Entity ID) {
-		return disciplina.getOrDefault(
+		return disciplinas.getOrDefault(
 				ID.getCodeID(),
-				disciplina.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
+				disciplinas.get(Entity.getGroupIDFromGroup("Disciplina") + "0")
 		);
-	}
-	
-    public static Disciplina getDisciplinaFromID(long ID){
-		return disciplina.getOrDefault(
-				Entity.getGroupFromID("Disciplina") + ID,
-				disciplina.get(Entity.getGroupFromID("Disciplina") + "0"));
 	}
 
 
@@ -61,7 +40,7 @@ public class Disciplina extends Entity {
 		if (getDisciplinaFromID(x).getID() != 0) {
 			throw new IllegalArgumentException("Disciplina -" + x + "- existente.");
 		}
-		disciplina.put(x.getCodeID(), x);
+		disciplinas.put(x.getCodeID(), x);
 	}
 
 	public static Entity Create() {
@@ -80,7 +59,7 @@ public class Disciplina extends Entity {
 
 		if (ID.getID() == 0) throw new NullPointerException("Objeto já foi removido.");
 
-		if (!disciplina.containsKey(ID.getCodeID()))
+		if (!disciplinas.containsKey(ID.getCodeID()))
 			throw new IllegalArgumentException("Disciplina -" + ID.getCodeID() + "- não existe.");
 
 		Disciplina disciplina = getDisciplinaFromID(ID);
