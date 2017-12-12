@@ -751,7 +751,7 @@ public class Projeto {
                                                                         }
                                                                 }
                                                                 
-                                                                //set curso
+                                //set curso
 								cursoID = 0;
 								cursoEntity = Entity.Zero;
 								while(cursoEntity.getID() == 0 && Curso.getCursos().size() != 0){
@@ -1583,7 +1583,8 @@ public class Projeto {
                                                                     System.out.println("Não existem turmas.");
                                                                 System.out.println("Aluno \""+pNome+uNome+"\" criado com sucesso.");
 								break;
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+                                                        
                                                         case 3:
                                                             //set nascimento/??????????????NAO SEI COMO FAZER ISTO
                                                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd(ano/mes/dia)");
@@ -1604,7 +1605,7 @@ public class Projeto {
                                                                     System.out.println("Insira novamente os valores");
                                                                 }
                                                             }
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
                                                     }
                                                 }
                                             case 2:
@@ -1635,7 +1636,7 @@ public class Projeto {
                                                     try {
                                                     	valorIntroduzido = Ler.processarTecladoInt();
                                                     } catch (IOException e) {
-							System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
+                                                    	System.out.println("Por favor introduza um valor entre 1 e "+exitop+".");
                                                     }
                                                     int x;
                                                     int turmaID;
@@ -1644,10 +1645,10 @@ public class Projeto {
                                                     boolean ativo;
                                                     Aluno alu=null;
                                                     switch (valorIntroduzido){
-							case 0:
-								// Mostrar tudo
-								printTodosCursos();
-								break;
+                                                    	case 0:
+                                                    		// Mostrar tudo
+                                                    		printTodosCursos();
+                                                    	break;
                                                         case 1:
                                                             System.out.println("Insira o ano que deseja alterar.");
                                                             try{          
