@@ -849,13 +849,13 @@ public class Projeto {
 					
 					
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-				case 3://Opçao Disciplinas
+				case 3://Opcao Disciplinas
 					valorIntroduzido = -1;
 					while (valorIntroduzido != exitop) {
 						// Mostrar o menu
 						printMenu("Disciplina", "Disciplinas");
 
-						// ler a opção do utilizador
+						// ler a opcao do utilizador
 						try {
 							valorIntroduzido = Ler.processarTecladoInt();
 						} catch (IOException e) {
@@ -863,7 +863,7 @@ public class Projeto {
 						}
 
 					
-						//Variaveis que serão utilizadas no Menu abaixo
+						//Variaveis que serao utilizadas no Menu abaixo
 						
 						Disciplina disciplina;
 						Entity nDisciplina;
@@ -1116,8 +1116,34 @@ public class Projeto {
 									break;
 								}
 							case 4://Limpar Todas as Disciplinas
-								/*Falta aqui esta*/
-							break;
+								String stringInput = "";
+								System.out.println("Tem a certeza que quer remover todas as Disciplinas [s/n]:");
+
+								while(	!stringInput.equalsIgnoreCase("n") && !stringInput.equalsIgnoreCase("nao") &&
+										!stringInput.equalsIgnoreCase("s") && !stringInput.equalsIgnoreCase("sim")){
+									try{
+										stringInput = Ler.processarTecladoString();
+									} catch (IOException e){
+										stringInput = "";
+										System.out.println("Ocurreu um erro, tente novamente.");
+									}
+								}
+								if(stringInput.toLowerCase().equals("n") || stringInput.toLowerCase().equals("nao"))
+									break;
+								else if(stringInput.equalsIgnoreCase("s") || stringInput.equalsIgnoreCase("sim")){
+									System.out.println("A limpar todas as Disciplinas.");
+									for(Disciplina _disciplina : Disciplina.getDisciplinas().values()){
+										if(_disciplina.getID() != 0){
+											try {
+												Disciplina.Remove(_disciplina);
+												System.out.println("Disciplina \"" + _disciplina + "\" removida com sucesso.");
+											} catch (IllegalArgumentException | NullPointerException e){
+												System.out.println(e.getMessage());
+											}
+										}
+									}
+								}
+								break;
 						
 							case 5://Voltar
 								
