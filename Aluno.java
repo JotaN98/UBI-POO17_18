@@ -14,6 +14,15 @@ public class Aluno extends Pessoa {
     	// Aluno null
     	Create();
 	}
+
+	public static int size(){
+		int c = 0;
+		for(Entity prof : alunos.values()){
+			c += (prof.getID() != 0)? 1:0;
+		}
+		return c;
+	}
+
     
     public static Map<String, Aluno> getAlunos(){
         return alunos;

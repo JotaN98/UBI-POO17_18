@@ -14,6 +14,14 @@ public class Turma extends Entity{
     	Create();
 	}
 
+	public static int size(){
+		int c = 0;
+		for(Entity prof : turmas.values()){
+			c += (prof.getID() != 0)? 1:0;
+		}
+		return c;
+	}
+
     public static Map<String, Turma> getTurmas(){
         return turmas;
     }   

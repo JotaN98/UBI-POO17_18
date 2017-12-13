@@ -20,6 +20,14 @@ public class Disciplina extends Entity {
 		Create();
 	}
 
+	public static int size(){
+		int c = 0;
+		for(Entity disc : disciplinas.values()){
+			c += (disc.getID() != 0)? 1:0;
+		}
+		return c;
+	}
+
 
 	public static Disciplina getDisciplinaFromID(long ID) {
 		return disciplinas.getOrDefault(

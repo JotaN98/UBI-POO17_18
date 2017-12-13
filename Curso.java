@@ -14,9 +14,18 @@ public class Curso extends Entity {
         Entity e = Create();
     }
 
+    public static int size(){
+        int c = 0;
+        for(Entity prof : cursos.values()){
+            c += (prof.getID() != 0)? 1:0;
+        }
+        return c;
+    }
+
     public static Map<String, Curso> getCursos(){
         return cursos;
     }
+
 
     public static Curso getCursoFromID(long ID){
 		return cursos.getOrDefault(
