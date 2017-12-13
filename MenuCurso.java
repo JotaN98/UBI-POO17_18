@@ -237,7 +237,7 @@ public class MenuCurso {
 					}
 				}
 				else if(valorIntroduzido == 5)/*Criar Turma*/{
-					MenuTurma.criarTurma()
+					MenuTurma.criarTurma();
 				}
 				else if(valorIntroduzido == 6)/*Mudar atividade*/{
 					curso.setAtivo(curso.getAtivo());
@@ -248,7 +248,7 @@ public class MenuCurso {
 		}
 	}
 	public static void eliminarTodosCurso(){
-		String remover = ""
+		String remover = "";
 
 		while(!remover.equalsIgnoreCase("n") && !remover.equalsIgnoreCase("nao") &&
 				!remover.equalsIgnoreCase("s") && !remover.equalsIgnoreCase("sim")) {

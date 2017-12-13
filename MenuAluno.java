@@ -6,41 +6,42 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 public class MenuAluno {
-	public static void MainMenu(){
+	public static void MainMenu() {
 		int valorIntroduzido = 0;
-		while (valorIntroduzido != Menus.MenuExitOp){
-			Menus.printMenu("Aluno","Alunos");
+		while (valorIntroduzido != Menus.MenuExitOp) {
+			Menus.printMenu("Aluno", "Alunos");
 			valorIntroduzido = Ler.processarTecladoInt();
 
-			if(valorIntroduzido == 0)/*mostrar todos os cursos*/ {
+			if (valorIntroduzido == 0)/*mostrar todos os cursos*/ {
 				Menus.printTodosAlunos();
-			}
-			else if(valorIntroduzido == 1)/*Criar Aluno*/{
+			} else if (valorIntroduzido == 1)/*Criar Aluno*/ {
 				criarAluno();
-			}
-			else if(valorIntroduzido == 2)/*Eliminar Aluno*/{
+			} else if (valorIntroduzido == 2)/*Eliminar Aluno*/ {
 				eliminarAluno();
-			}
-			else if(valorIntroduzido == 3)/*selecionar aluno*/{
-				selecionarAluno()
-			}
+			} else if (valorIntroduzido == 3)/*selecionar aluno*/ {
+				selecionarAluno();
+			} else if (valorIntroduzido == 4)/*limpar todos os alunos*/{
+				eliminarTodosAluno();
+			} else if(valorIntroduzido != 5)/*nenhuma da opções*/
+				System.out.println("Introduza um numero entre 1 e "+ (Menus.MainMenuExitOp-1) +".");
+			// 5 = menuExitOp
 		}
 	}
 
-	public static void criarAluno(){
+	public static void criarAluno() {
 		Aluno nAluno = Aluno.getAlunoFromID(Aluno.Create());
 
-		System.out.println("A criar aluno "+ (Entity)nAluno +".");
+		System.out.println("A criar aluno " + (Entity) nAluno + ".");
 
 		// set nome
 		String nome = "";
-		while(nome.equals("")){
+		while (nome.equals("")) {
 			System.out.println("Digite o primeiro nome do Aluno: ");
 			nome = Ler.processarTecladoString();
 		}
 		nAluno.setPrimeiroNome(nome);
 		nome = "";
-		while(nome.equals("")){
+		while (nome.equals("")) {
 			System.out.println("Digite o ultimo nome do Aluno: ");
 			nome = Ler.processarTecladoString();
 		}
@@ -50,92 +51,94 @@ public class MenuAluno {
 		int year = 0;
 		int month = 0;
 		int day = 0;
-		while (year == 0){
+		while (year == 0) {
 			System.out.println("Digite o ano em que o Aluno nasceu: ");
 			year = Ler.processarTecladoInt();
 
-			if(!(year <= ZonedDateTime.now().getDayOfYear() && year >= 0)) {
+			if (!(year <= ZonedDateTime.now().getDayOfYear() && year >= 0)) {
 				System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getDayOfYear());
 				year = 0;
 			}
 		}
-		while (month == 0){
+		while (month == 0) {
 			System.out.println("Digite o ano em que o Aluno nasceu: ");
 			month = Ler.processarTecladoInt();
 
-			if(!(month <= 12 && month >= 0)) {
+			if (!(month <= 12 && month >= 0)) {
 				System.out.println("Mes tem que ser entre 1 e 12");
 				month = 0;
 			}
 		}
-		while (day == 0){
+		while (day == 0) {
 			System.out.println("Digite o dia em que o Aluno nasceu: ");
 			day = Ler.processarTecladoInt();
 
 			//try to get max day of month in given year
-			if(!(day <= 31 && day >= 0)) {
+			if (!(day <= 31 && day >= 0)) {
 				System.out.println("Mes tem que ser entre 1 e 12");
 				day = 0;
 			}
 		}
 		// ver se este zone id está certo
-		nAluno.setNascimento(ZonedDateTime.of(year,month,day,0,0,0,0, ZoneId.of("Eur/Lisbon")));
+		nAluno.setNascimento(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.of("Europe/Lisbon")));
 
-		System.out.println("Aluno \""+ nAluno +"\" criado com sucesso.");
+		System.out.println("Aluno \"" + nAluno + "\" criado com sucesso.");
 
 
 	}
-	public static void eliminarAluno(){
+
+	public static void eliminarAluno() {
 		long alunoID = 0;
 		Entity alunoE = Entity.Zero;
-		while(alunoE.getID() == 0 && Aluno.size() != 0){
+		while (alunoE.getID() == 0 && Aluno.size() != 0) {
 			System.out.println("Digite o ID do Aluno que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
 			alunoID = Ler.processarTecladoLong();
 			alunoE = Aluno.getAlunoFromID(alunoID);
 
-			if(alunoID == 0)
+			if (alunoID == 0)
 				Menus.printTodosAlunos();
-			if(alunoE.getID() == 0)
-				System.out.println("Aluno \""+alunoID+"\" não existe.");
-			if(alunoID == -1) {
+			if (alunoE.getID() == 0)
+				System.out.println("Aluno \"" + alunoID + "\" não existe.");
+			if (alunoID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
 			}
 
 		}
-		if(Aluno.size() == 0)
+		if (Aluno.size() == 0)
 			System.out.println("Ainda não existem Alunos.");
-		if(alunoID != -1){
+		if (alunoID != -1) {
 			try {
 				Aluno.Remove(alunoE);
-				System.out.println("Aluno \""+alunoID+" removido com sucesso.");
-			} catch (IllegalArgumentException | NullPointerException e){
+				System.out.println("Aluno \"" + alunoID + " removido com sucesso.");
+			} catch (IllegalArgumentException | NullPointerException e) {
 				System.out.println("Erro ao remover o curso: ");
 				System.out.println(e.getMessage());
 			}
 		}
 	}
-	public static void selecionarAluno(){
+
+	public static void selecionarAluno() {
 		long alunoID = 0;
 		Aluno aluno = Aluno.getAlunoFromID(Entity.Zero);
-		while(aluno.getID() == 0 && Curso.size() != 0){
+		while (aluno.getID() == 0 && Curso.size() != 0) {
 			System.out.println("Digite o ID do curso que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
 			alunoID = Ler.processarTecladoLong();
 			aluno = Aluno.getAlunoFromID(alunoID);
 
-			if(alunoID == 0)
+			if (alunoID == 0)
 				Menus.printTodosAlunos();
-			if(aluno.getID() == 0)
-				System.out.println("Aluno  \""+alunoID+"\" não existe.");
-			if(alunoID == -1) {
+			if (aluno.getID() == 0)
+				System.out.println("Aluno  \"" + alunoID + "\" não existe.");
+			if (alunoID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
 			}
 
 		}
-		if(Aluno.size() == 0)
+		if (Aluno.size() == 0)
 			System.out.println("Ainda não existem Alunos.");
-		if(alunoID != -1){
+		if (alunoID != -1) {
 			int valorIntroduzido = -1;
 
 			while (valorIntroduzido != 7) {
@@ -170,8 +173,7 @@ public class MenuAluno {
 					aluno.setUltimoNome(nome);
 
 					System.out.println("Nome do Aluno foi alterado com sucesso.");
-				}
-				else if (valorIntroduzido == 2)/*Mudar nascimento*/ {
+				} else if (valorIntroduzido == 2)/*Mudar nascimento*/ {
 					int year = 0;
 					int month = 0;
 					int day = 0;
@@ -211,12 +213,11 @@ public class MenuAluno {
 					}
 					// ver se este zone id está certo
 					if (!(day == 0 || month == 0 || year == 0)) {
-						aluno.setNascimento(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.of("Eur/Lisbon")));
+						aluno.setNascimento(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.of("Europe/Lisbon")));
 						System.out.println("Nascimento alterado com sucesso.");
 					}
 
-				}
-				else if (valorIntroduzido == 3)/*Mudar ano*/ {
+				} else if (valorIntroduzido == 3)/*Mudar ano*/ {
 					int ano = 0;
 					while (ano < 10 || ano > 12) {
 						System.out.println("Insira o ano do aluno (-1 para cancelar): ");
@@ -238,30 +239,29 @@ public class MenuAluno {
 							System.out.println(e.getMessage());
 						}
 					}
-				}
-				else if (valorIntroduzido == 4)/*mudar curso*/ {
+				} else if (valorIntroduzido == 4)/*mudar turma*/ {
 					long turmaID = 0;
 					Turma turmaE = Turma.getTurmaFromID(Entity.Zero);
-					while(turmaE.getID() == 0 && Turma.size() != 0){
+					while (turmaE.getID() == 0 && Turma.size() != 0) {
 						System.out.println("Digite o ID do Curso(0 para mostrar todos os cursos, -1 para cancelar): ");
 						turmaID = Ler.processarTecladoLong();
 						turmaE = Turma.getTurmaFromID(turmaID);
 
-						if(turmaID == 0)
+						if (turmaID == 0)
 							Menus.printTodosCursos();
-						if(turmaE.getID() == 0)
-							System.out.println("Turma \""+turmaID+"\" não existe.");
-						if(turmaID == -1) {
+						if (turmaE.getID() == 0)
+							System.out.println("Turma \"" + turmaID + "\" não existe.");
+						if (turmaID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
 
 					}
-					if(Curso.size() == 0)
+					if (Turma.size() == 0)
 						System.out.println("Ainda não existem cursos.");
-					if(turmaID != -1) {
+					if (turmaID != -1) {
 						try {
-							aluno.setCurso(turmaE);
+							aluno.setTurma(turmaE);
 							System.out.println("Curso definido como \"" + turmaE);
 						} catch (IllegalArgumentException | NullPointerException e) {
 							System.out.println("Ocurreu um erro.");
@@ -269,8 +269,7 @@ public class MenuAluno {
 						}
 
 					}
-				}
-				else if (valorIntroduzido == 5)/*Mudar turma*/ {
+				} else if (valorIntroduzido == 5)/*Mudar curso*/ {
 					long cursoID = 0;
 					Curso cursoE = Curso.getCursoFromID(Entity.Zero);
 					while (cursoE.getID() == 0 && Curso.size() != 0) {
@@ -300,10 +299,38 @@ public class MenuAluno {
 						}
 
 					}
+				} else if (valorIntroduzido == 6) /*mudar active*/ {
+					aluno.setActive(aluno.getActive());
+				} else if (valorIntroduzido != 7)
+					System.out.println("Introduza um numero entre 1 e 7.");
+			}
+		}
+	}
+
+	public static void eliminarTodosAluno() {
+		String remover = "";
+
+		while (!remover.equalsIgnoreCase("n") && !remover.equalsIgnoreCase("nao") &&
+				!remover.equalsIgnoreCase("s") && !remover.equalsIgnoreCase("sim")) {
+			System.out.println("Tem a certeza que quer eliminar todos os alunos ?");
+			System.out.print("[s/n]: ");
+
+			remover = Ler.processarTecladoString();
+		}
+		if (remover.toLowerCase().equals("n") || remover.toLowerCase().equals("nao"))
+			return;
+		else if (remover.equalsIgnoreCase("s") || remover.equalsIgnoreCase("sim")) {
+			System.out.println("A limpar todos os alunos.");
+			for (Aluno _aluno : Aluno.getAlunos().values()) {
+				if (_aluno.getID() != 0) {
+					try {
+						Aluno.Remove(_aluno);
+						System.out.println("Aluno \"" + _aluno + "\" removido com sucesso.");
+					} catch (IllegalArgumentException | NullPointerException e) {
+						System.out.println(e.getMessage());
+					}
 				}
 			}
-
-
-
-
-			}
+		}
+	}
+}
