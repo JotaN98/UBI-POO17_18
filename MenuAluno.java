@@ -1,9 +1,7 @@
-import javafx.scene.shape.Circle;
 import myinput.Ler;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
 
 public class MenuAluno {
 	public static void MainMenu() {
@@ -12,7 +10,7 @@ public class MenuAluno {
 			Menus.printMenu("Aluno", "Alunos");
 			valorIntroduzido = Ler.processarTecladoInt();
 
-			if (valorIntroduzido == 0)/*mostrar todos os cursos*/ {
+			if (valorIntroduzido == 0)/*mostrar todos os alunos*/ {
 				Menus.printTodosAlunos();
 			} else if (valorIntroduzido == 1)/*Criar Aluno*/ {
 				criarAluno();
@@ -86,7 +84,6 @@ public class MenuAluno {
 
 
 	}
-
 	public static void eliminarAluno() {
 		long alunoID = 0;
 		Entity alunoE = Entity.Zero;
@@ -117,7 +114,6 @@ public class MenuAluno {
 			}
 		}
 	}
-
 	public static void selecionarAluno() {
 		long alunoID = 0;
 		Aluno aluno = Aluno.getAlunoFromID(Entity.Zero);
@@ -143,17 +139,21 @@ public class MenuAluno {
 
 			while (valorIntroduzido != 7) {
 				System.out.println("Aluno " + aluno);
-				System.out.println("1- Mudar Nome");
-				System.out.println("2- Mudar Nascimento");
-				System.out.println("3- Mudar Ano");
-				System.out.println("4- Mudar Turma");
-				System.out.println("5- Mudar Curso");
-				System.out.println("6- Mudar para " + (aluno.getActive() ? "in" : "") + "activo");
-				System.out.println("7- Voltar");
+				System.out.println("1- Mostrar horario");
+				System.out.println("2- Mudar Nome");
+				System.out.println("3- Mudar Nascimento");
+				System.out.println("4- Mudar Ano");
+				System.out.println("5- Mudar Turma");
+				System.out.println("6- Mudar Curso");
+				System.out.println("7- Mudar para " + (aluno.getActive() ? "in" : "") + "activo");
+				System.out.println("8- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
-				if (valorIntroduzido == 1)/*Mudar nome*/ {
+				if (valorIntroduzido == 1) /*Mostrar horario*/{
+					MenuTurma.mostrarHorario(aluno.getTurma());
+				}
+				else if (valorIntroduzido == 2)/*Mudar nome*/ {
 					String nome = "";
 					System.out.println("Digite o primeiro nome do Aluno: ");
 					nome = Ler.processarTecladoString();
@@ -169,11 +169,13 @@ public class MenuAluno {
 
 					if (nome.equalsIgnoreCase(""))
 						nome = aluno.getUltimoNome();
+					else
+						System.out.println("Nome do Aluno foi alterado com sucesso.");
 
 					aluno.setUltimoNome(nome);
 
-					System.out.println("Nome do Aluno foi alterado com sucesso.");
-				} else if (valorIntroduzido == 2)/*Mudar nascimento*/ {
+				}
+				else if (valorIntroduzido == 3)/*Mudar nascimento*/ {
 					int year = 0;
 					int month = 0;
 					int day = 0;
@@ -217,7 +219,8 @@ public class MenuAluno {
 						System.out.println("Nascimento alterado com sucesso.");
 					}
 
-				} else if (valorIntroduzido == 3)/*Mudar ano*/ {
+				}
+				else if (valorIntroduzido == 4)/*Mudar ano*/ {
 					int ano = 0;
 					while (ano < 10 || ano > 12) {
 						System.out.println("Insira o ano do aluno (-1 para cancelar): ");
@@ -239,7 +242,8 @@ public class MenuAluno {
 							System.out.println(e.getMessage());
 						}
 					}
-				} else if (valorIntroduzido == 4)/*mudar turma*/ {
+				}
+				else if (valorIntroduzido == 5)/*mudar turma*/ {
 					long turmaID = 0;
 					Turma turmaE = Turma.getTurmaFromID(Entity.Zero);
 					while (turmaE.getID() == 0 && Turma.size() != 0) {
@@ -249,11 +253,12 @@ public class MenuAluno {
 
 						if (turmaID == 0)
 							Menus.printTodosCursos();
-						if (turmaE.getID() == 0)
-							System.out.println("Turma \"" + turmaID + "\" não existe.");
 						if (turmaID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
+						}
+						if (turmaE.getID() == 0) {
+							System.out.println("Turma \"" + turmaID + "\" não existe.");
 						}
 
 					}
@@ -262,14 +267,15 @@ public class MenuAluno {
 					if (turmaID != -1) {
 						try {
 							aluno.setTurma(turmaE);
-							System.out.println("Curso definido como \"" + turmaE);
+							System.out.println("Curso definido como \"" + turmaE +"\".");
 						} catch (IllegalArgumentException | NullPointerException e) {
 							System.out.println("Ocurreu um erro.");
 							System.out.println(e.getMessage());
 						}
 
 					}
-				} else if (valorIntroduzido == 5)/*Mudar curso*/ {
+				}
+				else if (valorIntroduzido == 6)/*Mudar curso*/ {
 					long cursoID = 0;
 					Curso cursoE = Curso.getCursoFromID(Entity.Zero);
 					while (cursoE.getID() == 0 && Curso.size() != 0) {
@@ -279,11 +285,12 @@ public class MenuAluno {
 
 						if (cursoID == 0)
 							Menus.printTodosCursos();
-						if (cursoE.getID() == 0)
-							System.out.println("Curso \"" + cursoID + "\" não existe.");
 						if (cursoID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
+						}
+						if (cursoE.getID() == 0) {
+							System.out.println("Curso \"" + cursoID + "\" não existe.");
 						}
 
 					}
@@ -292,21 +299,22 @@ public class MenuAluno {
 					if (cursoID != -1) {
 						try {
 							aluno.setCurso(cursoE);
-							System.out.println("Curso definido como \"" + cursoE);
+							System.out.println("Curso definido como \"" + cursoE +"\".");
 						} catch (IllegalArgumentException | NullPointerException e) {
 							System.out.println("Ocurreu um erro.");
 							System.out.println(e.getMessage());
 						}
 
 					}
-				} else if (valorIntroduzido == 6) /*mudar active*/ {
+				}
+				else if (valorIntroduzido == 7) /*mudar active*/ {
 					aluno.setActive(aluno.getActive());
-				} else if (valorIntroduzido != 7)
+				}
+				else if (valorIntroduzido != 8)
 					System.out.println("Introduza um numero entre 1 e 7.");
 			}
 		}
 	}
-
 	public static void eliminarTodosAluno() {
 		String remover = "";
 
@@ -321,11 +329,14 @@ public class MenuAluno {
 			return;
 		else if (remover.equalsIgnoreCase("s") || remover.equalsIgnoreCase("sim")) {
 			System.out.println("A limpar todos os alunos.");
+
+			String alunome;
 			for (Aluno _aluno : Aluno.getAlunos().values()) {
 				if (_aluno.getID() != 0) {
 					try {
+						alunome = _aluno.toString();
 						Aluno.Remove(_aluno);
-						System.out.println("Aluno \"" + _aluno + "\" removido com sucesso.");
+						System.out.println("Aluno \"" + alunome+ "\" removido com sucesso.");
 					} catch (IllegalArgumentException | NullPointerException e) {
 						System.out.println(e.getMessage());
 					}

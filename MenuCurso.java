@@ -59,7 +59,7 @@ public class MenuCurso {
 		if(Professor.size() == 0)
 			System.out.println("Ainda não existem professores.");
 		if(profID != -1){
-			System.out.println("Diretor definido como \""+profE);
+			System.out.println("Diretor definido como \""+profE +"\".");
 			nCurso.setDiretor(profE);
 		}
 
@@ -125,8 +125,9 @@ public class MenuCurso {
 				System.out.println("3- Inserir Disciplina");
 				System.out.println("4- Remover uma Disciplina");
 				System.out.println("5- Criar Turma");
-				System.out.println("6- Mudar para " + (curso.getAtivo() ? "in" : "") + "activo");
-				System.out.println("7- Voltar");
+				System.out.println("6- Eliminar Turma");
+				System.out.println("7- Mudar para " + (curso.getAtivo() ? "in" : "") + "activo");
+				System.out.println("8- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
@@ -155,11 +156,12 @@ public class MenuCurso {
 
 						if(profID == 0)
 							Menus.printTodosProfessores();
-						if(profE.getID() == 0)
-							System.out.println("Professor \""+profID+"\" não existe.");
 						if(profID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
+						}
+						if(profE.getID() == 0) {
+							System.out.println("Professor \""+profID+"\" não existe.");
 						}
 
 					}
@@ -186,11 +188,12 @@ public class MenuCurso {
 
 						if(discID == 0)
 							Menus.printTodasDisciplinas();
-						if(discE.getID() == 0)
-							System.out.println("Disciplina \""+discID+"\" não existe.");
 						if(discID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
+						}
+						if(discE.getID() == 0) {
+							System.out.println("Disciplina \""+discID+"\" não existe.");
 						}
 
 					}
@@ -210,17 +213,23 @@ public class MenuCurso {
 					long discID = 0;
 					Disciplina discE = Disciplina.getDisciplinaFromID(Entity.Zero);
 					while(discE.getID() == 0 && curso.getDisciplinas().size() != 0){
-						System.out.println("Digite o ID da disciplina(0 para mostrar todas as disciplinas, -1 para cancelar): ");
+						System.out.println("Digite o ID da disciplina a remover(0 para mostrar disciplinas já adicionadas, -1 para cancelar): ");
 						discID = Ler.processarTecladoLong();
 						discE = Disciplina.getDisciplinaFromID(discID);
 
 						if(discID == 0)
-							Menus.printTodasDisciplinas();
-						if(discE.getID() == 0)
-							System.out.println("Disciplina \""+discID+"\" não existe.");
-						if(discID == -1) {
+							for(Entity dis : curso.getDisciplinas()){
+								if(dis.getID() != 0){
+									System.out.println(Disciplina.getDisciplinaFromID(dis));
+								}
+							}
+						else if(discID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
+						}
+						else if(discE.getID() == 0 || !curso.getDisciplinas().contains(discE)) {
+							System.out.println("Disciplina \""+discID+"\" não existe.");
+							discID = 0;
 						}
 
 					}
@@ -228,8 +237,9 @@ public class MenuCurso {
 						System.out.println("Ainda não foram adicionadas Disciplinas.");
 					if(discID != -1){
 						try {
+							String disnome = Disciplina.getDisciplinaFromID(discE).toString();
 							curso.removeDisciplina(discE);
-							System.out.println("Disciplina \""+ discE +"\" removida.");
+							System.out.println("Disciplina \""+ disnome +"\" removida.");
 						} catch (IllegalArgumentException | NullPointerException e){
 							System.out.println("Ocurreu um erro.");
 							System.out.println(e.getMessage());
@@ -237,12 +247,50 @@ public class MenuCurso {
 					}
 				}
 				else if(valorIntroduzido == 5)/*Criar Turma*/{
-					MenuTurma.criarTurma();
+					if(!criarTurma(curso))
+						System.out.println("Operação cancelada.");
 				}
-				else if(valorIntroduzido == 6)/*Mudar atividade*/{
+				else if(valorIntroduzido == 6)/*eliminar turma*/{
+					long turmaID = 0;
+					Turma turmaE = Turma.getTurmaFromID(Entity.Zero);
+					while(turmaE.getID() == 0 && curso.getTurmas().size() != 0){
+						System.out.println("Digite o ID da turma a remover(0 para mostrar turmas já adicionadas, -1 para cancelar): ");
+						turmaID = Ler.processarTecladoLong();
+						turmaE = Turma.getTurmaFromID(turmaID);
+
+						if(turmaID == 0)
+							for(Entity turma : curso.getTurmas()){
+								if(turma.getID() != 0){
+									System.out.println(Turma.getTurmaFromID(turma));
+								}
+							}
+						else if(turmaID == -1) {
+							System.out.println("Operação cancelada.");
+							break;
+						}
+						else if(turmaE.getID() == 0 || !curso.getTurmas().contains(turmaE)) {
+							System.out.println("Turma \""+turmaID+"\" não existe.");
+							turmaID = 0;
+						}
+
+					}
+					if(curso.getTurmas().size() == 0)
+						System.out.println("Ainda não foram criadas turmas.");
+					if(turmaID != -1){
+						try {
+							String turmanome = Turma.getTurmaFromID(turmaE).toString();
+							curso.removeTurma(turmaE);
+							System.out.println("Turma \""+ turmanome +"\" removida.");
+						} catch (IllegalArgumentException | NullPointerException e){
+							System.out.println("Ocurreu um erro.");
+							System.out.println(e.getMessage());
+						}
+					}
+				}
+				else if(valorIntroduzido == 7)/*Mudar atividade*/{
 					curso.setAtivo(curso.getAtivo());
 				}
-				else if(valorIntroduzido != 7)
+				else if(valorIntroduzido != 8)
 					System.out.println("Introduza um numero entre 1 e 7.");
 			}
 		}
@@ -261,11 +309,14 @@ public class MenuCurso {
 			return;
 		else if(remover.equalsIgnoreCase("s") || remover.equalsIgnoreCase("sim")){
 			System.out.println("A limpar todos os cursos.");
+
+			String curnome;
 			for(Curso _curso : Curso.getCursos().values()){
 				if(_curso.getID() != 0){
 					try {
+						curnome = _curso.toString();
 						Curso.Remove(_curso);
-						System.out.println("Curso \""+_curso+"\" removido com sucesso.");
+						System.out.println("Curso \""+curnome+"\" removido com sucesso.");
 					} catch (IllegalArgumentException | NullPointerException e){
 						System.out.println(e.getMessage());
 					}
@@ -275,5 +326,78 @@ public class MenuCurso {
 
 
 
+	}
+
+	public static boolean criarTurma(Curso curso){
+		//ano
+		int ano = 0;
+		while (ano == 0){
+			System.out.println("Digite o ano da turma(-1 para cancelar): ");
+
+			ano = Ler.processarTecladoInt();
+
+			if(ano == -1)
+				return false;
+			if(ano < 10 || ano > 12){
+				System.out.println("Insira um ano entre 10 e 12, -1 para sair.");
+				ano = 0;
+			}
+		}
+
+		//ano letivo
+		String anoLetivo = "";
+		while(anoLetivo.equalsIgnoreCase("")){
+			System.out.println("Insira o ano letivo(enter para cancelar): ");
+
+			anoLetivo = Ler.processarTecladoString();
+
+			if(anoLetivo.equalsIgnoreCase("")){
+				return false;
+			}
+		}
+
+		//nome
+		String nome = "";
+		while (nome.equalsIgnoreCase("")){
+			System.out.println("Digite o nome da nova turma(enter para cancelar): ");
+			nome = Ler.processarTecladoString();
+
+			if(nome.equalsIgnoreCase("")){
+				return false;
+			}
+		}
+
+		//diretor
+		long profID = 0;
+		Entity profE = Entity.Zero;
+		while(profE.getID() == 0 && Professor.size() != 0){
+			System.out.println("Digite o ID do diretor(0 para mostrar todos os professores, -1 para cancelar): ");
+			profID = Ler.processarTecladoLong();
+			profE = Professor.getProfessorFromID(profID);
+
+			if(profID == 0)
+				Menus.printTodosProfessores();
+			if(profE.getID() == 0)
+				System.out.println("Professor \""+profID+"\" não existe.");
+			if(profID == -1) {
+				return false;
+			}
+
+		}
+		if(Professor.size() == 0)
+			System.out.println("Ainda não existem professores.");
+		if(profID != -1){
+			try {
+				System.out.println("Turma "+Turma.getTurmaFromID(curso.addTurma(anoLetivo,nome,ano,profE))+" criada com sucesso");
+			} catch (IllegalArgumentException | NullPointerException e){
+				System.out.println("Ocurreu um erro.");
+				System.out.println(e.getMessage());
+				return false;
+			}
+
+			return true;
+
+		}
+		return false;
 	}
 }

@@ -332,6 +332,6 @@ public class Turma extends Entity{
 
 	@Override
 	public String toString() {
-		return getCodeID() +": " + getNome();
+		return getCodeID() +": " + getAno() + " " + getNome();
 	}
 }

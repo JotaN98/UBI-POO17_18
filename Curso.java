@@ -141,7 +141,7 @@ public class Curso extends Entity {
         return disciplinas;
     }
 
-    public void addTurma(String anoLetivo, String nome, int ano, Entity diretor) throws NullPointerException, IllegalArgumentException{
+    public Entity addTurma(String anoLetivo, String nome, int ano, Entity diretor) throws NullPointerException, IllegalArgumentException{
         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
         if(ano < 10 || ano > 12)
@@ -155,7 +155,11 @@ public class Curso extends Entity {
             }
         }
 
-        turmas.add(Turma.Create(anoLetivo,nome,ano,this,diretor));
+        Entity nTurma = Turma.Create(anoLetivo,nome,ano,this,diretor);
+
+        turmas.add(nTurma);
+
+        return nTurma;
     }
     public void removeTurma(Entity ID){
         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");

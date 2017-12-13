@@ -48,7 +48,7 @@ public class Pessoa extends Entity {
     }
 
     public String toString() {
-        return pNome  +" "+uNome;
+        return pNome + " " + uNome;
     }
     
 }

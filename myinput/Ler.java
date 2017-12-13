@@ -20,7 +20,7 @@ public class Ler {
 
     // static methods
 	public static int processarTecladoInt() {
-    	return processarTecladoInt("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoInt("Ocurreu um erro, volte a tentar.");
 	}
 	public static int processarTecladoInt(String errormessage ) {
     	int val;
@@ -34,7 +34,7 @@ public class Ler {
 		}
 	}
 	public static float processarTecladoFloat() {
-    	return processarTecladoFloat("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoFloat("Ocurreu um erro, volte a tentar.");
 	}
 	public static float processarTecladoFloat(String errormessage ) {
     	float val;
@@ -48,7 +48,7 @@ public class Ler {
 		}
 	}
 	public static double processarTecladoDouble() {
-    	return processarTecladoDouble("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoDouble("Ocurreu um erro, volte a tentar.");
 	}
 	public static double processarTecladoDouble(String errormessage ) {
     	double val;
@@ -62,7 +62,7 @@ public class Ler {
 		}
 	}
 	public static long processarTecladoLong() {
-    	return processarTecladoLong("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoLong("Ocurreu um erro, volte a tentar.");
 	}
 	public static long processarTecladoLong(String errormessage ) {
     	long val;
@@ -76,7 +76,7 @@ public class Ler {
 		}
 	}
 	public static String processarTecladoString() {
-    	return processarTecladoString("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoString("Ocurreu um erro, volte a tentar.");
 	}
 	public static String processarTecladoString(String errormessage ) {
     	String val;
@@ -90,7 +90,7 @@ public class Ler {
 		}
 	}
 	public static boolean processarTecladoBoolean() {
-    	return processarTecladoBoolean("Ocurreu um erro, volte a tentar.")
+    	return processarTecladoBoolean("Ocurreu um erro, volte a tentar.");
 	}
 	public static boolean processarTecladoBoolean(String errormessage ) {
     	boolean val;
