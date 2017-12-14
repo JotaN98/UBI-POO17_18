@@ -12,6 +12,13 @@ public class Teste extends Entity{
     static{
         Create();
     }
+    public static int size(){
+        int c = 0;
+        for(Entity prof : testes.values()){
+            c += (prof.getID() != 0)? 1:0;
+        }
+        return c;
+    }
     
     public static Map<String, Teste> getTestes(){
         return testes;

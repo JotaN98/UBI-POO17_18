@@ -36,9 +36,6 @@ public class Menus {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 
 	//Mostrar todas as Disciplinas
@@ -53,9 +50,6 @@ public class Menus {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 
 	//Mostrar todos os professores
@@ -82,25 +76,6 @@ public class Menus {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
-	}
-
-	//Mostrar todas as aulas
-	public static void printTodasAulas(){
-		System.out.println("---");
-		System.out.println("Todas as Aulas");
-		System.out.println("---");
-		for(Aula aul : Aula.getAulas().values()){
-			if(aul.getID() != 0){
-				System.out.println(aul);
-			}
-		}
-		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 
 	//Mostrar todos os testes
@@ -114,9 +89,6 @@ public class Menus {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 
 	//Mostrar toda as notas
@@ -130,9 +102,6 @@ public class Menus {
 			}
 		}
 		System.out.println("---");
-		try {
-			System.in.read();
-		} catch (IOException e){}
 	}
 
 	public static int MainMenuExitOp = 6;

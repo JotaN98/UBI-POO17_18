@@ -235,6 +235,9 @@ public class Turma extends Entity{
 
 		Aula.Remove(ID);
 	}
+	public ArrayList<Entity> getAulas() {
+		return aulas;
+	}
 
 	public String getAnoLetivo() {
 		return anoLetivo;
@@ -291,7 +294,8 @@ public class Turma extends Entity{
     		throw new NullPointerException("Curso não existe ou foi apagado.");
 		}
 
-		this.curso = curso;
+		Curso.getCursoFromID(this.curso).removeTurmaWithoutDeleting(this);
+		Curso.getCursoFromID(curso).addTurmaWithoutCreating(this);
 	}
 
 	public Entity getDiretor() {
@@ -306,6 +310,9 @@ public class Turma extends Entity{
 		this.diretor = diretor;
 	}
 
+	public ArrayList<ArrayList<Entity>> getHorario() {
+		return horario;
+	}
 
 	// -- method overrides
 	@Override

@@ -174,6 +174,30 @@ public class Curso extends Entity {
 
         Turma.Remove(ID);
     }
+	public void removeTurmaWithoutDeleting(Entity ID){
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		if(ID.getID()==0) throw new NullPointerException("Turma não existe.");
+
+		if(!turmas.contains(ID)){
+			throw new IllegalArgumentException("Turma -"+ID+"- não existe no curso -"+this+"-.");
+		}
+
+		turmas.remove(ID);
+	}
+	public void addTurmaWithoutCreating(Entity ID){
+		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+
+		if(ID.getID()==0) throw new NullPointerException("Turma não existe.");
+
+		if(turmas.contains(ID)){
+			throw new IllegalArgumentException("Turma -"+ID+"- já exsite no curso -"+this+"-.");
+		}
+
+		Turma.getTurmaFromID(ID).setCurso(this);
+		turmas.add(ID);
+
+	}
     public ArrayList<Entity> getTurmas() {
         return turmas;
     }

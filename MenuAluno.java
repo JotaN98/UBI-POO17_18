@@ -59,7 +59,7 @@ public class MenuAluno {
 			}
 		}
 		while (month == 0) {
-			System.out.println("Digite o ano em que o Aluno nasceu: ");
+			System.out.println("Digite o mes em que o Aluno nasceu: ");
 			month = Ler.processarTecladoInt();
 
 			if (!(month <= 12 && month >= 0)) {
@@ -73,7 +73,7 @@ public class MenuAluno {
 
 			//try to get max day of month in given year
 			if (!(day <= 31 && day >= 0)) {
-				System.out.println("Mes tem que ser entre 1 e 12");
+				System.out.println("Dia tem que ser entre 1 e 31");
 				day = 0;
 			}
 		}
@@ -109,7 +109,7 @@ public class MenuAluno {
 				Aluno.Remove(alunoE);
 				System.out.println("Aluno \"" + alunoID + " removido com sucesso.");
 			} catch (IllegalArgumentException | NullPointerException e) {
-				System.out.println("Erro ao remover o curso: ");
+				System.out.println("Erro ao remover o Professor: ");
 				System.out.println(e.getMessage());
 			}
 		}
@@ -118,7 +118,7 @@ public class MenuAluno {
 		long alunoID = 0;
 		Aluno aluno = Aluno.getAlunoFromID(Entity.Zero);
 		while (aluno.getID() == 0 && Curso.size() != 0) {
-			System.out.println("Digite o ID do curso que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
+			System.out.println("Digite o ID do aluno(0 para mostrar todos os Cursos, -1 para cancelar): ");
 			alunoID = Ler.processarTecladoLong();
 			aluno = Aluno.getAlunoFromID(alunoID);
 
@@ -137,7 +137,7 @@ public class MenuAluno {
 		if (alunoID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 7) {
+			while (valorIntroduzido != 8) {
 				System.out.println("Aluno " + aluno);
 				System.out.println("1- Mostrar horario");
 				System.out.println("2- Mudar Nome");
@@ -151,7 +151,7 @@ public class MenuAluno {
 				valorIntroduzido = Ler.processarTecladoInt();
 
 				if (valorIntroduzido == 1) /*Mostrar horario*/{
-					MenuTurma.mostrarHorario(aluno.getTurma());
+					MenuTurma.mostrarHorario(Turma.getTurmaFromID(aluno.getTurma()));
 				}
 				else if (valorIntroduzido == 2)/*Mudar nome*/ {
 					String nome = "";

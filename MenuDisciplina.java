@@ -85,8 +85,8 @@ public class MenuDisciplina{
 	public static void selecionarDisciplina() {
 		long discID = 0;
 		Disciplina disc = Disciplina.getDisciplinaFromID(Entity.Zero);
-		while (disc.getID() == 0 && Curso.size() != 0) {
-			System.out.println("Digite o ID do curso que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
+		while (disc.getID() == 0 && Disciplina.size() != 0) {
+			System.out.println("Digite o ID da Disciplina(0 para mostrar todos os Cursos, -1 para cancelar): ");
 			discID = Ler.processarTecladoLong();
 			disc = Disciplina.getDisciplinaFromID(discID);
 

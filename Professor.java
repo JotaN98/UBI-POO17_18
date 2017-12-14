@@ -143,6 +143,7 @@ public class Professor extends Pessoa{
 		horario.get(DiaDaSemana).set(Hora, aula);
 	}
 
+
 	public void removeAula(Entity aula) throws IllegalArgumentException{ //Para atualizar o objeto professor
 		if(aulas.contains(aula)){
 			aulas.remove(aula);
