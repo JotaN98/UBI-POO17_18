@@ -1,5 +1,4 @@
 import myinput.Ler;
-import sun.plugin.perf.PluginRollup;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -55,8 +54,8 @@ public class MenuProfessor {
 			System.out.println("Digite o ano em que o Professor nasceu: ");
 			year = Ler.processarTecladoInt();
 
-			if (!(year <= ZonedDateTime.now().getDayOfYear() && year >= 0)) {
-				System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getDayOfYear());
+			if (!(year <= ZonedDateTime.now().getYear() && year >= 0)) {
+				System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getYear());
 				year = 0;
 			}
 		}
@@ -185,8 +184,8 @@ public class MenuProfessor {
 								System.out.println("Operação cancelada.");
 								break;
 							}
-							if (!(year <= ZonedDateTime.now().getDayOfYear() && year >= 0)) {
-								System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getDayOfYear());
+							if (!(year <= ZonedDateTime.now().getYear() && year >= 0)) {
+								System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getYear());
 								year = 0;
 							}
 						}

@@ -53,8 +53,8 @@ public class MenuAluno {
 			System.out.println("Digite o ano em que o Aluno nasceu: ");
 			year = Ler.processarTecladoInt();
 
-			if (!(year <= ZonedDateTime.now().getDayOfYear() && year >= 0)) {
-				System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getDayOfYear());
+			if (!(year <= ZonedDateTime.now().getYear() && year >= 0)) {
+				System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getYear());
 				year = 0;
 			}
 		}
@@ -185,8 +185,8 @@ public class MenuAluno {
 
 						if (year == 0) {
 							System.out.println("Operação cancelada.");
-						} else if (!(year <= ZonedDateTime.now().getDayOfYear() && year > 0)) {
-							System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getDayOfYear());
+						} else if (!(year <= ZonedDateTime.now().getYear() && year > 0)) {
+							System.out.println("Ano tem que ser entre 1 e " + ZonedDateTime.now().getYear());
 							year = 0;
 						}
 					}
