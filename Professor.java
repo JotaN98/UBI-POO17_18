@@ -28,15 +28,15 @@ public class Professor extends Pessoa{
 
 	public static Professor getProfessorFromID(long ID){
 		return professores.getOrDefault(
-			Entity.getGroupFromID("Professor") + ID,
-			professores.get(Entity.getGroupFromID("Professor") + "0")
+			Entity.getGroupIDFromGroup("Professor") + ID,
+			professores.get(Entity.getGroupIDFromGroup("Professor") + "0")
 		);
 	}
 
 	public static Professor getProfessorFromID(Entity ID){
 		return professores.getOrDefault(
 			ID.getCodeID(),
-			professores.get(Entity.getGroupFromID("Professor") + "0")
+			professores.get(Entity.getGroupIDFromGroup("Professor") + "0")
 		);
 	}
 

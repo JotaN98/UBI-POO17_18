@@ -45,9 +45,9 @@ public class Disciplina extends Entity {
 
 
 	public static void addDisciplina(Disciplina x) throws IllegalArgumentException {
-		if (getDisciplinaFromID(x).getID() != 0) {
-			throw new IllegalArgumentException("Disciplina -" + x + "- existente.");
-		}
+//		if (getDisciplinaFromID(x).getID() != 0) {
+//			throw new IllegalArgumentException("Disciplina -" + x + "- existente.");
+//		}
 		disciplinas.put(x.getCodeID(), x);
 	}
 
