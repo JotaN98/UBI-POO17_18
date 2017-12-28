@@ -13,7 +13,7 @@ public class Aluno extends Pessoa {
     static {
     	// Aluno null
     	Create();
-	}
+    }
 
 	public static int size(){
 		int c = 0;
@@ -30,23 +30,22 @@ public class Aluno extends Pessoa {
     
     public static Aluno getAlunoFromID(long ID){
         return alunos.getOrDefault(
-                Entity.getGroupFromID("Aluno") + ID,
-                alunos.get(Entity.getGroupFromID("Aluno") + "0")
+            Entity.getGroupIDFromGroup("Aluno") + ID,
+            alunos.get(Entity.getGroupIDFromGroup("Aluno") + "0")
         );
     }
     
     public static Aluno getAlunoFromID(Entity ID){
         return alunos.getOrDefault(
-        		ID.getCodeID(),
-				alunos.get(Entity.getGroupIDFromGroup("Aluno") + "0")
-		);
+            ID.getCodeID(),
+            alunos.get(Entity.getGroupIDFromGroup("Aluno") + "0"));
     }
      
     public static void addAluno(Aluno x) throws NullPointerException{
         //if(getAlunoFromID(x).getID() != 0){
         //    throw new NullPointerException("Aluno já foi adicionada.");
         //}
-		alunos.put(x.getCodeID(), x);
+        alunos.put(x.getCodeID(), x);
 	}
      
     public static Entity Create() {

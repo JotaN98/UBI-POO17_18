@@ -58,9 +58,11 @@ public class MenuCurso {
 		}
 		if(Professor.size() == 0)
 			System.out.println("Ainda não existem professores.");
-		if(profID != -1){
-			System.out.println("Diretor definido como \""+profE +"\".");
-			nCurso.setDiretor(profE);
+		else {
+			if (profID != -1) {
+				System.out.println("Diretor definido como \"" + profE + "\".");
+				nCurso.setDiretor(profE);
+			}
 		}
 
 		System.out.println("Curso \""+nCurso+"\" criado com sucesso.");
@@ -73,13 +75,15 @@ public class MenuCurso {
 			cursoID = Ler.processarTecladoLong();
 			cursoE = Curso.getCursoFromID(cursoID);
 
-			if(cursoID == 0)
-				Menus.printTodosCursos();
-			if(cursoE.getID() == 0)
-				System.out.println("Curso \""+cursoID+"\" não existe.");
 			if(cursoID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
+			}
+			if(cursoID == 0) {
+				Menus.printTodosCursos();
+			}
+			if(cursoE.getID() == 0) {
+				System.out.println("Curso \""+cursoID+"\" não existe.");
 			}
 
 		}
@@ -118,7 +122,7 @@ public class MenuCurso {
 		if(cursoID != -1){
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 7){
+			while (valorIntroduzido != 8){
 				System.out.println("Curso "+ curso);
 				System.out.println("1- Mudar Nome");
 				System.out.println("2- Mudar Diretor");
@@ -167,15 +171,17 @@ public class MenuCurso {
 					}
 					if(Professor.size() == 0)
 						System.out.println("Ainda não existem professores.");
-					if(profID != -1){
-						try {
-							curso.setDiretor(profE);
-							System.out.println("Diretor definido como \""+profE);
-						} catch (IllegalArgumentException | NullPointerException e){
-							System.out.println("Ocurreu um erro.");
-							System.out.println(e.getMessage());
-						}
+					else {
+						if(profID != -1){
+							try {
+								curso.setDiretor(profE);
+								System.out.println("Diretor definido como \""+profE);
+							} catch (IllegalArgumentException | NullPointerException e){
+								System.out.println("Ocurreu um erro.");
+								System.out.println(e.getMessage());
+							}
 
+						}
 					}
 				}
 				else if(valorIntroduzido == 3)/*Inserir disciplina*/{
@@ -199,13 +205,15 @@ public class MenuCurso {
 					}
 					if(Disciplina.size() == 0)
 						System.out.println("Ainda não existem Disciplinas.");
-					if(discID != -1){
-						try {
-							curso.addDisciplina(discE);
-							System.out.println("Disciplina \""+ discE +"\" adicionada.");
-						} catch (IllegalArgumentException | NullPointerException e){
-							System.out.println("Ocurreu um erro.");
-							System.out.println(e.getMessage());
+					else {
+						if(discID != -1){
+							try {
+								curso.addDisciplina(discE);
+								System.out.println("Disciplina \""+ discE +"\" adicionada.");
+							} catch (IllegalArgumentException | NullPointerException e){
+								System.out.println("Ocurreu um erro.");
+								System.out.println(e.getMessage());
+							}
 						}
 					}
 				}
@@ -235,14 +243,16 @@ public class MenuCurso {
 					}
 					if(curso.getDisciplinas().size() == 0)
 						System.out.println("Ainda não foram adicionadas Disciplinas.");
-					if(discID != -1){
-						try {
-							String disnome = Disciplina.getDisciplinaFromID(discE).toString();
-							curso.removeDisciplina(discE);
-							System.out.println("Disciplina \""+ disnome +"\" removida.");
-						} catch (IllegalArgumentException | NullPointerException e){
-							System.out.println("Ocurreu um erro.");
-							System.out.println(e.getMessage());
+					else {
+						if(discID != -1){
+							try {
+								String disnome = Disciplina.getDisciplinaFromID(discE).toString();
+								curso.removeDisciplina(discE);
+								System.out.println("Disciplina \""+ disnome +"\" removida.");
+							} catch (IllegalArgumentException | NullPointerException e){
+								System.out.println("Ocurreu um erro.");
+								System.out.println(e.getMessage());
+							}
 						}
 					}
 				}
@@ -276,19 +286,21 @@ public class MenuCurso {
 					}
 					if(curso.getTurmas().size() == 0)
 						System.out.println("Ainda não foram criadas turmas.");
-					if(turmaID != -1){
-						try {
-							String turmanome = Turma.getTurmaFromID(turmaE).toString();
-							curso.removeTurma(turmaE);
-							System.out.println("Turma \""+ turmanome +"\" removida.");
-						} catch (IllegalArgumentException | NullPointerException e){
-							System.out.println("Ocurreu um erro.");
-							System.out.println(e.getMessage());
+					else {
+						if(turmaID != -1){
+							try {
+								String turmanome = Turma.getTurmaFromID(turmaE).toString();
+								curso.removeTurma(turmaE);
+								System.out.println("Turma \""+ turmanome +"\" removida.");
+							} catch (IllegalArgumentException | NullPointerException e){
+								System.out.println("Ocurreu um erro.");
+								System.out.println(e.getMessage());
+							}
 						}
 					}
 				}
 				else if(valorIntroduzido == 7)/*Mudar atividade*/{
-					curso.setAtivo(curso.getAtivo());
+					curso.setAtivo(!curso.getAtivo());
 				}
 				else if(valorIntroduzido != 8)
 					System.out.println("Introduza um numero entre 1 e 7.");
