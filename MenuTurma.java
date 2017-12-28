@@ -110,7 +110,7 @@ public class MenuTurma {
 		else if (turmaID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 10) {
+			while (valorIntroduzido != 11) {
 				System.out.println("Turma " + turma);
 				System.out.println("1- Mudar Ano Letivo");
 				System.out.println("2- Mudar Nome");
@@ -118,10 +118,11 @@ public class MenuTurma {
 				System.out.println("4- Inserir Aluno");
 				System.out.println("5- Mudar Curso");
 				System.out.println("6- Mudar Diretor");
-				System.out.println("7- Criar Aula");
-				System.out.println("8- Eliminar Aula");
-				System.out.println("9- Mostrar Horário");
-				System.out.println("10- Voltar");
+				System.out.println("7- Ver Aula");
+				System.out.println("8- Criar Aula");
+				System.out.println("9- Eliminar Aula");
+				System.out.println("10- Mostrar Horário");
+				System.out.println("11- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
@@ -209,7 +210,7 @@ public class MenuTurma {
 					long curID = 0;
 					Curso curE = Curso.getCursoFromID(Entity.Zero);
 					while(curE.getID() == 0 && Curso.size() != 0){
-						System.out.println("Digite o ID do Curso(0 para mostrar todas as disciplinas, -1 para cancelar): ");
+						System.out.println("Digite o ID do Curso(0 para mostrar todas os cursos, -1 para cancelar): ");
 						curID = Ler.processarTecladoLong();
 						curE = Curso.getCursoFromID(curID);
 
@@ -269,14 +270,39 @@ public class MenuTurma {
 					}
 
 				}
-				else if (valorIntroduzido == 7)/*criar aula*/{
+				else if (valorIntroduzido == 7)/*Ver aula*/ {
+					long aulaID = 0;
+					Aula aulaE = Aula.getAulaFromID(Entity.Zero);
+					while(aulaE.getID() == 0 && turma.getAulas().size() != 0){
+						System.out.println("Digite o ID da Aula(0 para mostrar todas as aulas, -1 para cancelar): ");
+						aulaID = Ler.processarTecladoLong();
+						aulaE = Aula.getAulaFromID(aulaID);
+
+						if(aulaID == 0)
+							Menus.printTodosCursos();
+						else if(aulaID == -1) {
+							System.out.println("Operação cancelada.");
+							break;
+						}
+						if(aulaE.getID() == 0 || !turma.getAulas().contains(aulaE)) {
+							System.out.println("Aula \""+aulaID+"\" não existe ou não faz parte da turma.");
+						}
+
+					}
+					if(turma.getAulas().size() == 0)
+						System.out.println("Ainda não existem Aulas.");
+					else if(aulaID != -1){
+						System.out.println(Aula.getAulaFromID(aulaE).fullDescription());
+					}
+				}
+				else if (valorIntroduzido == 8)/*criar aula*/{
 					if(!criarAula(turma))
 						System.out.println("Operação cancelada.");
 				}
-				else if (valorIntroduzido == 8)/*eliminar aula*/{
+				else if (valorIntroduzido == 9)/*eliminar aula*/{
 					eliminarTodosAula(turma);
 				}
-				else if (valorIntroduzido == 9)/*mostrar horario*/{
+				else if (valorIntroduzido == 10)/*mostrar horario*/{
 					mostrarHorario(turma);
 				}
 				else if (valorIntroduzido != 10)

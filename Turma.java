@@ -223,6 +223,7 @@ public class Turma extends Entity{
 			throw e;
 		}
 
+		aulas.add(nAulaID);
 		// update horario
 		horario.get(diaDaSemana).set(hora,nAulaID);
 
@@ -343,6 +344,6 @@ public class Turma extends Entity{
 
 	@Override
 	public String toString() {
-		return getCodeID() +": " + getAno() + " " + getNome() + " "+ getCurso();
+		return getCodeID() +": " + getAno() + "º - " + getNome() + " - "+ getCurso();
 	}
 }

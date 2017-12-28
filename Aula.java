@@ -31,7 +31,7 @@ public class Aula extends Entity {
         
         ConversorDiaDaSemana= new ArrayList<String>();
         ConversorDiaDaSemana.add("Segunda-feira");
-        ConversorDiaDaSemana.add("Ter�a-feira");
+        ConversorDiaDaSemana.add("Terça-feira");
         ConversorDiaDaSemana.add("Quarta-feira");
         ConversorDiaDaSemana.add("Quinta-feira");
         ConversorDiaDaSemana.add("Sexta-feira");
@@ -39,8 +39,8 @@ public class Aula extends Entity {
     
      public static Aula getAulaFromID(long ID){
         return aulas.getOrDefault(
-                Entity.getGroupFromID("Aula") + ID,
-                aulas.get(Entity.getGroupFromID("Aula") + "0")
+                Entity.getGroupIDFromGroup("Aula") + ID,
+                aulas.get(Entity.getGroupIDFromGroup("Aula") + "0")
         );
     }  
     
@@ -210,6 +210,10 @@ public class Aula extends Entity {
         this.sala = sala;
     }
 
+    public String fullDescription(){
+		return toString() +": " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dada por Professor "+ Professor.getProfessorFromID(prof) + " de Turma " + turma + " na sala: " + sala ;
+	}
+
     @Override
     public boolean equals(Object obj){
         if(obj != null && obj.getClass()==getClass()){
@@ -229,7 +233,7 @@ public class Aula extends Entity {
     public Object clone(){
         return new Aula(this);
     }
-    
+
     @Override
     public String toString() {
         return getCodeID()+": " + disciplina;
