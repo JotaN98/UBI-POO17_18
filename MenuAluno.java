@@ -87,14 +87,17 @@ public class MenuAluno {
 	public static void eliminarAluno() {
 		long alunoID = 0;
 		Entity alunoE = Entity.Zero;
-		while (alunoE.getID() == 0 && Aluno.size() != 0) {
-			System.out.println("Digite o ID do Aluno que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
+                while (
+                        alunoE.getID() == 0 && 
+                        Aluno.size() != 0) {
+			System.out.println("Digite o ID do Aluno que quer eliminar(0 para mostrar todos os Alunos, -1 para cancelar): ");
 			alunoID = Ler.processarTecladoLong();
 			alunoE = Aluno.getAlunoFromID(alunoID);
+                        System.out.println(alunoE);
 
 			if (alunoID == 0)
 				Menus.printTodosAlunos();
-			if (alunoE.getID() == 0)
+                        else if (alunoE.getID() == 0)
 				System.out.println("Aluno \"" + alunoID + "\" não existe.");
 			if (alunoID == -1) {
 				System.out.println("Operação cancelada.");
@@ -104,12 +107,12 @@ public class MenuAluno {
 		}
 		if (Aluno.size() == 0)
 			System.out.println("Ainda não existem Alunos.");
-		if (alunoID != -1) {
+                else if (alunoID != -1) {
 			try {
 				Aluno.Remove(alunoE);
 				System.out.println("Aluno \"" + alunoID + " removido com sucesso.");
 			} catch (IllegalArgumentException | NullPointerException e) {
-				System.out.println("Erro ao remover o Professor: ");
+				System.out.println("Erro ao remover o aluno: ");
 				System.out.println(e.getMessage());
 			}
 		}
@@ -117,14 +120,14 @@ public class MenuAluno {
 	public static void selecionarAluno() {
 		long alunoID = 0;
 		Aluno aluno = Aluno.getAlunoFromID(Entity.Zero);
-		while (aluno.getID() == 0 && Curso.size() != 0) {
-			System.out.println("Digite o ID do aluno(0 para mostrar todos os Cursos, -1 para cancelar): ");
+		while (aluno.getID() == 0 && aluno.size() != 0) {
+			System.out.println("Digite o ID do aluno(0 para mostrar todos os Alunos, -1 para cancelar): ");
 			alunoID = Ler.processarTecladoLong();
 			aluno = Aluno.getAlunoFromID(alunoID);
 
 			if (alunoID == 0)
 				Menus.printTodosAlunos();
-			if (aluno.getID() == 0)
+                        else if (aluno.getID() == 0)
 				System.out.println("Aluno  \"" + alunoID + "\" não existe.");
 			if (alunoID == -1) {
 				System.out.println("Operação cancelada.");
@@ -191,7 +194,7 @@ public class MenuAluno {
 						}
 					}
 					while (month == 0 && year != 0) {
-						System.out.println("Digite o ano em que o Aluno nasceu (0 para cancelar): ");
+						System.out.println("Digite o mes em que o Aluno nasceu (0 para cancelar): ");
 						month = Ler.processarTecladoInt();
 
 						if (month == 0) {
@@ -253,7 +256,7 @@ public class MenuAluno {
 
 						if (turmaID == 0)
 							Menus.printTodosCursos();
-						if (turmaID == -1) {
+                                                else if (turmaID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -263,8 +266,8 @@ public class MenuAluno {
 
 					}
 					if (Turma.size() == 0)
-						System.out.println("Ainda não existem cursos.");
-					if (turmaID != -1) {
+						System.out.println("Ainda não existem turmas.");
+                                        else if (turmaID != -1) {
 						try {
 							aluno.setTurma(turmaE);
 							System.out.println("Curso definido como \"" + turmaE +"\".");
@@ -285,7 +288,7 @@ public class MenuAluno {
 
 						if (cursoID == 0)
 							Menus.printTodosCursos();
-						if (cursoID == -1) {
+                                                else if (cursoID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -296,7 +299,7 @@ public class MenuAluno {
 					}
 					if (Curso.size() == 0)
 						System.out.println("Ainda não existem cursos.");
-					if (cursoID != -1) {
+                                        else if (cursoID != -1) {
 						try {
 							aluno.setCurso(cursoE);
 							System.out.println("Curso definido como \"" + cursoE +"\".");
