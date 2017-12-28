@@ -82,7 +82,7 @@ public class MenuCurso {
 			if(cursoID == 0) {
 				Menus.printTodosCursos();
 			}
-			if(cursoE.getID() == 0) {
+			else if(cursoE.getID() == 0) {
 				System.out.println("Curso \""+cursoID+"\" não existe.");
 			}
 
