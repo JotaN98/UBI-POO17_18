@@ -127,17 +127,16 @@ public class MenuAluno {
 
 			if (alunoID == 0)
 				Menus.printTodosAlunos();
-                        else if (aluno.getID() == 0)
+			else if (aluno.getID() == 0)
 				System.out.println("Aluno  \"" + alunoID + "\" não existe.");
 			if (alunoID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
 			}
-
 		}
 		if (Aluno.size() == 0)
 			System.out.println("Ainda não existem Alunos.");
-		if (alunoID != -1) {
+		else if (alunoID != -1) {
 			int valorIntroduzido = -1;
 
 			while (valorIntroduzido != 8) {

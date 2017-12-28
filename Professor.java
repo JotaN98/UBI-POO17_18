@@ -56,7 +56,7 @@ public class Professor extends Pessoa{
 	public static Entity Create(){
 		Professor nProfessor = new Professor();
 		addProfessor(nProfessor);
-		return new Professor();
+		return nProfessor;
 	}
 
 	public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
