@@ -1,9 +1,27 @@
 import myinput.Ler;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 public class Projeto {
 	//Fun��o Main
     public static void main(String[] args) {
 		int valorIntroduzido=0;
+		Curso.Create("Economia",Entity.Zero);
+		Curso.Create("CT",Entity.Zero);
+		Curso.Create("Humanidades",Entity.Zero);
+
+		Curso.getCursoFromID(1).addTurma("17/18","A",10,Entity.Zero);
+		Curso.getCursoFromID(2).addTurma("17/18","A",10,Entity.Zero);
+		Curso.getCursoFromID(3).addTurma("17/18","A",10,Entity.Zero);
+
+		Professor.Create("Manuel","Costa", ZonedDateTime.of(1984, 3, 2, 0, 0, 0, 0, ZoneId.of("Europe/Lisbon")));
+
+		Disciplina.getDisciplinaFromID(Disciplina.Create("Economia",10)).addProfessor(Professor.getProfessorFromID(1));
+		Disciplina.getDisciplinaFromID(1).addPossibleSala("todas");
+
+		Curso.getCursoFromID(1).addDisciplina(Disciplina.getDisciplinaFromID(1));
+
 
 		while(valorIntroduzido != Menus.MainMenuExitOp) {
 

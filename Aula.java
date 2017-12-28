@@ -206,7 +206,7 @@ public class Aula extends Entity {
         return sala;
     }
 
-    public void setSala(String sala){      
+    public void setSala(String sala){
         this.sala = sala;
     }
 
@@ -232,7 +232,8 @@ public class Aula extends Entity {
     
     @Override
     public String toString() {
-        return ""+getCodeID()+": " + disciplina + " " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dadao por "+ Professor.getProfessorFromID(prof) + " na sala: " + sala;
+        return getCodeID()+": " + disciplina;
+        //return ""+getCodeID()+": " + disciplina + " " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dadao por "+ Professor.getProfessorFromID(prof) + " na sala: " + sala;
         //return " -"+getCodeID()+"- " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " Hora [" + ConversorHoras.get(hora) + "] Professor: "+ Professor.getProfessorFromID(prof) + " Disciplina: " + disciplina + " Turma: " + turma + " Sala: " + sala ;
     }
     

@@ -142,18 +142,18 @@ public class Curso extends Entity {
     }
 
     public Entity addTurma(String anoLetivo, String nome, int ano, Entity diretor) throws NullPointerException, IllegalArgumentException{
+
         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
         if(ano < 10 || ano > 12)
             throw new IllegalArgumentException("Ano tem que ser entre 10 e 12.");
 
-        for(Curso curso : cursos.values()){
-            for(Entity turma : curso.turmas){
-                if(Turma.getTurmaFromID(turma).getNome() == nome){
-                    throw new IllegalArgumentException("Nome de turma \""+nome+"\" já exsite.");
-                }
-            }
-        }
+		for(Entity turma : turmas){
+			if(Turma.getTurmaFromID(turma).getNome() == nome){
+				throw new IllegalArgumentException("Nome de turma \""+nome+"\" já existe.");
+			}
+		}
+
 
         Entity nTurma = Turma.Create(anoLetivo,nome,ano,this,diretor);
 

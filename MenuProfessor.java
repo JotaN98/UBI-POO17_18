@@ -134,8 +134,8 @@ public class MenuProfessor {
 		}
 		if (Professor.size() == 0)
 			System.out.println("Ainda não existem Professores.");
-                
-                else if (profID != -1) {
+
+		else if (profID != -1) {
 			int valorIntroduzido = -1;
 
 			while (valorIntroduzido != 4) {
