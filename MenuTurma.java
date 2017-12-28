@@ -184,7 +184,7 @@ public class MenuTurma {
 
 						if(alunoID == 0)
 							Menus.printTodosAlunos();
-						if(alunoID == -1) {
+                                                else if(alunoID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -195,7 +195,7 @@ public class MenuTurma {
 					}
 					if(Aluno.size() == 0)
 						System.out.println("Ainda não existem Alunos.");
-					if(alunoID != -1){
+                                        else if(alunoID != -1){
 						try {
 							turma.addAluno(aluE);
 							System.out.println("Aluno \""+ aluE +"\" adicionada.");
@@ -215,7 +215,7 @@ public class MenuTurma {
 
 						if(curID == 0)
 							Menus.printTodosCursos();
-						if(curID == -1) {
+                                                else if(curID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -226,7 +226,7 @@ public class MenuTurma {
 					}
 					if(Curso.size() == 0)
 						System.out.println("Ainda não existem Disciplinas.");
-					if(curID != -1){
+                                        else if(curID != -1){
 						try {
 							turma.setCurso(curE);
 							System.out.println("Curso mudado para \""+ curE +"\".");
@@ -246,7 +246,7 @@ public class MenuTurma {
 
 						if(profID == 0)
 							Menus.printTodosProfessores();
-						if(profID == -1) {
+                                                else if(profID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -257,7 +257,7 @@ public class MenuTurma {
 					}
 					if(Professor.size() == 0)
 						System.out.println("Ainda não existem professores.");
-					if(profID != -1){
+                                        else if(profID != -1){
 						try {
 							turma.setDiretor(profE);
 							System.out.println("Diretor definido como \""+profE);

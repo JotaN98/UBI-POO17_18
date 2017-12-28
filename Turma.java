@@ -28,11 +28,10 @@ public class Turma extends Entity{
     
     public static Turma getTurmaFromID(long ID){
         return turmas.getOrDefault(
-                Entity.getGroupFromID("Turma") + ID,
-                turmas.get(Entity.getGroupFromID("Turma") + "0")
+                Entity.getGroupIDFromGroup("Turma") + ID,
+                turmas.get(Entity.getGroupIDFromGroup("Turma") + "0")
         );
     }
-    
     public static Turma getTurmaFromID(Entity ID){
         return turmas.getOrDefault(
         		ID.getCodeID(),
