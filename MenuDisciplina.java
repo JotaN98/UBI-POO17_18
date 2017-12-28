@@ -62,7 +62,7 @@ public class MenuDisciplina{
 
 			if (discID == 0)
 				Menus.printTodasDisciplinas();
-			if (discE.getID() == 0)
+                        else if (discE.getID() == 0)
 				System.out.println("Disciplina \"" + discID + "\" não existe.");
 			if (discID == -1) {
 				System.out.println("Operação cancelada.");
@@ -72,7 +72,7 @@ public class MenuDisciplina{
 		}
 		if (Disciplina.size() == 0)
 			System.out.println("Ainda não existem Disciplinas.");
-		if (discID != -1) {
+                else if (discID != -1) {
 			try {
 				Disciplina.Remove(discE);
 				System.out.println("Disciplina \"" + discID + " removida com sucesso.");
@@ -92,7 +92,7 @@ public class MenuDisciplina{
 
 			if (discID == 0)
 				Menus.printTodasDisciplinas();
-			 else if (disc.getID() == 0)
+			else if (disc.getID() == 0)
 				System.out.println("Disciplina  \"" + discID + "\" não existe.");
 			if (discID == -1) {
 				System.out.println("Operação cancelada.");
