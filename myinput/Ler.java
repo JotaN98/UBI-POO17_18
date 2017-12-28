@@ -79,10 +79,12 @@ public class Ler {
     	return processarTecladoString("Ocurreu um erro, volte a tentar.");
 	}
 	public static String processarTecladoString(String errormessage ) {
-    	String val;
+    	String val = "";
     	while(true) {
 			try {
-				val = keyboardScanner.nextLine();
+				while(val.equals("")) {
+					val = keyboardScanner.nextLine();
+				}
 				return val;
 			} catch (InputMismatchException e) {
 				System.out.println(errormessage);
