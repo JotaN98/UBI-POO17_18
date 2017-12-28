@@ -60,7 +60,7 @@ public class MenuProfessor {
 			}
 		}
 		while (month == 0) {
-			System.out.println("Digite o ano em que o Professor nasceu: ");
+			System.out.println("Digite o mês em que o Professor nasceu: ");
 			month = Ler.processarTecladoInt();
 
 			if (!(month <= 12 && month >= 0)) {
@@ -74,7 +74,7 @@ public class MenuProfessor {
 
 			//try to get max day of month in given year
 			if (!(day <= 31 && day >= 0)) {
-				System.out.println("Mes tem que ser entre 1 e 12");
+				System.out.println("Dia tem que ser entre 1 e 31");
 				day = 0;
 			}
 		}
@@ -95,13 +95,13 @@ public class MenuProfessor {
 
 			if (professorID == 0)
 				Menus.printTodosProfessores();
-			if (professorE.getID() == 0)
-				System.out.println("Professor \"" + professorID + "\" não existe.");
-			if (professorID == -1) {
+                        if (professorID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
 			}
-
+                        else if (professorE.getID() == 0)
+				System.out.println("Professor \"" + professorID + "\" não existe.");
+			
 		}
 		if (Professor.size() == 0)
 			System.out.println("Ainda não existem Professores.");
@@ -118,27 +118,27 @@ public class MenuProfessor {
 	public static void selecionarProfessor() {
 		long profID = 0;
 		Professor professor = Professor.getProfessorFromID(Entity.Zero);
-		while (professor.getID() == 0 && Curso.size() != 0) {
-			System.out.println("Digite o ID do professor(0 para mostrar todos os Cursos, -1 para cancelar): ");
+		while(professor.getID() == 0 && Professor.size() != 0) {
+			System.out.println("Digite o ID do Professor(0 para mostrar todos os Professores, -1 para cancelar): ");
 			profID = Ler.processarTecladoLong();
 			professor = Professor.getProfessorFromID(profID);
 
 			if (profID == 0)
-				Menus.printTodosAlunos();
-			if (professor.getID() == 0)
-				System.out.println("Aluno  \"" + profID + "\" não existe.");
-			if (profID == -1) {
+				Menus.printTodosProfessores();
+                        if (profID == -1) {
 				System.out.println("Operação cancelada.");
 				break;
 			}
-
+                        else if (professor.getID() == 0)
+				System.out.println("Professor  \"" + profID + "\" não existe.");
 		}
-		if (Aluno.size() == 0)
-			System.out.println("Ainda não existem Alunos.");
-		if (profID != -1) {
+		if (Professor.size() == 0)
+			System.out.println("Ainda não existem Professores.");
+                
+                else if (profID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 5) {
+			while (valorIntroduzido != 4) {
 				System.out.println("Professor " + professor);
 				System.out.println("1- Mostrar horario");
 				System.out.println("2- Criar teste");
@@ -163,12 +163,12 @@ public class MenuProfessor {
 
 						if (aulID == 0)
 							mostrarHorario(professor);
-						if (aulE.getID() == 0)
-							System.out.println("Aula \"" + aulE+ "\" não existe.");
 						if (aulID== -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
+                                                else if (aulE.getID() == 0)
+							System.out.println("Aula \"" + aulE+ "\" não existe.");
 					}
 					if(professor.getAulas().size() == 0)
 						System.out.println("Professor ainda não tem aulas.");
@@ -231,13 +231,12 @@ public class MenuProfessor {
 
 						if (testeID == 0)
 							Menus.printTodosTestes();
-						if (testeE.getID() == 0)
-							System.out.println("Teste \"" + testeID + "\" não existe.");
-						if (testeID == -1) {
+                                                if (testeID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
-
+                                                else if (testeE.getID() == 0)
+							System.out.println("Teste \"" + testeID + "\" não existe.");
 					}
 					if (Teste.size() == 0)
 						System.out.println("Ainda não existem Testes.");

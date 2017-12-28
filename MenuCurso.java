@@ -99,7 +99,7 @@ public class MenuCurso {
 		long cursoID = 0;
 		Curso curso = Curso.getCursoFromID(Entity.Zero);
 		while(curso.getID() == 0 && Curso.size() != 0){
-			System.out.println("Digite o ID do curso que quer eliminar(0 para mostrar todos os Cursos, -1 para cancelar): ");
+			System.out.println("Digite o ID do Curso (0 para mostrar todos os Cursos, -1 para cancelar): ");
 			cursoID = Ler.processarTecladoLong();
 			curso = Curso.getCursoFromID(cursoID);
 

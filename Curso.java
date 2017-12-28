@@ -37,7 +37,7 @@ public class Curso extends Entity {
     public static Curso getCursoFromID(Entity ID){
         return cursos.getOrDefault(
         		ID.getCodeID(),
-				cursos.get(Entity.getGroupIDFromGroup("Curso") + "0")
+			cursos.get(Entity.getGroupIDFromGroup("Curso") + "0")
 		);
     }
             
