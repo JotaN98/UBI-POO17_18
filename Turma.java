@@ -200,7 +200,7 @@ public class Turma extends Entity{
 
 		// check if aula is already in horario
 		if(horario.get(diaDaSemana).get(hora).getID() != 0){
-			throw new IllegalArgumentException("Aula \""+ horario.get(diaDaSemana).get(hora) + "\" já existe.");
+			throw new IllegalArgumentException("Aula \""+ horario.get(diaDaSemana).get(hora) + "\" já existe nesse bloco.");
 		}
 
 		Entity nAulaID = Aula.Create(hora, diaDaSemana, prof, disciplina, this, sala);
@@ -344,6 +344,6 @@ public class Turma extends Entity{
 
 	@Override
 	public String toString() {
-		return getCodeID() +": " + getAno() + "º - " + getNome() + " - "+ getCurso();
+		return getCodeID() +": " + getAno() + "º " + getNome() + " - "+ getCurso();
 	}
 }

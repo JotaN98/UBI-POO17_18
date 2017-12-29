@@ -20,6 +20,9 @@ public class Projeto {
 		Disciplina.getDisciplinaFromID(Disciplina.Create("Economia",10)).addProfessor(Professor.getProfessorFromID(1));
 		Disciplina.getDisciplinaFromID(1).addPossibleSala("todas");
 
+		Disciplina.getDisciplinaFromID(Disciplina.Create("Matematica A",10)).addProfessor(Professor.getProfessorFromID(1));
+		Disciplina.getDisciplinaFromID(2).addPossibleSala("todas");
+
 		Curso.getCursoFromID(1).addDisciplina(Disciplina.getDisciplinaFromID(1));
 
 

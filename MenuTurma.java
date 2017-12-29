@@ -344,24 +344,32 @@ public class MenuTurma {
 	public static void mostrarHorario(Turma turma){
 		ArrayList<ArrayList<Entity>> horario = turma.getHorario();
 
-		for(String dia : Aula.ConversorDiaDaSemana){
-			System.out.print("|\t\t " + dia + " \t\t");
+
+
+		int largest = 0;
+		for(int hora = 0; hora < Aula.ConversorHoras.size(); hora++) {
+			for (int diaDaSemana = 0; diaDaSemana < Aula.ConversorDiaDaSemana.size(); diaDaSemana++) {
+				if (largest < (Aula.getAulaFromID(horario.get(diaDaSemana).get(hora)).toString()).length()) {
+					largest = (Aula.getAulaFromID(horario.get(diaDaSemana).get(hora)).toString()).length();
+				}
+			}
 		}
-		System.out.println("|");
+		System.out.format("%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s\n",Aula.ConversorDiaDaSemana.toArray());
 
 		Aula aula;
+		ArrayList<String> row;
 		for(int hora = 0; hora < Aula.ConversorHoras.size(); hora++){
+			row = new ArrayList<String>();
 			for(int diaDaSemana = 0; diaDaSemana < Aula.ConversorDiaDaSemana.size(); diaDaSemana++) {
 				aula = Aula.getAulaFromID( horario.get(diaDaSemana).get(hora) );
 
-				System.out.print("|\t");
+
 				if(aula.getID() == 0)
-					System.out.print("\t   (vazio)   \t");
+					row.add("(vazio)");
 				else
-					System.out.print(aula);
-				System.out.print("\t");
+					row.add(aula.toString());
 			}
-			System.out.println("|");
+			System.out.format("%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s\n",row.toArray());
 		}
 	}
 	public static boolean criarAula(Turma turma){
