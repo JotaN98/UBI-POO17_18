@@ -7,7 +7,7 @@ public class MenuTurma {
 		int valorIntroduzido = 0;
 
 		while(valorIntroduzido != Menus.MenuExitOp){
-			Menus.printMenu("Truma","Turmas");
+			Menus.printMenu("Turma","Turmas");
 			valorIntroduzido = Ler.processarTecladoInt();
 
 			if(valorIntroduzido == 0)/*mostrar todos as turmas*/{
@@ -97,7 +97,7 @@ public class MenuTurma {
 
 			if (turmaID == 0)
 				Menus.printTodasTurmas();
-			if (turma.getID() == 0)
+			else if (turma.getID() == 0)
 				System.out.println("Turma  \"" + turmaID + "\" não existe.");
 			if (turmaID == -1) {
 				System.out.println("Operação cancelada.");
@@ -107,10 +107,10 @@ public class MenuTurma {
 		}
 		if (Turma.size() == 0)
 			System.out.println("Ainda não existem Turmas.");
-		if (turmaID != -1) {
+		else if (turmaID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 7) {
+			while (valorIntroduzido != 11) {
 				System.out.println("Turma " + turma);
 				System.out.println("1- Mudar Ano Letivo");
 				System.out.println("2- Mudar Nome");
@@ -118,22 +118,23 @@ public class MenuTurma {
 				System.out.println("4- Inserir Aluno");
 				System.out.println("5- Mudar Curso");
 				System.out.println("6- Mudar Diretor");
-				System.out.println("7- Criar Aula");
-				System.out.println("8- Eliminar Aula");
-				System.out.println("9- Mostrar Horário");
-				System.out.println("10- Voltar");
+				System.out.println("7- Ver Aula");
+				System.out.println("8- Criar Aula");
+				System.out.println("9- Eliminar Aula");
+				System.out.println("10- Mostrar Horário");
+				System.out.println("11- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
 				if (valorIntroduzido == 1)/*Mudar ano letivo*/{
 					String ano = "";
 					while(ano.equalsIgnoreCase("")){
-						System.out.println("Digite o novo ano letivo da turma(enter para cancelar): ");
+						System.out.println("Digite o novo ano letivo da turma(-1 para cancelar): ");
 
 						ano = Ler.processarTecladoString();
 
 					}
-					if(ano.equalsIgnoreCase("")){
+					if(ano.equalsIgnoreCase("-1")){
 						System.out.println("Operação cancelada.");
 					} else {
 						turma.setAnoLetivo(ano);
@@ -184,7 +185,7 @@ public class MenuTurma {
 
 						if(alunoID == 0)
 							Menus.printTodosAlunos();
-                                                else if(alunoID == -1) {
+						else if(alunoID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -195,7 +196,7 @@ public class MenuTurma {
 					}
 					if(Aluno.size() == 0)
 						System.out.println("Ainda não existem Alunos.");
-                                        else if(alunoID != -1){
+					else if(alunoID != -1){
 						try {
 							turma.addAluno(aluE);
 							System.out.println("Aluno \""+ aluE +"\" adicionada.");
@@ -209,13 +210,13 @@ public class MenuTurma {
 					long curID = 0;
 					Curso curE = Curso.getCursoFromID(Entity.Zero);
 					while(curE.getID() == 0 && Curso.size() != 0){
-						System.out.println("Digite o ID do Curso(0 para mostrar todas as disciplinas, -1 para cancelar): ");
+						System.out.println("Digite o ID do Curso(0 para mostrar todas os cursos, -1 para cancelar): ");
 						curID = Ler.processarTecladoLong();
 						curE = Curso.getCursoFromID(curID);
 
 						if(curID == 0)
 							Menus.printTodosCursos();
-                                                else if(curID == -1) {
+						else if(curID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -226,7 +227,7 @@ public class MenuTurma {
 					}
 					if(Curso.size() == 0)
 						System.out.println("Ainda não existem Disciplinas.");
-                                        else if(curID != -1){
+					else if(curID != -1){
 						try {
 							turma.setCurso(curE);
 							System.out.println("Curso mudado para \""+ curE +"\".");
@@ -246,7 +247,7 @@ public class MenuTurma {
 
 						if(profID == 0)
 							Menus.printTodosProfessores();
-                                                else if(profID == -1) {
+						else if(profID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
@@ -257,7 +258,7 @@ public class MenuTurma {
 					}
 					if(Professor.size() == 0)
 						System.out.println("Ainda não existem professores.");
-                                        else if(profID != -1){
+					else if(profID != -1){
 						try {
 							turma.setDiretor(profE);
 							System.out.println("Diretor definido como \""+profE);
@@ -269,14 +270,39 @@ public class MenuTurma {
 					}
 
 				}
-				else if (valorIntroduzido == 7)/*criar aula*/{
+				else if (valorIntroduzido == 7)/*Ver aula*/ {
+					long aulaID = 0;
+					Aula aulaE = Aula.getAulaFromID(Entity.Zero);
+					while(aulaE.getID() == 0 && turma.getAulas().size() != 0){
+						System.out.println("Digite o ID da Aula(0 para mostrar todas as aulas, -1 para cancelar): ");
+						aulaID = Ler.processarTecladoLong();
+						aulaE = Aula.getAulaFromID(aulaID);
+
+						if(aulaID == 0)
+							Menus.printTodosCursos();
+						else if(aulaID == -1) {
+							System.out.println("Operação cancelada.");
+							break;
+						}
+						if(aulaE.getID() == 0 || !turma.getAulas().contains(aulaE)) {
+							System.out.println("Aula \""+aulaID+"\" não existe ou não faz parte da turma.");
+						}
+
+					}
+					if(turma.getAulas().size() == 0)
+						System.out.println("Ainda não existem Aulas.");
+					else if(aulaID != -1){
+						System.out.println(Aula.getAulaFromID(aulaE).fullDescription());
+					}
+				}
+				else if (valorIntroduzido == 8)/*criar aula*/{
 					if(!criarAula(turma))
 						System.out.println("Operação cancelada.");
 				}
-				else if (valorIntroduzido == 8)/*eliminar aula*/{
+				else if (valorIntroduzido == 9)/*eliminar aula*/{
 					eliminarTodosAula(turma);
 				}
-				else if (valorIntroduzido == 9)/*mostrar horario*/{
+				else if (valorIntroduzido == 10)/*mostrar horario*/{
 					mostrarHorario(turma);
 				}
 				else if (valorIntroduzido != 10)
@@ -319,7 +345,7 @@ public class MenuTurma {
 		ArrayList<ArrayList<Entity>> horario = turma.getHorario();
 
 		for(String dia : Aula.ConversorDiaDaSemana){
-			System.out.print("|\t" + dia + "\t");
+			System.out.print("|\t\t " + dia + " \t\t");
 		}
 		System.out.println("|");
 
@@ -330,18 +356,18 @@ public class MenuTurma {
 
 				System.out.print("|\t");
 				if(aula.getID() == 0)
-					System.out.print("(vazio)");
+					System.out.print("\t   (vazio)   \t");
 				else
 					System.out.print(aula);
-				System.out.println("\t");
+				System.out.print("\t");
 			}
 			System.out.println("|");
 		}
 	}
 	public static boolean criarAula(Turma turma){
 		//dia da semana
-		int diaDaSemana = 0;
-		while (diaDaSemana == 0){
+		int diaDaSemana = -1;
+		while (diaDaSemana == -1){
 			for(int i = 0; i < Aula.ConversorDiaDaSemana.size(); i++){
 				System.out.println((i+1) +"- "+Aula.ConversorDiaDaSemana.get(i));
 			}
@@ -359,8 +385,8 @@ public class MenuTurma {
 		}
 
 		//dia da semana
-		int hora = 0;
-		while (hora == 0){
+		int hora = -1;
+		while (hora == -1){
 			for(int i = 0; i < Aula.ConversorHoras.size(); i++){
 				System.out.println((i+1) +"- "+Aula.ConversorHoras.get(i));
 			}
@@ -389,7 +415,7 @@ public class MenuTurma {
 				for(Entity dis : Curso.getCursoFromID(turma.getCurso()).getDisciplinas()){
 					System.out.println(Disciplina.getDisciplinaFromID(dis));
 				}
-			if(disE.getID() == 0)
+			else if(disE.getID() == 0)
 				System.out.println("Professor \""+disID+"\" não existe.");
 			if(disID == -1) {
 				return false;
@@ -418,7 +444,7 @@ public class MenuTurma {
 				for(Entity dis : Disciplina.getDisciplinaFromID(disE).getProfessores()){
 					System.out.println(Disciplina.getDisciplinaFromID(dis));
 				}
-			if(profE.getID() == 0)
+			else if(profE.getID() == 0)
 				System.out.println("Professor \""+profID+"\" não existe.");
 			if(profID == -1) {
 				return false;
@@ -442,20 +468,19 @@ public class MenuTurma {
 			for(String salas : Disciplina.getDisciplinaFromID(disE).getPossibleSalas()) {
 				System.out.println(salas);
 			}
-			System.out.println("Digite uma sala para a aula(enter para cancelar): ");
+			System.out.println("Digite uma sala para a aula(-1 para cancelar): ");
 			sala = Ler.processarTecladoString();
 
-			if(sala.equalsIgnoreCase(""))
+			if(sala.equalsIgnoreCase("-1"))
 				return false;
-			if(!Disciplina.getDisciplinaFromID(disE).getPossibleSalas().contains(sala) && !Disciplina.getDisciplinaFromID(disE).getPossibleSalas().contains("todas")){
+			if(!Disciplina.getDisciplinaFromID(disE).isSalaPossible(sala)){
 				System.out.println("Não pode ser essa sala.");
 				sala = "";
 			}
 		}
 
 		try{
-			turma.addAula(hora,diaDaSemana,profE,disE,sala);
-			System.out.println("Aula c");
+			System.out.println("Aula "+ turma.addAula(hora,diaDaSemana,profE,disE,sala) +" criada com sucesso.");
 		} catch (IllegalArgumentException | NullPointerException e){
 			System.out.println(e.getMessage());
 			return false;

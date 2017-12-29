@@ -109,7 +109,7 @@ public class MenuCurso {
 
 			if(cursoID == 0)
 				Menus.printTodosCursos();
-			if(curso.getID() == 0)
+			else if(curso.getID() == 0)
 				System.out.println("Curso \""+cursoID+"\" não existe.");
 			if(cursoID == -1) {
 				System.out.println("Operação cancelada.");
@@ -119,7 +119,7 @@ public class MenuCurso {
 		}
 		if(Curso.size() == 0)
 			System.out.println("Ainda não existem cursos.");
-		if(cursoID != -1){
+		else if(cursoID != -1){
 			int valorIntroduzido = -1;
 
 			while (valorIntroduzido != 8){

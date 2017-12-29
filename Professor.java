@@ -79,6 +79,7 @@ public class Professor extends Pessoa{
 	super("Professor", IDCount++ , pNome, uNome, nascimento);
 		aulas=new ArrayList<Entity>();
 		testes=new ArrayList<Entity>();
+		horario = new ArrayList<ArrayList<Entity>>();
 
 		for(int dia=0; dia<Aula.ConversorDiaDaSemana.size();dia++){
 			horario.add(new ArrayList<Entity>());

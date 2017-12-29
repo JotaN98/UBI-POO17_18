@@ -171,7 +171,7 @@ public class Disciplina extends Entity {
 		aulas.remove(aulas);
 	}
 
-	public void addProfessor(Entity prof) throws NullPointerException {
+	public void addProfessor(Entity prof) throws NullPointerException, IllegalArgumentException {
 		if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
 
 		// check if prof exists
@@ -180,7 +180,7 @@ public class Disciplina extends Entity {
 
 		// check if prof is already in profs
 		if (professores.contains(prof))
-			throw new IllegalAccessError("Professor -" + prof + "- já existe.");
+			throw new IllegalArgumentException("Professor -" + prof + "- já existe.");
 
 		this.professores.add(prof);
 	}
@@ -219,7 +219,7 @@ public class Disciplina extends Entity {
 	public void addPossibleSala(String sala) throws NullPointerException, IllegalArgumentException {
 		if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
 
-		if (sala.contains(sala))
+		if (possibleSalas.contains(sala))
 			throw new IllegalArgumentException("Sala " + sala + " já foi adicionada.");
 
 		possibleSalas.add(sala);
@@ -240,10 +240,16 @@ public class Disciplina extends Entity {
 	public void removerPossibleSala(String sala){
 		if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
 
-		if (!sala.contains(sala))
+		if (!this.possibleSalas.contains(sala))
 			throw new IllegalArgumentException("Sala " + sala + " ainda não foi adicionada.");
 
 		possibleSalas.remove(sala);
+	}
+
+	public boolean isSalaPossible(String sala){
+		if (this.getID() == 0) throw new NullPointerException("Objeto já foi removido");
+
+		return possibleSalas.contains(sala) || possibleSalas.contains("todas");
 	}
 
 	public ArrayList<String> getPossibleSalas() {

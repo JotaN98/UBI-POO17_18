@@ -105,15 +105,17 @@ public class MenuDisciplina{
 		else if (discID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 7) {
+			while (valorIntroduzido != 9) {
 				System.out.println("Disciplina " + disc);
 				System.out.println("1- Mudar Nome");
 				System.out.println("2- Mudar Ano");
-				System.out.println("3- Inserir Professor");
-				System.out.println("4- Remover Professor");
-				System.out.println("5- Inserir sala");
-				System.out.println("6- Remover sala");
-				System.out.println("7- Voltar");
+				System.out.println("3- Mostrar Professors");
+				System.out.println("4- Inserir Professor");
+				System.out.println("5- Remover Professor");
+				System.out.println("6- Mostrar salas");
+				System.out.println("7- Inserir sala");
+				System.out.println("8- Remover sala");
+				System.out.println("9- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
@@ -143,7 +145,19 @@ public class MenuDisciplina{
 					}
 					disc.setAno(ano);
 				}
-				else if (valorIntroduzido == 3)/*inserir professor*/ {
+				else if (valorIntroduzido == 3)/*Mostrar Professores*/{
+					System.out.println("---");
+					System.out.println("Professores de " + disc);
+					System.out.println("---");
+					for(Entity profE : disc.getProfessores()){
+						Professor prof = Professor.getProfessorFromID(profE);
+						if(prof.getID() != 0){
+							System.out.println(prof);
+						}
+					}
+					System.out.println("---");
+				}
+				else if (valorIntroduzido == 4)/*inserir professor*/ {
 					long profID = 0;
 					Professor profE = Professor.getProfessorFromID(Entity.Zero);
 					while (profE.getID() == 0 && Professor.size() != 0) {
@@ -174,7 +188,7 @@ public class MenuDisciplina{
 
 					}
 				}
-				else if (valorIntroduzido == 4)/*remover professor*/ {
+				else if (valorIntroduzido == 5)/*remover professor*/ {
 					System.out.println("Professores atuais: ");
 					for(Entity prof : disc.getProfessores()){
 						System.out.println(Professor.getProfessorFromID(prof));
@@ -214,18 +228,31 @@ public class MenuDisciplina{
 
 					}
 				}
-				else if (valorIntroduzido == 5)/*inserir sala*/ {
+				else if (valorIntroduzido == 6)/*mostrar salas*/ {
+					System.out.println("---");
+					System.out.println("Salas de " + disc);
+					System.out.println("---");
+					for(String sala : disc.getPossibleSalas()){
+						System.out.println(sala);
+					}
+					System.out.println("---");
+				}
+				else if (valorIntroduzido == 7)/*inserir sala*/ {
 					String sala = "";
 
 					while(sala.equalsIgnoreCase("")) {
 						System.out.println("Digite uma sala da Disciplina: ");
 						sala = Ler.processarTecladoString();
 					}
-					System.out.println("Sala \""+ sala +"\" com sucesso.");
 
-					disc.addPossibleSala(sala);
+					try {
+						disc.addPossibleSala(sala);
+						System.out.println("Sala \""+ sala +"\" adicionada com sucesso.");
+					} catch (IllegalArgumentException e){
+						System.out.println(e.getMessage());
+					}
 				}
-				else if (valorIntroduzido == 6) /*remover sala*/ {
+				else if (valorIntroduzido == 8)/*remover sala*/ {
 					String sala = "";
 
 					while(sala.equalsIgnoreCase("")) {
@@ -252,7 +279,7 @@ public class MenuDisciplina{
 
 					disc.removerPossibleSala(sala);
 				}
-				else if (valorIntroduzido != 7)
+				else if (valorIntroduzido != 9)
 					System.out.println("Introduza um numero entre 1 e 7.");
 			}
 		}

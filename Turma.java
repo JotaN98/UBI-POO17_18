@@ -172,7 +172,7 @@ public class Turma extends Entity{
 		alunos.remove(aluno);
 	}
 
-	public void addAula(int hora, int diaDaSemana, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException, NullPointerException {
+	public Entity addAula(int hora, int diaDaSemana, Entity prof, Entity disciplina, String sala) throws IllegalArgumentException, NullPointerException {
 		if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
 		// check if dia da semana e hora estão dentro
@@ -194,8 +194,7 @@ public class Turma extends Entity{
 		}
 
 		// check if sala is within possible salas
-		if(Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas().get(0) != "todas" &&
-			!Disciplina.getDisciplinaFromID(disciplina).getPossibleSalas().contains(sala)){
+		if(!Disciplina.getDisciplinaFromID(disciplina).isSalaPossible(sala)){
 				throw new IllegalArgumentException("Sala \""+sala+"\" não pode ser atribuida à disciplina \""+disciplina+"\".");
 		}
 
@@ -218,10 +217,17 @@ public class Turma extends Entity{
 			Disciplina.getDisciplinaFromID(disciplina).addProfessor(prof);
 		} catch (IllegalArgumentException e){
 			// quando é adicionado uma aula onde o professor já faz parte dessa disciplina
+		} catch (NullPointerException e){
+			// quando o prof não existe wut
+			Aula.Remove(nAulaID);
+			throw e;
 		}
 
+		aulas.add(nAulaID);
 		// update horario
 		horario.get(diaDaSemana).set(hora,nAulaID);
+
+		return nAulaID;
 	}
 	public void removeAula(Entity ID) throws IllegalArgumentException, NullPointerException{
 		if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
@@ -338,6 +344,6 @@ public class Turma extends Entity{
 
 	@Override
 	public String toString() {
-		return getCodeID() +": " + getAno() + " " + getNome();
+		return getCodeID() +": " + getAno() + "º - " + getNome() + " - "+ getCurso();
 	}
 }
