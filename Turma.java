@@ -52,6 +52,15 @@ public class Turma extends Entity{
     	return nTurma;
     }
 	
+	public static Entity Create(int id) {
+		while(IDCount<id-1)
+			IDCount++;
+			
+    	Turma nTurma = new Turma();
+    	addTurma(nTurma);
+    	return nTurma;
+    }
+	
     public static Entity Create(String anoLetivo, String nome, int ano, Entity curso, Entity diretor) {
     	Turma nTurma = new Turma(anoLetivo,nome,ano,curso,diretor);
     	addTurma(nTurma);

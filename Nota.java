@@ -54,6 +54,13 @@ public class Nota extends Entity{
         addNota(nNota);
         return nNota;
     }
+	public static Entity Create(int id){
+		while(IDCount<id-1)
+			IDCount++;
+		Nota nNota = new Nota();
+        addNota(nNota);
+        return nNota;
+	}
     
     public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
         

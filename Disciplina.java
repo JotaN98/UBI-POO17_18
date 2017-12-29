@@ -57,6 +57,14 @@ public class Disciplina extends Entity {
 		return nDisciplina;
 	}
 
+	public static Entity Create(int id){
+		while(IDCount<id-1)
+			IDCount++;	
+		Disciplina nDisciplina = new Disciplina();
+		addDisciplina(nDisciplina);
+		return nDisciplina;
+	}
+	
 	public static Entity Create(String pNome, int ano) {
 		Disciplina nDisciplina = new Disciplina(pNome, ano);
 		addDisciplina(nDisciplina);

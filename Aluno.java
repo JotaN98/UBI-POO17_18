@@ -53,6 +53,15 @@ public class Aluno extends Pessoa {
     	addAluno(nAluno);
     	return nAluno;
     }
+	
+	public static Entity Create(int id) {
+		while(IDCount<id-1)
+			IDCount++;
+			
+    	Aluno nAluno = new Aluno();
+    	addAluno(nAluno);
+    	return nAluno;
+    }
 
 	public static Entity Create(String pNome,String uNome, ZonedDateTime nascimento) {
 		Aluno nAluno = new Aluno(pNome, uNome, nascimento);
@@ -109,7 +118,7 @@ public class Aluno extends Pessoa {
 	notas = new ArrayList<Entity>();
         activity = new HashMap<ZonedDateTime,String>();
         activity.put(ZonedDateTime.now(), "Aluno "+toString() +", adicionado/a.");
-    }
+	}
 	public Aluno(String pNome,String uNome, ZonedDateTime nascimento) {
 		super("Aluno", IDCount++, pNome, uNome, nascimento);
 		ano = 0;

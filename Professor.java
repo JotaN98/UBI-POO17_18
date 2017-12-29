@@ -58,6 +58,14 @@ public class Professor extends Pessoa{
 		addProfessor(nProfessor);
 		return nProfessor;
 	}
+	
+	public static Entity Create(int id){
+		while(IDCount<id-1)
+			IDCount++;
+		Professor nProfessor = new Professor();
+		addProfessor(nProfessor);
+		return nProfessor;
+	}
 
 	public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
 

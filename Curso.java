@@ -52,6 +52,13 @@ public class Curso extends Entity {
         addCurso(nCurso);
         return nCurso;
     }
+	public static Entity Create(int id){
+		while(IDCount<id-1)
+			IDCount++;
+		Curso nCurso = new Curso();
+        addCurso(nCurso);
+        return nCurso;
+	}
     public static Entity Create(String nome,Entity diretor) {
         Curso nCurso = new Curso(nome,diretor);
         addCurso(nCurso);

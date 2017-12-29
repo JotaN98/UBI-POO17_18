@@ -69,6 +69,14 @@ public class Aula extends Entity {
         addAula(nAula);
         return nAula;
     }
+	
+	public static Entity create(int id){
+		while(IDCount<id-1)
+			IDCount++;
+		Aula nAula = new Aula();
+        addAula(nAula);
+        return nAula;
+	}
     
      
     public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{

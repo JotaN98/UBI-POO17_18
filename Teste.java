@@ -56,6 +56,14 @@ public class Teste extends Entity{
         addTeste(nTeste);
         return nTeste;
     }
+	
+	public static Entity create(int id){
+		while(IDCount<id-1)
+			IDCount++;
+		Teste nTeste = new Teste();
+        addTeste(nTeste);
+        return nTeste;
+	}
 
     public static void Remove(Entity ID) throws IllegalArgumentException, NullPointerException{
 
