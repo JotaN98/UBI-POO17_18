@@ -91,7 +91,7 @@ public class MenuTurma {
 		long turmaID = 0;
 		Turma turma = Turma.getTurmaFromID(Entity.Zero);
 		while (turma.getID() == 0 && turma.size() != 0) {
-			System.out.println("Digite o ID do turma(0 para mostrar todos os Cursos, -1 para cancelar): ");
+			System.out.println("Digite o ID da turma(0 para mostrar todos os Cursos, -1 para cancelar): ");
 			turmaID = Ler.processarTecladoLong();
 			turma = Turma.getTurmaFromID(turmaID);
 
@@ -103,7 +103,6 @@ public class MenuTurma {
 				System.out.println("Operação cancelada.");
 				break;
 			}
-
 		}
 		if (Turma.size() == 0)
 			System.out.println("Ainda não existem Turmas.");
@@ -180,7 +179,7 @@ public class MenuTurma {
 					long alunoID = 0;
 					Aluno aluE = Aluno.getAlunoFromID(Entity.Zero);
 					while(aluE.getID() == 0 && Aluno.size() != 0){
-						System.out.println("Digite o ID da disciplina(0 para mostrar todas as disciplinas, -1 para cancelar): ");
+						System.out.println("Digite o ID do Aluno(0 para mostrar todas os Alunos, -1 para cancelar): ");
 						alunoID = Ler.processarTecladoLong();
 						aluE = Aluno.getAlunoFromID(alunoID);
 

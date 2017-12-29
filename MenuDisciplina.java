@@ -56,7 +56,7 @@ public class MenuDisciplina{
 		long discID = 0;
 		Entity discE = Entity.Zero;
 		while (discE.getID() == 0 && Disciplina.size() != 0) {
-			System.out.println("Digite o ID da Disciplina que quer eliminar(0 para mostrar todas as disciplinas, -1 para cancelar): ");
+			System.out.println("Digite o ID da Disciplina que quer eliminar(0 para mostrar 1disciplinas, -1 para cancelar): ");
 			discID = Ler.processarTecladoLong();
 			discE = Aluno.getAlunoFromID(discID);
 
@@ -166,7 +166,7 @@ public class MenuDisciplina{
 						profE = Professor.getProfessorFromID(profID);
 
 						if (profID == 0)
-							Menus.printTodasDisciplinas();
+							Menus.printTodosProfessores();
 						else if (profE.getID() == 0)
 							System.out.println("Professor \"" + profID + "\" não existe.");
 						if (profID == -1) {
