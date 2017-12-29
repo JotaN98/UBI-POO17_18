@@ -216,7 +216,7 @@ public class MenuProfessor {
 							}
 						}
 						if(day != -1){
-							System.out.println("Teste "+Teste.getTesteFromID(Teste.Create(aulE,ZonedDateTime.of(ZonedDateTime.now().getDayOfYear(),month,day,0,0,0,0,ZoneId.of("Europe/Lisbon"))))+" criado com sucesso");
+							System.out.println("Teste "+Teste.getTesteFromID(Teste.Create(aulE,ZonedDateTime.of(year,month,day,0,0,0,0,ZoneId.of("Europe/Lisbon"))))+" criado com sucesso");
 						}
 					}
 
