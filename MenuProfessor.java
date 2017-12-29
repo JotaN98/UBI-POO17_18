@@ -289,7 +289,7 @@ public class MenuProfessor {
 		ArrayList<ArrayList<Entity>> horario = professor.getHorario();
 
 		for(String dia : Aula.ConversorDiaDaSemana){
-			System.out.print("|\t" + dia + "\t");
+			System.out.print("|\t\t " + dia + " \t\t");
 		}
 		System.out.println("|");
 
@@ -300,10 +300,10 @@ public class MenuProfessor {
 
 				System.out.print("|\t");
 				if(aula.getID() == 0)
-					System.out.print("(vazio)");
+					System.out.print("\t   (vazio)   \t");
 				else
 					System.out.print(aula);
-				System.out.println("\t");
+				System.out.print("\t");
 			}
 			System.out.println("|");
 		}
