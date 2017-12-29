@@ -175,7 +175,7 @@ public class MenuCurso {
 						if(profID != -1){
 							try {
 								curso.setDiretor(profE);
-								System.out.println("Diretor definido como \""+profE);
+								System.out.println(profE + " é o novo diretor do curso "+ curso);
 							} catch (IllegalArgumentException | NullPointerException e){
 								System.out.println("Ocurreu um erro.");
 								System.out.println(e.getMessage());
@@ -211,7 +211,7 @@ public class MenuCurso {
 								curso.addDisciplina(discE);
 								System.out.println("Disciplina \""+ discE +"\" adicionada.");
 							} catch (IllegalArgumentException | NullPointerException e){
-								System.out.println("Ocurreu um erro.");
+								System.out.print("Ocurreu um erro. ");
 								System.out.println(e.getMessage());
 							}
 						}
@@ -235,9 +235,13 @@ public class MenuCurso {
 							System.out.println("Operação cancelada.");
 							break;
 						}
-						else if(discE.getID() == 0 || !curso.getDisciplinas().contains(discE)) {
+						else if(discE.getID() == 0) {
 							System.out.println("Disciplina \""+discID+"\" não existe.");
-							discID = 0;
+							discE = Disciplina.getDisciplinaFromID(Entity.Zero);;
+						}
+						else if(!curso.getDisciplinas().contains(discE)){
+							System.out.println("Disciplina \""+discID+"\" não foi adicionada ao curso.");
+							discE = Disciplina.getDisciplinaFromID(Entity.Zero);;
 						}
 
 					}
