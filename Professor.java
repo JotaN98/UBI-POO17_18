@@ -128,7 +128,7 @@ public class Professor extends Pessoa{
 
 		//Check if horario is free
 		if(horario.get(DiaDaSemana).get(Hora).getID()!= 0){
-			throw new IllegalArgumentException("O professor-"+getCodeID()+"-já tem uma aula no bloco pretendido");
+			throw new IllegalArgumentException(this+" já tem uma aula no bloco pretendido.");
 		}
 
 		//check if aula exists
