@@ -110,7 +110,7 @@ public class MenuTurma {
 		else if (turmaID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 11) {
+			while (valorIntroduzido != 12) {
 				System.out.println("Turma " + turma);
 				System.out.println("1- Mudar Ano Letivo");
 				System.out.println("2- Mudar Nome");
@@ -122,7 +122,8 @@ public class MenuTurma {
 				System.out.println("8- Criar Aula");
 				System.out.println("9- Eliminar Aula");
 				System.out.println("10- Mostrar Horário");
-				System.out.println("11- Voltar");
+				System.out.println("11- Mostrar todos os alunos de uma turma");
+				System.out.println("12- Voltar");
 
 				valorIntroduzido = Ler.processarTecladoInt();
 
@@ -305,9 +306,12 @@ public class MenuTurma {
 				else if (valorIntroduzido == 10)/*mostrar horario*/{
 					mostrarHorario(turma);
 				}
-				else if (valorIntroduzido != 10)
-					System.out.println("Introduza um numero entre 1 e 10.");
-
+				else if(valorIntroduzido == 11)/*Mostrar todos os alunos da turma */{
+					for(int i=0;i<turma.getAlunos().size();i++)
+						System.out.println(turma.getAlunos().get(i));
+				}
+				else if (valorIntroduzido != 12)
+					System.out.println("Introduza um numero entre 1 e 11.");
 			}
 		}
 	}
