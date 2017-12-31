@@ -75,13 +75,9 @@ public class Entity implements Serializable {
     // -- method overrides
     @Override
     public boolean equals(Object obj) {
-//        System.out.println("Comparing");
         if(obj != null && obj.getClass() == getClass()) {
-//            System.out.println("is same obj");
             Entity entObj = (Entity) obj;
-//            System.out.println("is same obj " + entObj + " == "+ this);
-//			System.out.println(entObj.groupID+".equals("+groupID+") "+ entObj.ID +"=="+ ID);
-//            System.out.println(entObj.groupID.equals(groupID) && entObj.ID == ID);
+
             return entObj.groupID.equals(groupID) && entObj.ID == ID;
         }
         return false;

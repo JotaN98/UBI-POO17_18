@@ -1,6 +1,5 @@
 import myinput.Ler;
 
-import java.util.Objects;
 
 public class MenuCurso {
 	public static void MainMenu(){
@@ -226,10 +225,6 @@ public class MenuCurso {
 						System.out.println("Digite o ID da disciplina a remover(0 para mostrar disciplinas já adicionadas, -1 para cancelar): ");
 						discID = Ler.processarTecladoLong();
 						discE = Disciplina.getDisciplinaFromID(discID);
-
-//						System.out.println(curso.getDisciplinas().get(0));
-//						System.out.println(discE);
-//						System.out.println(curso.getDisciplinas().get(0).equals(discE));
 
 						if(discID == 0)
 							for(Entity dis : curso.getDisciplinas()){

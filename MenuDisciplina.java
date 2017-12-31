@@ -1,6 +1,5 @@
 import myinput.Ler;
 
-import java.util.Objects;
 
 public class MenuDisciplina{
 	public static void MainMenu() {

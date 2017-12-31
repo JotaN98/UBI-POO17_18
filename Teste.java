@@ -2,7 +2,6 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Teste extends Entity implements Serializable{
     // -- beginning of static fields

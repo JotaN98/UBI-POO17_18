@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 public class Pessoa extends Entity implements Serializable{
     // -- beginning of non static fields

@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Nota extends Entity implements Serializable{
     // -- beginning of static fields

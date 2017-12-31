@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 public class SaveLoad {
 	private static final String SaveDir = System.getProperty("user.dir") + "\\EscolaSecundario\\";
@@ -80,16 +79,6 @@ public class SaveLoad {
 				}
 			}
 			outputTurma.writeObject(noNullsTurma);
-
-
-			outputTeste.flush();
-			outputNota.flush();
-			outputDisciplina.flush();
-			outputProfessor.flush();
-			outputAula.flush();
-			outputAluno.flush();
-			outputCurso.flush();
-			outputTurma.flush();
 		} catch (IOException e){
 			System.out.println(e.getMessage());
 		}
@@ -107,60 +96,31 @@ public class SaveLoad {
 			ObjectInputStream inputNota = new ObjectInputStream(new FileInputStream(SaveDir + "Nota.dat"));
 			ObjectInputStream inputTeste = new ObjectInputStream(new FileInputStream(SaveDir + "Teste.dat"));
 
-			ArrayList<Curso> cu = (ArrayList<Curso>) inputCurso.readObject();
-			ArrayList<Turma> tr = (ArrayList<Turma>) inputTurma.readObject();
-			ArrayList<Aluno> al = (ArrayList<Aluno>) inputAluno.readObject();
-			ArrayList<Professor> pr = (ArrayList<Professor>) inputProfessor.readObject();
-			ArrayList<Aula> au = (ArrayList<Aula>) inputAula.readObject();
-			ArrayList<Disciplina> di = (ArrayList<Disciplina>) inputDisciplina.readObject();
-			ArrayList<Nota> no = (ArrayList<Nota>) inputNota.readObject();
-			ArrayList<Teste> te = (ArrayList<Teste>) inputTeste.readObject();
 
-			for(Curso c : cu){
-				System.out.println("ADding "+ c);
-				Curso.addCurso(c);
+			for(Curso curso : (ArrayList<Curso>) inputCurso.readObject()){
+				Curso.addCurso(curso);
 			}
-			for(Turma t : tr){
-				System.out.println("ADding "+ t);
-				Turma.addTurma(t);
+			for(Turma turma : (ArrayList<Turma>) inputTurma.readObject()){
+				Turma.addTurma(turma);
 			}
-			for(Aluno a : al){
-				System.out.println("ADding "+ a);
-				Aluno.addAluno(a);
+			for(Aluno aluno : (ArrayList<Aluno>) inputAluno.readObject()){
+				Aluno.addAluno(aluno);
 			}
-			for(Professor p : pr){
-				System.out.println("ADding "+ p);
-				Professor.addProfessor(p);
+			for(Professor professor : (ArrayList<Professor>) inputProfessor.readObject()){
+				Professor.addProfessor(professor);
 			}
-			for(Aula a : au){
-				System.out.println("ADding "+ a);
-				Aula.addAula(a);
+			for(Aula aula : (ArrayList<Aula>) inputAula.readObject()){
+				Aula.addAula(aula);
 			}
-			for(Disciplina d : di){
-				System.out.println("ADding "+ d);
-				Disciplina.addDisciplina(d);
+			for(Disciplina disciplina : (ArrayList<Disciplina>) inputDisciplina.readObject()){
+				Disciplina.addDisciplina(disciplina);
 			}
-			for(Nota n : no){
-				System.out.println("ADding "+ n);
-				Nota.addNota(n);
+			for(Nota nota : (ArrayList<Nota>) inputNota.readObject()){
+				Nota.addNota(nota);
 			}
-			for(Teste t : te){
-				System.out.println("ADding "+ t);
-				Teste.addTeste(t);
+			for(Teste teste : (ArrayList<Teste>) inputTeste.readObject()){
+				Teste.addTeste(teste);
 			}
-
-			Entity teste = Curso.getCursoFromID(1).getDisciplinas().get(0);
-			System.out.println(teste.getClass());
-			System.out.println(Disciplina.getDisciplinaFromID(1).getClass());
-
-			System.out.println("Professor: " +pr);
-			System.out.println("Aluno: " +al);
-			System.out.println("Curso: " +cu);
-			System.out.println("Turma: " +tr);
-			System.out.println("Aula: " +au);
-			System.out.println("Disciplina: " +di);
-			System.out.println("Nota: " +no);
-			System.out.println("Teste: " +te);
 
 
 		} catch (IOException | ClassNotFoundException e){
