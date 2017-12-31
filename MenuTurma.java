@@ -427,7 +427,7 @@ public class MenuTurma {
 					System.out.println(Disciplina.getDisciplinaFromID(dis));
 				}
 			else if(disE.getID() == 0)
-				System.out.println("Professor \""+disID+"\" não existe.");
+				System.out.println("Disciplina \""+disID+"\" não existe.");
 			if(disID == -1) {
 				return false;
 			}

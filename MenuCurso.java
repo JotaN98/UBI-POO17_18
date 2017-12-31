@@ -1,5 +1,7 @@
 import myinput.Ler;
 
+import java.util.Objects;
+
 public class MenuCurso {
 	public static void MainMenu(){
 		int valorIntroduzido = 0;
@@ -198,7 +200,7 @@ public class MenuCurso {
 							System.out.println("Operação cancelada.");
 							break;
 						}
-						if(discE.getID() == 0) {
+						else if(discE.getID() == 0) {
 							System.out.println("Disciplina \""+discID+"\" não existe.");
 						}
 
@@ -219,11 +221,15 @@ public class MenuCurso {
 				}
 				else if(valorIntroduzido == 4)/*Remover disciplina*/{
 					long discID = 0;
-					Disciplina discE = Disciplina.getDisciplinaFromID(Entity.Zero);
+					Entity discE = Disciplina.getDisciplinaFromID(Entity.Zero);
 					while(discE.getID() == 0 && curso.getDisciplinas().size() != 0){
 						System.out.println("Digite o ID da disciplina a remover(0 para mostrar disciplinas já adicionadas, -1 para cancelar): ");
 						discID = Ler.processarTecladoLong();
 						discE = Disciplina.getDisciplinaFromID(discID);
+
+//						System.out.println(curso.getDisciplinas().get(0));
+//						System.out.println(discE);
+//						System.out.println(curso.getDisciplinas().get(0).equals(discE));
 
 						if(discID == 0)
 							for(Entity dis : curso.getDisciplinas()){

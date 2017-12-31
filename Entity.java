@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Entity {
+public class Entity implements Serializable {
     // -- beginning of static fields
     // -- vars
     public static Entity Zero;
@@ -32,7 +33,7 @@ public class Entity {
     //returns the key of the value if exists
     protected static String getGroupFromID(String groupID){
         for(Map.Entry<String, String> entry : groups.entrySet()){
-        	if(groupID == entry.getValue()){
+        	if(groupID.equals(entry.getValue())){
         		return(entry.getKey());
         	}
         }
@@ -67,16 +68,21 @@ public class Entity {
     }
 
     protected boolean equalsID(String group, long ID){
-        return groupID == getGroupIDFromGroup(group) && this.ID == ID;
+        return groupID.equals(getGroupIDFromGroup(group)) && this.ID == ID;
     }
 
 
     // -- method overrides
     @Override
     public boolean equals(Object obj) {
+//        System.out.println("Comparing");
         if(obj != null && obj.getClass() == getClass()) {
+//            System.out.println("is same obj");
             Entity entObj = (Entity) obj;
-            return entObj.groupID == groupID && entObj.ID == ID;
+//            System.out.println("is same obj " + entObj + " == "+ this);
+//			System.out.println(entObj.groupID+".equals("+groupID+") "+ entObj.ID +"=="+ ID);
+//            System.out.println(entObj.groupID.equals(groupID) && entObj.ID == ID);
+            return entObj.groupID.equals(groupID) && entObj.ID == ID;
         }
         return false;
     }

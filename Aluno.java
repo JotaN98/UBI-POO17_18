@@ -45,6 +45,10 @@ public class Aluno extends Pessoa {
         //if(getAlunoFromID(x).getID() != 0){
         //    throw new NullPointerException("Aluno já foi adicionada.");
         //}
+
+		// for loading
+		while(IDCount <= x.getID())
+			IDCount++;
         alunos.put(x.getCodeID(), x);
 	}
      

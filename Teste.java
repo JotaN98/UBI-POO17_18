@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class Teste extends Entity{
+public class Teste extends Entity implements Serializable{
     // -- beginning of static fields
     // -- vars
     private static long IDCount = 0;
@@ -42,6 +44,10 @@ public class Teste extends Entity{
         //if(getTesteFromID(x).getID() != 0){
         //  System.out.println("Objeto já existe.");
         //}
+
+        // for loading
+        while(IDCount <= x.getID())
+            IDCount++;
         testes.put(x.getCodeID(), x);
     }
 

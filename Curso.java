@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Curso extends Entity {
+public class Curso extends Entity implements Serializable{
 	// -- beginning of static fields
         // -- vars
     private static long IDCount = 0;
@@ -25,6 +26,13 @@ public class Curso extends Entity {
     public static Map<String, Curso> getCursos(){
         return cursos;
     }
+    public static void setCursos(Map<String, Curso> Cursos){
+        for(Map.Entry<String, Curso> entry : Cursos.entrySet()) {
+        	System.out.println("adding "+ entry.getKey());
+			cursos.put(entry.getKey(), entry.getValue());
+		}
+    }
+
 
 
     public static Curso getCursoFromID(long ID){
@@ -45,7 +53,12 @@ public class Curso extends Entity {
         //if(getCursoFromID(x).getID() != 0){
         //    throw new IllegalArgumentException("Curso existente");
         //}
-        cursos.put(x.getCodeID(), x);
+
+		// for loading
+		while(IDCount <= x.getID())
+			IDCount++;
+
+		cursos.put(x.getCodeID(), x);
     }
     public static Entity Create() {
         Curso nCurso = new Curso();
@@ -113,7 +126,7 @@ public class Curso extends Entity {
     public void addDisciplina(Entity disciplina) throws IllegalArgumentException, NullPointerException{
 	
         if(this.getID()==0){
-            throw new NullPointerException("Foi apagado");
+            //throw new NullPointerException("Foi apagado");
         }
         if(Disciplina.getDisciplinaFromID(disciplina).getID()==0){
             throw new NullPointerException("Nao existe");
@@ -150,14 +163,14 @@ public class Curso extends Entity {
 
     public Entity addTurma(String anoLetivo, String nome, int ano, Entity diretor) throws NullPointerException, IllegalArgumentException{
 
-        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
+        if(this.getID()==0) throw new NullPointerException("Objeto já foi removido" + this.nome);
 
         if(ano < 10 || ano > 12)
             throw new IllegalArgumentException("Ano tem que ser entre 10 e 12.");
 
 		for(Entity turma : turmas){
 			if(Turma.getTurmaFromID(turma).getNome() == nome){
-				throw new IllegalArgumentException("Nome de turma \""+nome+"\" já existe.");
+				//throw new IllegalArgumentException("Nome de turma \""+nome+"\" já existe.");
 			}
 		}
 

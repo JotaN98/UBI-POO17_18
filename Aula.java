@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Aula extends Entity {
+public class Aula extends Entity implements Serializable {
     // -- beginning of static fields
     // -- vars
     private static final Map<String, Aula> aulas = new HashMap<String, Aula>();
@@ -55,6 +56,10 @@ public class Aula extends Entity {
         //if(getAulaFromID(x).getID()!= 0){
         //    throw new IllegalArgumentException("Objeto já existe.");
         //}
+
+        // for loading
+        while(IDCount <= x.getID())
+            IDCount++;
         aulas.put(x.getCodeID(), x);
     }
    
@@ -114,7 +119,7 @@ public class Aula extends Entity {
         this.turma=turma;
         this.sala=sala;
     }
-    
+
     public Aula(){
         super("Aula", IDCount++);
         this.hora=0;

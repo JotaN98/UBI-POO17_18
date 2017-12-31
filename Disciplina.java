@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Disciplina extends Entity {
+public class Disciplina extends Entity implements Serializable {
 
 	// -- beginning of static fields
 	// -- vars
@@ -48,6 +49,10 @@ public class Disciplina extends Entity {
 //		if (getDisciplinaFromID(x).getID() != 0) {
 //			throw new IllegalArgumentException("Disciplina -" + x + "- existente.");
 //		}
+
+		// for loading
+		while(IDCount <= x.getID())
+			IDCount++;
 		disciplinas.put(x.getCodeID(), x);
 	}
 
@@ -293,8 +298,24 @@ public class Disciplina extends Entity {
 		if (obj != null && obj.getClass() == getClass()) {
 			Disciplina nObj = (Disciplina) obj;
 
+//			System.out.println("is " + this +".equals("+nObj+")");
+//			System.out.println(nObj.aulas);
+//			System.out.println(aulas);
+//			System.out.println(nObj.professores);
+//			System.out.println(professores);
+//			System.out.println(nObj.possibleSalas);
+//			System.out.println(possibleSalas);
+//
+//
+//			System.out.println(super.equals(nObj) +" && "+
+//					nome.equals(nObj.nome) +" && "+
+//					ano +" == "+ nObj.ano +" && "+
+//					nObj.aulas.equals(aulas) +" && "+
+//					nObj.professores.equals(professores) +" && "+
+//					nObj.possibleSalas.equals(possibleSalas));
+
 			return super.equals(nObj) &&
-					nome == nObj.nome &&
+					nome.equals(nObj.nome) &&
 					ano == nObj.ano &&
 					nObj.aulas.equals(aulas) &&
 					nObj.professores.equals(professores) &&
@@ -310,6 +331,6 @@ public class Disciplina extends Entity {
 
 	@Override
 	public String toString() {
-		return getCodeID() +": "+nome;
+		return getCodeID() +": "+nome + " " + ano + "º ano";
 	}
 }

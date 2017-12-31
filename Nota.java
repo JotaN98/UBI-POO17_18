@@ -1,7 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class Nota extends Entity{
+public class Nota extends Entity implements Serializable{
     // -- beginning of static fields
     // -- vars
     private static long IDCount = 0;
@@ -30,11 +32,15 @@ public class Nota extends Entity{
                 nota.get(Entity.getGroupIDFromGroup("Nota") + ID)
         );
     }
-      
+
     public static void addNota(Nota x) throws IllegalArgumentException{
         //if(getNotaFromID(x).getID() != 0){
         //    throw new IllegalArgumentException("Objeto já existe.");
         //}
+
+        // for loading
+        while(IDCount <= x.getID())
+            IDCount++;
         nota.put(x.getCodeID(), x);
     }
 	

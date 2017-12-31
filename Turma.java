@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class Turma extends Entity{
+public class Turma extends Entity implements Serializable{
     // -- beginning of static fields
     // -- vars
     private static long IDCount = 0;
@@ -43,6 +45,10 @@ public class Turma extends Entity{
         //if(getTurmaFromID(x).getID() != 0){
         //    throw new NullPointerException("Turma já foi adicionada.");
         //}
+
+		// for loading
+		while(IDCount <= x.getID())
+			IDCount++;
         turmas.put(x.getCodeID(), x);
     }
      
@@ -91,7 +97,7 @@ public class Turma extends Entity{
     // -- beginning of non static fields
     // -- vars
 	private String anoLetivo;
-        private String nome;
+	private String nome;
 	private int ano;
 	private ArrayList<Entity/*Aluno*/> alunos;
 	private Entity curso;
@@ -160,7 +166,7 @@ public class Turma extends Entity{
 		}
 		// check if aluno is already part of another class in current year
 		Entity turmaID = Aluno.getAlunoFromID(aluno).getTurma();
-		if(turmaID.getID() != 0 && Turma.getTurmaFromID(turmaID).anoLetivo == anoLetivo)
+		if(turmaID.getID() != 0 && Objects.equals(Turma.getTurmaFromID(turmaID).anoLetivo, anoLetivo))
 			Turma.getTurmaFromID(turmaID).removeAluno(aluno);
 
 		Aluno.getAlunoFromID(aluno).setTurma(this);
@@ -335,8 +341,8 @@ public class Turma extends Entity{
 			Turma nObj = (Turma)obj;
 
 			return 	super.equals(obj) &&
-					anoLetivo == nObj.anoLetivo &&
-					nome == nObj.nome &&
+					Objects.equals(anoLetivo, nObj.anoLetivo) &&
+					Objects.equals(nome, nObj.nome) &&
 					nObj.alunos.equals(alunos) &&
 					nObj.curso.equals(curso) &&
 					nObj.diretor.equals(diretor) &&

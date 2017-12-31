@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Professor extends Pessoa{
+public class Professor extends Pessoa implements Serializable{
 	// -- beginning of static fields
 	// -- vars
 	private static Map<String, Professor> professores = new HashMap<String, Professor>();
@@ -44,6 +45,10 @@ public class Professor extends Pessoa{
 		//if(getProfessorFromID(x).getID() != 0){
 		//	throw new IllegalArgumentException("Objeto já existe.");
 		//}
+
+		// for loading
+		while(IDCount <= x.getID())
+			IDCount++;
 		professores.put(x.getCodeID(), x);
 	}
 
@@ -230,6 +235,19 @@ public class Professor extends Pessoa{
 	public boolean equals(Object obj){
 		if(obj != null && obj.getClass()==getClass()){
 			Professor nObj = (Professor) obj;
+//			System.out.println("is Prof equals");
+//
+//			System.out.println("=====");
+//
+//			System.out.println(nObj.aulas.get(0) +".equals("+aulas.get(0)+")");
+//			System.out.println(nObj.aulas.get(0).equals(aulas.get(0)));
+//
+//			System.out.println("=====");
+//
+//			System.out.println(super.equals(obj)
+//					+" && "+ nObj.aulas.equals(aulas)
+//					+" && "+ nObj.horario.equals(horario)
+//					+" && "+ nObj.testes.equals(testes));
 			return super.equals(obj)
 					&& nObj.aulas.equals(aulas)
 					&& nObj.horario.equals(horario)
