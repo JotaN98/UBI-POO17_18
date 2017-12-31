@@ -305,9 +305,12 @@ public class MenuTurma {
 				else if (valorIntroduzido == 10)/*mostrar horario*/{
 					mostrarHorario(turma);
 				}
-				else if (valorIntroduzido != 11)
-					System.out.println("Introduza um numero entre 1 e 10.");
-
+				else if(valorIntroduzido == 11)/*Mostrar todos os alunos da turma */{
+					for(int i=0;i<turma.getAlunos().size();i++)
+						System.out.println(turma.getAlunos().get(i));
+				}
+				else if (valorIntroduzido != 12)
+					System.out.println("Introduza um numero entre 1 e 11.");
 			}
 		}
 	}
