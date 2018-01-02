@@ -271,7 +271,7 @@ public class MenuDisciplina{
 						}
 					}
 
-					System.out.println("Sala \""+ sala +"\" inserida com sucesso.");
+					System.out.println("Sala \""+ sala +"\" removida com sucesso.");
 
 					disc.removerPossibleSala(sala);
 				}
