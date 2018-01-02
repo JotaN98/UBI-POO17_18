@@ -224,7 +224,7 @@ public class Aula extends Entity implements Serializable {
     }
 
     public String fullDescription(){
-		return toString() +": " + " Dia da Semana: " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dada por Professor "+ Professor.getProfessorFromID(prof) + " de Turma " + turma + " na sala: " + sala ;
+		return toString() +": " + ConversorDiaDaSemana.get(DiaDaSemana) + " às " + ConversorHoras.get(hora) + " dada por Professor "+ Professor.getProfessorFromID(prof) + " na Turma " + turma + " na sala: " + sala ;
 	}
 
     @Override

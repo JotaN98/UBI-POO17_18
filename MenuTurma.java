@@ -1,5 +1,6 @@
 import myinput.Ler;
 
+import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
 public class MenuTurma {
@@ -7,7 +8,14 @@ public class MenuTurma {
 		int valorIntroduzido = 0;
 
 		while(valorIntroduzido != Menus.MenuExitOp){
-			Menus.printMenu("Turma","Turmas");
+			System.out.println("Turmas" +":");
+			System.out.println("0- Mostrar "+ "Turmas");
+			System.out.println("1- Criar "+ "Turma");
+			System.out.println("2- Eliminar "+ "Turma");
+			System.out.println("3- Selecionar "+ "Turma");
+			System.out.println("4- Mostrar Turmas de um ano Letivo");
+			System.out.println("5- Limpar todos os "+ "Turmas");
+			System.out.println("6- Voltar");
 			valorIntroduzido = Ler.processarTecladoInt();
 
 			if(valorIntroduzido == 0)/*mostrar todos as turmas*/{
@@ -19,11 +27,13 @@ public class MenuTurma {
 					System.out.println("Ainda não existe turmas.");
 				else
 					eliminarTurma();
-			} else if(valorIntroduzido == 3)/*selecionar turma*/{
+			} else if(valorIntroduzido == 3)/*selecionar turma*/ {
 				selecionarTurma();
-			} else if(valorIntroduzido == 4)/*eliminar todas as turmas*/{
+			} else if(valorIntroduzido == 4) /*ano letivo*/{
+				mostrarTurmaAnoLetivo();
+			} else if(valorIntroduzido == 5)/*eliminar todas as turmas*/{
 				eliminarTodosTurma();
-			} else if(valorIntroduzido != 5)/*nenhuma da opções*/
+			} else if(valorIntroduzido != 6)/*nenhuma da opções*/
 				System.out.println("Introduza um numero entre 1 e "+ (Menus.MainMenuExitOp-1) +".");
 			// 5 = menuExitOp
 		}
@@ -109,7 +119,7 @@ public class MenuTurma {
 		else if (turmaID != -1) {
 			int valorIntroduzido = -1;
 
-			while (valorIntroduzido != 12) {
+			while (valorIntroduzido != 13) {
 				System.out.println("Turma " + turma);
 				System.out.println("1- Mudar Ano Letivo");
 				System.out.println("2- Mudar Nome");
@@ -120,10 +130,10 @@ public class MenuTurma {
 				System.out.println("7- Ver Aula");
 				System.out.println("8- Criar Aula");
 				System.out.println("9- Eliminar Aula");
-				System.out.println("10- Mostrar Horário");
-				System.out.println("11- Mostrar todos os alunos de uma turma");
-				System.out.println("12- Voltar");
-
+				System.out.println("10- Eliminar Todas as Aulas");
+				System.out.println("11- Mostrar Horário");
+				System.out.println("12- Mostrar todos os alunos");
+				System.out.println("13- Voltar");
 				valorIntroduzido = Ler.processarTecladoInt();
 
 				if (valorIntroduzido == 1)/*Mudar ano letivo*/{
@@ -299,18 +309,53 @@ public class MenuTurma {
 					if(!criarAula(turma))
 						System.out.println("Operação cancelada.");
 				}
-				else if (valorIntroduzido == 9)/*eliminar aula*/{
+				else if (valorIntroduzido == 9)/*Eliminar aula*/{
+					long aulaID = 0;
+					Professor aulaE = Professor.getProfessorFromID(Entity.Zero);
+					while (aulaID != -1 && turma.getAulas().size() != 0) {
+						System.out.println("Digite o ID da Aula quer remover(0 para mostrar todas as aulas, -1 para cancelar): ");
+						aulaID = Ler.processarTecladoLong();
+						aulaE = Professor.getProfessorFromID(aulaID);
+
+						if (aulaID == 0)
+							System.out.println("Aulas adicionada: ");
+						for(Entity aula : turma.getAulas()){
+							if(aula.getID() != 0)
+								System.out.println(Aula.getAulaFromID(aula));
+						}
+						if (aulaID == -1) {
+							System.out.println("Operação cancelada.");
+							break;
+						}
+						if (aulaE.getID() == 0) {
+							System.out.println("Aula \"" + aulaID + "\" não Aadicionada.");
+						}
+					}
+					if (turma.getAulas().size() == 0)
+						System.out.println("Ainda não foram adicionadas Aulas à turma "+ turma);
+					if (aulaID != -1) {
+						try {
+							turma.removeAula(aulaE);
+							System.out.println("Aula \""+aulaE+"\" removida.");
+						} catch (IllegalArgumentException | NullPointerException e) {
+							System.out.println("Ocurreu um erro.");
+							System.out.println(e.getMessage());
+						}
+
+					}
+				}
+				else if (valorIntroduzido == 10)/*eliminar aula*/{
 					eliminarTodosAula(turma);
 				}
-				else if (valorIntroduzido == 10)/*mostrar horario*/{
+				else if (valorIntroduzido == 11)/*mostrar horario*/{
 					mostrarHorario(turma);
 				}
-				else if(valorIntroduzido == 11)/*Mostrar todos os alunos da turma */{
+				else if(valorIntroduzido == 12)/*Mostrar todos os alunos da turma */{
 					for(int i=0;i<turma.getAlunos().size();i++)
 						System.out.println(turma.getAlunos().get(i));
 				}
-				else if (valorIntroduzido != 12)
-					System.out.println("Introduza um numero entre 1 e 11.");
+				else if (valorIntroduzido != 13)
+					System.out.println("Introduza um numero entre 1 e 13.");
 			}
 		}
 	}
@@ -373,6 +418,25 @@ public class MenuTurma {
 					row.add(aula.toString());
 			}
 			System.out.format("%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s%"+largest+"s\n",row.toArray());
+		}
+	}
+	public static void mostrarTurmaAnoLetivo(){
+		String anoLetivo = "";
+		while(anoLetivo.equals("")){
+			System.out.println("Digite o ano letivo (-1 para sair):");
+
+			anoLetivo = Ler.processarTecladoString();
+			if (anoLetivo.equals("-1")){
+				System.out.println("Operação cancelada.");
+				return;
+			}
+		}
+		for(Turma turma: Turma.getTurmas().values()){
+			if(turma.getID() != 0) {
+				if (turma.getAnoLetivo().equals(anoLetivo)) {
+					System.out.println(turma);
+				}
+			}
 		}
 	}
 	public static boolean criarAula(Turma turma){
@@ -504,7 +568,7 @@ public class MenuTurma {
 
 		while(!remover.equalsIgnoreCase("n") && !remover.equalsIgnoreCase("nao") &&
 				!remover.equalsIgnoreCase("s") && !remover.equalsIgnoreCase("sim")) {
-			System.out.println("Tem a certeza que quer eliminar todos os cursos ?");
+			System.out.println("Tem a certeza que quer eliminar todas as aulas ?");
 			System.out.print("[s/n]: ");
 
 			remover = Ler.processarTecladoString();

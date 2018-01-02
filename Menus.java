@@ -69,11 +69,9 @@ public class Menus {
 		System.out.println("---");
 		System.out.println("Todos os Alunos");
 		System.out.println("---");
-		for(Aluno alu : Aluno.getAlunos().values()){
-			if(alu.getID() != 0){
+		for(Aluno alu : Aluno.getAlunos().values())
+			if(alu.getID() != 0)
 				System.out.println(alu);
-			}
-		}
 		System.out.println("---");
 	}
 

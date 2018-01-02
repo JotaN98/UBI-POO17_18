@@ -190,11 +190,6 @@ public class MenuDisciplina{
 					}
 				}
 				else if (valorIntroduzido == 5)/*remover professor*/ {
-					System.out.println("Professores atuais: ");
-					for(Entity prof : disc.getProfessores()){
-						System.out.println(Professor.getProfessorFromID(prof));
-					}
-
 					long profID = 0;
 					Professor profE = Professor.getProfessorFromID(Entity.Zero);
 					while (profID != -1 && disc.getProfessores().size() != 0) {

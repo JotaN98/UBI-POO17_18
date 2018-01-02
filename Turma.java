@@ -77,7 +77,7 @@ public class Turma extends Entity implements Serializable{
 
 		if(ID.getID()==0) throw new NullPointerException("Objeto já foi removido.");
 
-		if(!turmas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Aula -"+ID.getCodeID()+"- não existe.");
+		if(!turmas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Turma -"+ID.getCodeID()+"- não existe.");
 
 		Turma turma = getTurmaFromID(ID);
 		for(Entity aula : turma.aulas){
@@ -340,14 +340,7 @@ public class Turma extends Entity implements Serializable{
 		if(obj != null && obj.getClass() == getClass()) {
 			Turma nObj = (Turma)obj;
 
-			return 	super.equals(obj) &&
-					Objects.equals(anoLetivo, nObj.anoLetivo) &&
-					Objects.equals(nome, nObj.nome) &&
-					nObj.alunos.equals(alunos) &&
-					nObj.curso.equals(curso) &&
-					nObj.diretor.equals(diretor) &&
-					nObj.aulas.equals(aulas) &&
-					nObj.horario.equals(horario);
+			return 	super.equals(obj);
 		}
 		return false;
 	}

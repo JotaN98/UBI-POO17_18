@@ -235,17 +235,17 @@ public class MenuProfessor {
 							System.out.println("Operação cancelada.");
 							break;
 						}
-                                                else if (testeE.getID() == 0)
+                        else if (testeE.getID() == 0)
 							System.out.println("Teste \"" + testeID + "\" não existe.");
 					}
 					if (Teste.size() == 0)
 						System.out.println("Ainda não existem Testes.");
-					if (testeID != -1) {
+					else if (testeID != -1) {
 						try {
 							Teste.Remove(testeE);
 							System.out.println("Teste \"" + testeID + " removido com sucesso.");
 						} catch (IllegalArgumentException | NullPointerException e) {
-							System.out.println("Erro ao remover o Professor: ");
+							System.out.println("Erro ao remover o Teste: ");
 							System.out.println(e.getMessage());
 						}
 					}
