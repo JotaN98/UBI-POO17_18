@@ -8,7 +8,6 @@ public class Turma extends Entity implements Serializable{
     // -- beginning of static fields
     // -- vars
     private static long IDCount = 0;
-    
     private static Map<String, Turma> turmas = new HashMap<String, Turma>();
 
     static {
