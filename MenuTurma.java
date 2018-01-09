@@ -1,13 +1,12 @@
 import myinput.Ler;
 
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
 public class MenuTurma {
 	public static void MainMenu(){
 		int valorIntroduzido = 0;
 
-		while(valorIntroduzido != Menus.MenuExitOp){
+		while(valorIntroduzido != 6){
 			System.out.println("Turmas" +":");
 			System.out.println("0- Mostrar "+ "Turmas");
 			System.out.println("1- Criar "+ "Turma");
@@ -20,22 +19,28 @@ public class MenuTurma {
 
 			if(valorIntroduzido == 0)/*mostrar todos as turmas*/{
 				Menus.printTodasTurmas();
-			} else if(valorIntroduzido == 1)/*Criar turma*/{
+			}
+			else if(valorIntroduzido == 1)/*Criar turma*/{
 				criarTurma();
-			} else if(valorIntroduzido == 2)/*eliminar turma*/{
+			}
+			else if(valorIntroduzido == 2)/*eliminar turma*/{
 				if(Turma.size() == 0)
 					System.out.println("Ainda não existe turmas.");
 				else
 					eliminarTurma();
-			} else if(valorIntroduzido == 3)/*selecionar turma*/ {
+			}
+			else if(valorIntroduzido == 3)/*selecionar turma*/ {
 				selecionarTurma();
-			} else if(valorIntroduzido == 4) /*ano letivo*/{
+			}
+			else if(valorIntroduzido == 4) /*ano letivo*/{
 				mostrarTurmaAnoLetivo();
-			} else if(valorIntroduzido == 5)/*eliminar todas as turmas*/{
+			}
+			else if(valorIntroduzido == 5)/*eliminar todas as turmas*/{
 				eliminarTodosTurma();
-			} else if(valorIntroduzido != 6)/*nenhuma da opções*/
+			}
+			else if(valorIntroduzido != 6)/*nenhuma da opções*/
 				System.out.println("Introduza um numero entre 1 e "+ (Menus.MainMenuExitOp-1) +".");
-			// 5 = menuExitOp
+
 		}
 	}
 

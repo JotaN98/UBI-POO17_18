@@ -78,14 +78,7 @@ public class Turma extends Entity implements Serializable{
 
 		if(!turmas.containsKey(ID.getCodeID()))  throw new IllegalArgumentException("Turma -"+ID.getCodeID()+"- não existe.");
 
-		Turma turma = getTurmaFromID(ID);
-		for(Entity aula : turma.aulas){
-			try {
-				turma.removeAula(aula);
-			} catch (IllegalArgumentException | NullPointerException e){
-				System.out.println(e.getMessage());
-			}
-		}
+
 
 		getTurmaFromID(ID).setID(0);
 	}

@@ -185,7 +185,7 @@ public class Curso extends Entity implements Serializable{
         if(this.getID()==0) throw new NullPointerException("Objeto já foi removido");
 
         if(ID.getID()==0) throw new NullPointerException("Turma não existe.");
-		System.out.println("asd " +turmas);
+
         if(!turmas.contains(ID)){
             throw new IllegalArgumentException("Turma -"+ID+"- não existe no curso -"+this+"-.");
         }

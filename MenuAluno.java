@@ -141,7 +141,7 @@ public class MenuAluno {
 
 			while (valorIntroduzido != 9) {
 				System.out.println("Aluno " + aluno);
-				System.out.println("1- Mostrar horario");
+				System.out.println("1- Descrição de Aula");
 				System.out.println("2- Mostrar horario");
 				System.out.println("3- Mudar Nome");
 				System.out.println("4- Mudar Nascimento");
@@ -163,12 +163,14 @@ public class MenuAluno {
 						aulaE = Aula.getAulaFromID(aulaID);
 
 						if(aulaID == 0)
-							Menus.printTodosCursos();
+							for(Entity aula : turma.getAulas()){
+								System.out.println(Aula.getAulaFromID(aula));
+							}
 						else if(aulaID == -1) {
 							System.out.println("Operação cancelada.");
 							break;
 						}
-						if(aulaE.getID() == 0 || !turma.getAulas().contains(aulaE)) {
+						if(aulaE.getID() != 0 && !turma.getAulas().contains(aulaE)) {
 							System.out.println("Aula \""+aulaID+"\" não existe ou não faz parte da turma do aluno.");
 						}
 
